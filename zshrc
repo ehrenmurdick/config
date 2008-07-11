@@ -212,3 +212,4 @@ precmd() {
   set_prompt
 }
 
+function sr { ./script/runner $* }

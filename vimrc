@@ -48,7 +48,7 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Andale\ Mono:h15
+set guifont=Monaco:h16
 set transp=7
 
 syntax on
@@ -104,8 +104,13 @@ nmap  # V#
 
 hi LineNr guibg=#141414
 
-fun! FuckForLoops()
+fun! FuckForLoopsErb()
   %s/for \(\w*\) in \(.*\)%>/\2.each do |\1| %>/
+  %s/\s*.each/.each
+endfun
+
+fun! FuckForLoops()
+  %s/for \(\w*\) in \(.*\)/\2.each do |\1|/
   %s/\s*.each/.each
 endfun
 
