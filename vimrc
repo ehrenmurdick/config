@@ -2,7 +2,6 @@
 
 set autoindent
 set sw=2
-set columns=90
 
 set guioptions-=t
 
@@ -33,7 +32,8 @@ set wildmode=longest,list
 set autoindent
 set tabstop=2
 set sw=2
-set columns=90
+set columns=120
+set lines=32
 set nowrap
 
 set showtabline=2
@@ -48,7 +48,7 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Monaco:h16
+set guifont=Inconsolata:h16
 set transp=7
 
 syntax on
