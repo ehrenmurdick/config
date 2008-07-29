@@ -50,10 +50,6 @@ def working! indicator = :spinner, iterations = nil
   end
 end
 
-def test n
-  n.times { working! :bar, n; sleep 0.05}
-end
-
 # Setup permanent history.
 HISTFILE = "~/.irb_history"
 MAXHISTSIZE = 500
