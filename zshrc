@@ -4,6 +4,9 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='3;33'
 # END: EXPORTS
 
+function reload () {
+  touch tmp/restart.txt
+}
 
 function load_pg_on_reboot () {
   sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql83-server.plist

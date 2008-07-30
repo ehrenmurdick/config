@@ -41,7 +41,7 @@ def working! indicator = :spinner, iterations = nil
     end rescue false
 
     bars = @bars_to_print
-    print "\r|#{'=' * bars}#{' ' * (@total_bars - bars.truncate)}|"
+    print "\r|#{'=' * bars}#{' ' * (@total_bars - bars.truncate) rescue ''}|"
 
     if @current == iterations
       @one_bar = nil
