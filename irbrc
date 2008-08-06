@@ -9,7 +9,7 @@ def working! indicator = :spinner, iterations = nil
   case indicator
   when :spinner
     print " " unless @_status
-    @_status ||= ['/', '-', '\\'] 
+    @_status ||= ['/', '-', '\\', "|"] 
     @index ||= 0
     @index += 1 if @index < @_status.size
     @index = 0 if @index == @_status.size

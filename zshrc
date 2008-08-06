@@ -8,6 +8,10 @@ function reload () {
   touch tmp/restart.txt
 }
 
+function git_deleted () {
+  git st | rak deleted | awk '{print $3}'
+}
+
 function load_pg_on_reboot () {
   sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql83-server.plist
 }
