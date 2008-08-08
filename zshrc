@@ -8,20 +8,16 @@ function reload () {
   touch tmp/restart.txt
 }
 
+function unpushed () {
+  git cherry -v origin
+}
+
 function git_deleted () {
   git st | rak deleted | awk '{print $3}'
 }
 
-function load_pg_on_reboot () {
-  sudo launchctl load -w /Library/LaunchDaemons/org.macports.postgresql83-server.plist
-}
-
 function cdproject { cd $HOME/projects/$* }
 compctl -W "$HOME/projects" -g '*(-/)' cdproject
-
-function unload_pg_on_reboot() {
-  sudo launchctl unload -w /Library/LaunchDaemons/org.macports.postgresql83-server.plist
-}
 
 # START RAKE COMPLETION (caching rake tasks per project directory, not globally)
 function _rake_does_task_list_need_generating () {
@@ -48,35 +44,6 @@ compctl -K _rake rake
 
 # color module
 autoload colors ; colors	
-###########################################
-#   iTerm Tab and Title Customization     #
-###########################################
-
-# Put the string "hostname::/full/directory/path" in the title bar:
-set_iterm_title() { 
-	echo -ne "\e]2;$HOST:r:r::$PWD\a" 
-}
-
-# Put the parentdir/currentdir in the tab
-set_iterm_tab() {
-	echo -ne "\e]1;$PWD:h:t/$PWD:t\a" 
-}
-
-set_iterm_running_app() {
- printf "\e]1; $PWD:t:$(history $HISTCMD | cut -b7- ) \a"
-}
-
-precmd() { 
-	set_iterm_title
-	set_iterm_tab
-}
-preexec() { 
-  set_iterm_running_app
-}
-
-postexec() {
-  set_iterm_running_app
-}
 
 # Keeps the paths from growing too big    
 typeset -U path manpath fpath
@@ -139,43 +106,24 @@ alias postgres_stop='pg_ctl -D ~/.pgdata stop'
 alias mysql='/opt/local/bin/mysql5 -u root --socket=/tmp/mysql.sock'
 alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
 
-alias ff='open -a FireFox'
-alias safari='open -a Safari'
-alias css='open -a CssEdit'
-
-function gvim { /Applications/MacVim.app/Contents/MacOS/Vim -g -p $* & } 
-
 compctl -g '*.(jpg|png|gif|tiff|jpeg|pdf)' preview
 compctl -g '*.psd' photoshop
 
-# AUTO EXECUTABLE EXTENSIONS
-# Set up auto extension stuff
-# alias -s rb=/opt/local/bin/ruby
-
-# EXPORT
-export EDITOR='mate -w'
+export EDITOR='vim'
 
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad 
 
-# KEY BINDINGS
-# emacs mode for keys
-#bindkey -e
 # vi mode for keys
-#bindkey -v
+bindkey -v
 
 
-bindkey '^K' kill-whole-line
-bindkey -s '^L' "|less\n"		# ctrl-L pipes to less
-bindkey -s '^B' " &\n"			# ctrl-B runs it in the background
 bindkey "\e[1~" beginning-of-line	# Home (console)
 bindkey "\e[H" beginning-of-line	# Home (xterm)
 bindkey "\e[4~" end-of-line		# End (console)
 bindkey "\e[F" end-of-line		# End (xterm)
 bindkey "\e[2~" overwrite-mode		# Ins
 bindkey "\e[3~" delete-char		# Delete
-
-
 
 function gco () {
   git co $*
@@ -187,9 +135,9 @@ function _gco () {
 compctl -K _gco gco
 
 
-# cd to the default working directory from iterm
+# cd to the default working directory set by current_working_project
 function cdefault { 
-  export wdir=`/Users/ehrenmurdick/bin/iterm_default_wd`
+  export wdir=`cat $HOME/bin/config/current_project_path`
   cd $wdir 
 }
 
@@ -213,7 +161,6 @@ export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
 set_prompt () {
   export RPROMPT=$(project_name)$(git_prompt_info)
 }
-
 
 precmd() {
   set_prompt
