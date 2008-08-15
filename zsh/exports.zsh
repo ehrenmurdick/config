@@ -8,3 +8,4 @@ export EDITOR='vim'
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export CLICOLOR=1
+export PROJECTS=$HOME/projects
