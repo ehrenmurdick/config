@@ -15,12 +15,16 @@ map S I<BS><BS><Down>
 map <S-Left> I<BS><BS>
 map <S-Right> I  
 
+imap <D-i> 
+imap  
+
+
   
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
 set ruler
-set rulerformat=%l\/%L
+set rulerformat=%c\ %l\/%L
 
 set guioptions-=T
 set guioptions-=r
@@ -65,7 +69,7 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors freya
+colors vibrantink
 
 set suffixesadd=.rb
 set suffixesadd=.css
@@ -98,11 +102,6 @@ set backspace=indent,eol,start
 
 " make project list persist across restarts
 set viminfo^=!
-
-vmap  # !ruby ~/.vim/toggle_comments.rb
-nmap  # V#
-
-hi LineNr guibg=#141414
 
 fun! FuckForLoopsErb()
   %s/for \(\w*\) in \(.*\)%>/\2.each do |\1| %>/
