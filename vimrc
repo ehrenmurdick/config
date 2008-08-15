@@ -123,4 +123,11 @@ fun! GotoDefaultWd()
   e app/controllers/application.rb
 endfun
 
+
+fun! ProjectList(A,L,P)
+  return split(globpath('/Users/ehrenmurdick/projects/', a:A . '*'), "\n")
+endfun
+com! -nargs=1 -complete=customlist,ProjectList Cdp cd <args>
+
+
 map <D-H> :call GotoDefaultWd()

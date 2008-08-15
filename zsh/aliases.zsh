@@ -17,6 +17,10 @@ function git_deleted () {
   git st | rak deleted | awk '{print $3}'
 }
 
+function gco () {
+  git checkout $*
+}
+
 # cd to the default working directory set by current_working_project
 function cdefault { 
   export wdir=`cat $HOME/bin/config/current_project_path`
