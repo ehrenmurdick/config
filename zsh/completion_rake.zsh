@@ -1,7 +1,5 @@
-# START RAKE COMPLETION (caching rake tasks per project directory, not globally)
-function _rake_does_task_list_need_generating () {
-  if [ ! -f .zsh_rake_cache ]; then
-    return 0;
+_rake_does_task_list_need_generating () {
+  if [ ! -f .zsh_rake_cache ]; then return 0;
   else
     accurate=$(stat -f%m .zsh_rake_cache)
     changed=$(stat -f%m Rakefile)
@@ -9,14 +7,14 @@ function _rake_does_task_list_need_generating () {
   fi
 }
 
-function _rake () {
+_rake () {
   if [ -f Rakefile ]; then
     if _rake_does_task_list_need_generating; then
-      echo "\nGenerating zsh rake cache..." > /dev/stderr
+      echo "\nGenerating .zsh_rake_cache..." > /dev/stderr
       rake --silent --tasks | cut -d " " -f 2 > .zsh_rake_cache
     fi
-    reply=( `cat .zsh_rake_cache` )
+    compadd `cat .zsh_rake_cache`
   fi
 }
-compctl -K _rake rake
-# ENDING RAKE COMPLETION
+
+compdef _rake rake

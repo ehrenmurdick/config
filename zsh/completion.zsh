@@ -30,7 +30,7 @@ zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain host
 zstyle ':completion:*:ssh:*' tag-order 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
 zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
- 
+
 # Colors in completion
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 

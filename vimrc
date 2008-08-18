@@ -1,5 +1,5 @@
 "imap ii <Esc>
-
+ 
 set autoindent
 set sw=2
 
@@ -36,8 +36,8 @@ set wildmode=longest,list
 set autoindent
 set tabstop=2
 set sw=2
-set columns=120
-set lines=32
+set columns=102
+set lines=23
 set nowrap
 
 set showtabline=2
@@ -52,7 +52,7 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Inconsolata:h16
+set guifont=Inconsolata:h20
 set transp=7
 
 syntax on
@@ -69,7 +69,7 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors vibrantink
+colors ehren
 
 set suffixesadd=.rb
 set suffixesadd=.css
@@ -127,7 +127,7 @@ endfun
 fun! ProjectList(A,L,P)
   return split(globpath('/Users/ehrenmurdick/projects/', a:A . '*'), "\n")
 endfun
-com! -nargs=1 -complete=customlist,ProjectList Cdp cd <args>
+com! -nargs=1 -complete=customlist,ProjectList Cd cd <args>
 
 
 map <D-H> :call GotoDefaultWd()
