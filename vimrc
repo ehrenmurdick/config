@@ -10,11 +10,6 @@ set nocompatible
 set sm
 syntax on
 
-map s I  <Down>
-map S I<BS><BS><Down>
-map <S-Left> I<BS><BS>
-map <S-Right> I  
-
 imap <D-i> 
 imap  
 
@@ -23,6 +18,7 @@ imap  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
+
 set ruler
 set rulerformat=%c\ %l\/%L
 
@@ -131,3 +127,5 @@ com! -nargs=1 -complete=customlist,ProjectList Cd cd <args>
 
 
 map <D-H> :call GotoDefaultWd()
+
+source ~/.vim/snippets/all.vim
