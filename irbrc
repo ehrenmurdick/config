@@ -50,6 +50,11 @@ def working! indicator = :spinner, iterations = nil
   end
 end
 
+def notify str, sticky = false
+  ruby_icon = "/Users/ehrenmurdick/Pictures/ruby.png"
+  %x{echo #{str.inspect} | growlnotify -t "iRB" --image #{ruby_icon} #{sticky ? '-sticky' : ''}}
+end
+
 # Setup permanent history.
 HISTFILE = "~/.irb_history"
 MAXHISTSIZE = 500

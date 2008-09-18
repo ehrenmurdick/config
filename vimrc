@@ -119,13 +119,9 @@ fun! GotoDefaultWd()
   e app/controllers/application.rb
 endfun
 
-
-fun! ProjectList(A,L,P)
-  return split(globpath('/Users/ehrenmurdick/projects/', a:A . '*'), "\n")
-endfun
-com! -nargs=1 -complete=customlist,ProjectList Cd cd <args>
-
-
 map <D-H> :call GotoDefaultWd()
 
-source ~/.vim/snippets/all.vim
+hi CursorColumn guibg=#131313
+hi CursorLine guibg=#131313
+set cul
+set cuc
