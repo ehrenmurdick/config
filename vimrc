@@ -1,5 +1,7 @@
 "imap ii <Esc>
  
+set incsearch
+
 set autoindent
 set sw=2
 
@@ -65,7 +67,7 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors ehren
+colors ir_black
 
 set suffixesadd=.rb
 set suffixesadd=.css
@@ -110,18 +112,35 @@ fun! FuckForLoops()
 endfun
 
 fun! GotoDefaultWd()
+hi Search gui=NONE
   let foo = ''
   redir => foo
   silent ! /Users/ehrenmurdick/bin/iterm_default_wd
   redir END
   let bar = split(foo, "\n")
-  execute 'cd ' . fnameescape(bar[1])
-  e app/controllers/application.rb
+  execute 'cd ' . fnameescape(bar[1]) . '/app'
+  e controllers/application.rb
 endfun
 
 map <D-H> :call GotoDefaultWd()
 
+hi IncSearch guifg=#66418C
 hi CursorColumn guibg=#131313
 hi CursorLine guibg=#131313
-set cul
-set cuc
+set cursorline
+set cursorcolumn
+
+set hls
+hi Search guifg=#66418c
+hi Search gui=NONE
+
+" fuzzyfindertextmate: cmd-e to trigger, cmd-enter to open selected file in new tab
+let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'FavFile':{}, 'Tag':{}, 'TaggedFile':{}}
+let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
+map <D-e> :FuzzyFinderTextMate<CR>
+
+let g:FuzzyFinderOptions.Base.abbrev_map  = {
+      \   "^conf" : [
+      \     '../config/',
+      \   ],
+      \ }

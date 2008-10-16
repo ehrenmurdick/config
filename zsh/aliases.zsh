@@ -65,3 +65,7 @@ function rm () {
   mv $* ~/.Trash
 }
 
+function follow () {
+  tail -n 0 -f $*
+}
+
