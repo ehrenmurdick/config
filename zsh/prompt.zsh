@@ -13,9 +13,22 @@ project_name_color () {
   echo "%{\e[0;35m%}${name}%{\e[0m%}"
 }
 
+unpushed () {
+        git cherry -v origin
+}
+
+need_push () {
+  if [[ $(unpushed) == "" ]]
+  then
+    echo " "
+  else
+    echo "%{\e[0;33m%}⚡%{\e[0m%}"
+  fi
+}
+
 export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
 set_prompt () {
-  export RPROMPT="$(project_name_color)$(git_prompt_info)"
+  export RPROMPT="$(project_name_color)$(git_prompt_info) $(need_push)"
 }
 
 set_iterm_title() {

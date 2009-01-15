@@ -2,6 +2,8 @@
  
 set incsearch
 
+set tildeop
+
 set autoindent
 set sw=2
 
@@ -16,7 +18,24 @@ imap <D-i> 
 imap  
 
 
-  
+" http://items.sjbach.com/319/configuring-vim-right
+nnoremap ' `
+nnoremap ` '
+
+runtime macros/matchit.vim
+
+set hidden
+
+set ignorecase
+set smartcase
+set scrolloff=6
+
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+" end http://items.sjbach.com/319/configuring-vim-right
+
+
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
@@ -28,7 +47,7 @@ set guioptions-=T
 set guioptions-=r
 
 
-set wildmode=longest,list
+set wildmenu
 
 
 set autoindent
@@ -50,7 +69,7 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Inconsolata:h20
+set guifont=Panic\ Sans:h15
 set transp=7
 
 syntax on
@@ -112,21 +131,20 @@ fun! FuckForLoops()
 endfun
 
 fun! GotoDefaultWd()
-hi Search gui=NONE
   let foo = ''
   redir => foo
   silent ! /Users/ehrenmurdick/bin/iterm_default_wd
   redir END
   let bar = split(foo, "\n")
-  execute 'cd ' . fnameescape(bar[1]) . '/app'
-  e controllers/application.rb
+  execute 'cd ' . fnameescape(bar[1])
+  e app/controllers/application.rb
 endfun
 
 map <D-H> :call GotoDefaultWd()
 
-hi IncSearch guifg=#66418C
-hi CursorColumn guibg=#131313
-hi CursorLine guibg=#131313
+hi IncSearch guifg=#66418C 
+hi CursorColumn guibg=#131320
+hi CursorLine guibg=#131320
 set cursorline
 set cursorcolumn
 

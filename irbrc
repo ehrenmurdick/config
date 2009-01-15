@@ -2,8 +2,36 @@ MODEL_NAMES = %w{User Event Network}
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
 FAKE_TRUE = ENV["TRUE"] || "banana"
 
+HOME = ENV["HOME"]
+DESKTOP = File.join(HOME, "Desktop")
+
+def Desktop str
+  File.join(DESKTOP, str.to_s)
+end
+Desktop = File.join(DESKTOP, "")
+
 require 'rubygems'
 require 'irb/completion'
+
+module ActiveRecord
+  class Base
+    def self.middleth
+      i = count / 2
+      all[i]
+    end
+
+    def self.every &block
+      all.each &block
+    end
+  end
+end
+
+module Enumerable
+  def middleth
+    i = size / 2
+    self[i]
+  end
+end
 
 def working! indicator = :spinner, iterations = nil
   case indicator

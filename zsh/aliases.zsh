@@ -38,12 +38,6 @@ function pgrep {
 }
 
 
-function see {
-  script/focused_selenium spec/selenium/$*
-}
-compctl -W "spec/selenium" -g '*.rb' see
-
-
 function sp {
   script/spec -cfs spec/$*
 }
