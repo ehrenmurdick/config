@@ -9,10 +9,6 @@ function reload () {
   touch tmp/restart.txt
 }
 
-function unpushed () {
-  git cherry -v origin
-}
-
 function git_deleted () {
   git st | rak deleted | awk '{print $3}'
 }

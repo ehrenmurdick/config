@@ -53,8 +53,8 @@ set wildmenu
 set autoindent
 set tabstop=2
 set sw=2
-set columns=102
-set lines=23
+set columns=120
+set lines=35
 set nowrap
 
 set showtabline=2
