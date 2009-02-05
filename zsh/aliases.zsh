@@ -59,3 +59,8 @@ function follow () {
   tail -n 0 -f $*
 }
 
+function cuke () {
+  ./script/cucumber features/$*
+}
+compctl -W "features" -g '*.feature' cuke
+
