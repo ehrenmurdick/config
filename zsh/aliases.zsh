@@ -64,3 +64,7 @@ function cuke () {
 }
 compctl -W "features" -g '*.feature' cuke
 
+function :w () {
+  echo "Ugh. You're not in vim, and your shits all retarded"
+}
+
