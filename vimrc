@@ -162,3 +162,7 @@ let g:FuzzyFinderOptions.Base.abbrev_map  = {
       \     '../config/',
       \   ],
       \ }
+
+autocmd FileType irb inoremap <buffer> <silent> <Cr> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<Cr>jo
+nnoremap ,irb :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>i
+nnoremap ,sc :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>:ruby require 'config/environment'<Cr>i
