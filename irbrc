@@ -1,4 +1,7 @@
-MODEL_NAMES = %w{User Event Network}
+require 'rubygems'
+require 'irb/completion'
+
+
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
 FAKE_TRUE = ENV["TRUE"] || "banana"
 
@@ -10,27 +13,22 @@ def Desktop str
 end
 Desktop = File.join(DESKTOP, "")
 
-require 'rubygems'
-require 'irb/completion'
 
-module ActiveRecord
-  class Base
-    def self.middleth
-      i = count / 2
-      all[i]
-    end
-
-    def self.every &block
-      all.each &block
-    end
-  end
+def time_it(times=1)
+  require "benchmark"
+  ret = nil
+  Benchmark.bm { |x| x.report { times.times { ret = yield } } }
+  ret
 end
 
-module Enumerable
-  def middleth
-    i = size / 2
-    self[i]
-  end
+IRB.conf[:IRB_RC] = proc do |conf|
+  name = "irb: "
+  name = "rails: " if $0 == 'irb' && ENV['RAILS_ENV']
+  leader = " " * name.length
+  conf.prompt_i = "#{name}"
+  conf.prompt_s = leader + '\-" '
+  conf.prompt_c = leader + '\-+ '
+  conf.return_format = ('=' * (name.length - 2)) + "> %s\n"
 end
 
 def working! indicator = :spinner, iterations = nil
@@ -103,11 +101,6 @@ begin
   end
 end
 
-@can_be_numeric = Object.new
-def @can_be_numeric.===(other) 
-  other.to_i if other =~ /^\d*$/ or Numeric === other
-end
-
 def m obj
   (obj.methods - obj.class.instance_methods).sort
 end
@@ -116,68 +109,6 @@ def i(obj)
   (obj.class.instance_methods - obj.class.superclass.instance_methods).sort
 end
 
-
-module Finder
-  def columns_which_are(t)
-    types = nil
-    case t
-    when :string
-      types = [:string, :text]
-    when :numeric
-      types = [:integer]
-    when :datetime
-      types = [:date, :time, :datetime]
-    end
-
-    columns.find_all {|c| types.include?(c.type) }.map(&:name)
-  end
-end
-
-def run_finders(model, colgroup, arg)
-  result = nil
-  colgroup.each do |col|
-    begin
-      result = model.send("find_by_#{col}", arg)
-    rescue NoMethodError
-    end
-    break if result
-  end
-  result
-end
-
-
-MODEL_NAMES.each do |model_name|
-  if defined?(model_name)
-    src =<<-END
-      def #{model_name}(arg)
-        #{model_name}.extend(Finder) unless #{model_name}.included_modules.include?(Finder)
-        result = nil
-        case arg
-        when @can_be_numeric
-          run_finders(#{model_name}, #{model_name}.columns_which_are(:numeric), arg)
-        when String
-          run_finders(#{model_name}, #{model_name}.columns_which_are(:string), arg)
-        end
-      end
-    END
-    eval src
-  end
-end
-
-class Object
-  def meow?
-    !blank?
-    %x{ say meow } if !blank?
-  end
-end
-
-class Numeric
-  def meows
-    self.times do
-      %x{ say meow }
-    end
-  end
-end
 
 class Time
   class << self
@@ -207,3 +138,5 @@ class FalseClass
     FAKE_FALSE
   end
 end
+
+load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV'] 
