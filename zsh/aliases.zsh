@@ -51,10 +51,6 @@ function setIcon () {
   /Developer/Tools/SetFile -a "C" ${2}
 }
 
-function rm () {
-  mv $* ~/.Trash
-}
-
 function follow () {
   tail -n 0 -f $*
 }
