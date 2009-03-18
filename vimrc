@@ -17,6 +17,8 @@ syntax on
 imap <D-i> 
 imap  
 
+map // :nohl
+
 
 " http://items.sjbach.com/319/configuring-vim-right
 nnoremap ' `
