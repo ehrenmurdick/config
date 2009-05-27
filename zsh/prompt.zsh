@@ -39,9 +39,9 @@ unpushed () {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
+    echo "  "
   else
-    echo "%{\e[0;33m%}⚡%{\e[0m%}"
+    echo "%{\e[0;33m%} ⚡%{\e[0m%}"
   fi
 }
 
