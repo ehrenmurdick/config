@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/Users/ehrenmurdick/projects/toobla'
 let g:netrw_dirhist_2='/Users/ehrenmurdick/Desktop'
 let g:netrw_dirhist_3='/Users/ehrenmurdick/Documents'
+let g:netrw_dirhist_4='/Users/ehrenmurdick/projects/toobla'
+let g:netrw_dirhist_5='/Users/ehrenmurdick/projects/toobla/db/migrate'

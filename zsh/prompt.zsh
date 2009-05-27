@@ -12,7 +12,7 @@ git_dirty() {
     then
       echo " "
     else
-      echo "*"
+      echo "♪"
     fi
   fi
 }
