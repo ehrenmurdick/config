@@ -101,13 +101,6 @@ begin
   end
 end
 
-def m obj
-  (obj.methods - obj.class.instance_methods).sort
-end
-
-def i(obj)
-  (obj.class.instance_methods - obj.class.superclass.instance_methods).sort
-end
 
 
 class Time
@@ -117,13 +110,28 @@ class Time
     end
   end
 end
+Right = Time
 
-class Object
+module Kernel
   define_method(FAKE_TRUE.to_sym) do
     true
   end
   define_method(FAKE_FALSE.to_sym) do
     false
+  end
+end
+
+class Object
+  def m
+    (methods - self.class.instance_methods).sort
+  end
+
+  def i
+    (instance_methods - Object.instance_methods).sort
+  end
+
+  def c
+    constants.sort {|a, b| a.to_s <=> b.to_s }
   end
 end
 

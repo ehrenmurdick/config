@@ -17,7 +17,33 @@ syntax on
 imap <D-i> 
 imap  
 
+imap "" ""<Left>
+imap '' ''<Left>
+
 map // :nohl
+
+map tn :tn
+map tp :tp
+
+map <D-1> :tabn 1
+map <D-2> :tabn 2
+map <D-3> :tabn 3
+map <D-4> :tabn 4
+map <D-5> :tabn 5
+map <D-6> :tabn 6
+map <D-7> :tabn 7
+map <D-8> :tabn 8
+map <D-9> :tabl
+
+imap <D-1> :tabn 1i<Right>
+imap <D-2> :tabn 2i<Right>
+imap <D-3> :tabn 3i<Right>
+imap <D-4> :tabn 4i<Right>
+imap <D-5> :tabn 5i<Right>
+imap <D-6> :tabn 6i<Right>
+imap <D-7> :tabn 7i<Right>
+imap <D-8> :tabn 8i<Right>
+imap <D-9> :tabli<Right>
 
 
 " http://items.sjbach.com/319/configuring-vim-right
@@ -38,9 +64,11 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " end http://items.sjbach.com/319/configuring-vim-right
 
 
+autocmd!
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
+autocmd BufWritePost /Users/ehrenmurdick/projects/daemons/* !/Users/ehrenmurdick/projects/daemons/sync &
 
 set ruler
 set rulerformat=%c\ %l\/%L
@@ -71,7 +99,8 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Panic\ Sans:h15
+set guifont=Panic\ Sans:h17
+map <D-0> :set guifont=Panic\ Sans:h17
 set transp=7
 
 syntax on
@@ -88,7 +117,18 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors ir_black
+colors candy
+
+hi Pmenu guibg=#744A49
+hi Error guibg=#744A49
+
+
+hi IncSearch guifg=#66418C guibg=#141321 gui=underline
+hi Search guifg=#66418C guibg=#141321
+hi CursorColumn guibg=#131320
+hi CursorLine guibg=#131320
+set cursorline
+set cursorcolumn
 
 set suffixesadd=.rb
 set suffixesadd=.css
@@ -139,32 +179,30 @@ fun! GotoDefaultWd()
   redir END
   let bar = split(foo, "\n")
   execute 'cd ' . fnameescape(bar[1])
-  e app/controllers/application.rb
+  e .
 endfun
 
 map <D-H> :call GotoDefaultWd()
 
-hi IncSearch guifg=#66418C 
-hi CursorColumn guibg=#131320
-hi CursorLine guibg=#131320
-set cursorline
-set cursorcolumn
 
 set hls
 hi Search guifg=#66418c
 hi Search gui=NONE
 
 " fuzzyfindertextmate: cmd-e to trigger, cmd-enter to open selected file in new tab
-let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'FavFile':{}, 'Tag':{}, 'TaggedFile':{}}
+let g:FuzzyFinderOptions = { 'Base':{} }
 let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
 map <D-e> :FuzzyFinderTextMate<CR>
 
-let g:FuzzyFinderOptions.Base.abbrev_map  = {
-      \   "^conf" : [
-      \     '../config/',
-      \   ],
-      \ }
+let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;doc/**;vendor/**;coverage/**;tmp/**;db/**"
+let g:FuzzyFinderOptions.Base.enumerating_limit = 20
 
-autocmd FileType irb inoremap <buffer> <silent> <Cr> <Esc>:<C-u>ruby v=VIM::Buffer.current;v.append(v.line_number, eval(v[v.line_number]).inspect)<Cr>jo
+
+autocmd FileType irb inoremap <buffer> <silent> <Cr> <Esc>:<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';$async.e(v[v.line_number])<Cr>jo
+autocmd FileType irb nnoremap ,rb :<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';v.append(v.line_number, $async.pop)<Cr>jo
 nnoremap ,irb :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>i
 nnoremap ,sc :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>:ruby require 'config/environment'<Cr>i
+
+
+filetype plugin on
+
