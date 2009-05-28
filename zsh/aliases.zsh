@@ -9,9 +9,9 @@ alias ci="git commit"
 alias st="git st"
 alias "log"="git log"
 alias add="git add"
-alias railstags="rtags --vi -a -f tags -R app"
+alias railstags="rtags --vi -a -f tags -R app -R lib"
 alias push="git push"
-alias ¡="pull && push"
+alias pp="pull && push"
 
 function reload () {
   touch tmp/restart.txt

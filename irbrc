@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'irb/completion'
+require 'activesupport'
 
 
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
