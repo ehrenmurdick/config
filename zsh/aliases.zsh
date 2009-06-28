@@ -12,6 +12,8 @@ alias add="git add"
 alias railstags="rtags --vi -a -f tags -R app -R lib"
 alias push="git push"
 alias pp="pull && push"
+alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
+alias ruby="ruby -I $HOME/lib/ruby"
 
 function reload () {
   touch tmp/restart.txt
@@ -77,4 +79,8 @@ function :w () {
 
 function v () {
    ssh vm "$*"
+}
+
+function topn () {
+  top -n ${1} -l 1 | tail -n ${1} | awk 'BEGIN{ORS=","}{print $1}' | xargs ps -p
 }

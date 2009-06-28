@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'irb/completion'
-require 'activesupport'
 
 
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
@@ -148,4 +147,8 @@ class FalseClass
   end
 end
 
-load File.dirname(__FILE__) + '/.railsrc' if $0 == 'irb' && ENV['RAILS_ENV'] 
+if $0 == 'irb' && ENV['RAILS_ENV'] 
+  load File.dirname(__FILE__) + '/.railsrc' 
+else
+  require 'activesupport'
+end

@@ -58,8 +58,8 @@ set ignorecase
 set smartcase
 set scrolloff=6
 
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " end http://items.sjbach.com/319/configuring-vim-right
 
@@ -200,9 +200,9 @@ let g:FuzzyFinderOptions.Base.enumerating_limit = 20
 
 autocmd FileType irb inoremap <buffer> <silent> <Cr> <Esc>:<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';$async.e(v[v.line_number])<Cr>jo
 autocmd FileType irb nnoremap ,rb :<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';v.append(v.line_number, $async.pop)<Cr>jo
-nnoremap ,irb :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>i
-nnoremap ,sc :<C-u>below new<Cr>:setfiletype irb<Cr>:set syntax=ruby<Cr>:ruby require 'config/environment'<Cr>i
 
 
 filetype plugin on
 
+
+abbrev tempalte template
