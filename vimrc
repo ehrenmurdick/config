@@ -17,9 +17,6 @@ syntax on
 imap <D-i> 
 imap  
 
-imap "" ""<Left>
-imap '' ''<Left>
-
 map // :nohl
 
 map tn :tn
