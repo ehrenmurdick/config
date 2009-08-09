@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.gr set filetype=grobots
+au BufRead,BufNewFile *.g[rb] set filetype=grobots
