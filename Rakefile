@@ -16,6 +16,11 @@ namespace :install do
   task :zsh do
     install("zshrc", "zsh")
   end
+
+  desc "install git"
+  task :git do
+    install("gitconfig", "gitignore")
+  end
 end
 
 def install(*files)

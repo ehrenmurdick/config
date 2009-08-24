@@ -1,0 +1,15 @@
+*.swp
+*.swo
+Icon*
+.zsh*
+config/database.yml
+r.rb
+.commit_message
+*.log
+.DS_Store
+tmp/*
+coverage
+db/*.sqlite3
+tags
+sync
+*.kpf
