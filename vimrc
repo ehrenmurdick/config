@@ -2,8 +2,6 @@
  
 set incsearch
 
-set tildeop
-
 set autoindent
 set sw=2
 
