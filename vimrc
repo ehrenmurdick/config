@@ -78,8 +78,6 @@ set wildmenu
 set autoindent
 set tabstop=2
 set sw=2
-set columns=120
-set lines=35
 set nowrap
 
 set showtabline=2
@@ -96,7 +94,6 @@ set sm
 
 set guifont=Panic\ Sans:h17
 map <D-0> :set guifont=Panic\ Sans:h17
-set transp=7
 
 syntax on
 
@@ -122,8 +119,6 @@ hi IncSearch guifg=#66418C guibg=#141321 gui=underline
 hi Search guifg=#66418C guibg=#141321
 hi CursorColumn guibg=#131320
 hi CursorLine guibg=#131320
-set cursorline
-set cursorcolumn
 
 set suffixesadd=.rb
 set suffixesadd=.css

@@ -4,7 +4,7 @@ namespace :install do
 
   desc "install vim config"
   task :vim do
-    install("vim", "vimrc")
+    install("vim", "vimrc", "gvimrc")
   end
 
   desc "install irb stuffs"
