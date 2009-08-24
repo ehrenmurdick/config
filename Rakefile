@@ -1,6 +1,6 @@
 namespace :install do
   desc "install everything"
-  task :all => ["install:vim", "install:zsh", "install:irb"]
+  task :all => ["install:vim", "install:zsh", "install:irb", "install:git"]
 
   desc "install vim config"
   task :vim do
