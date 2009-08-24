@@ -1,0 +1,7 @@
+h1. Ehren's Configuration
+
+
+p. Install everything:
+<code><pre>
+  $ rake install:all
+</pre></code>
