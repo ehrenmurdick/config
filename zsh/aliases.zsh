@@ -37,6 +37,10 @@ function cdefault {
   cd $wdir 
 }
 
+function current_working_project {
+  pwd > ~/bin/config/current_project_path
+}
+
 cdefault
 
 function cdproject { cd $HOME/projects/$* }

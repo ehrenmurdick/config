@@ -165,7 +165,7 @@ endfun
 fun! GotoDefaultWd()
   let foo = ''
   redir => foo
-  silent ! /Users/ehrenmurdick/bin/iterm_default_wd
+  silent ! cat $HOME/bin/config/current_project_path | tr -d '\n'
   redir END
   let bar = split(foo, "\n")
   execute 'cd ' . fnameescape(bar[1])

@@ -15,6 +15,7 @@ namespace :install do
   desc "install zshrc"
   task :zsh do
     install("zshrc", "zsh")
+    mkdir_p "#{ENV["HOME"]}/bin/config"
   end
 
   desc "install git"
