@@ -1,7 +1,16 @@
 h1. Ehren's Configuration
 
 
-p. Install everything:
-<code><pre>
-  $ rake install:all
-</pre></code>
+h3. Install everything:
+
+<code>$ rake install:all</code>
+
+
+h3. Or just vim stuff (or zsh, or irb):
+
+<code>rake install:vim</code>
+
+
+h2. What have I done?
+
+p. Lots of crap. This is mostly for people who have paired with me and want to use the config that I showed 'em.
