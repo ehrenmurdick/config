@@ -6,7 +6,7 @@ h3. Install everything:
 <code>$ rake install:all</code>
 
 
-h3. Or just vim stuff (or zsh, or irb):
+h3. Or just vim stuff (or zsh, or irb, or git):
 
 <code>rake install:vim</code>
 
