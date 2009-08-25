@@ -1,5 +1,5 @@
 export MANPATH=/opt/local/share/man:$MANPATH
-export PATH=/usr/local/git/bin:/Library/Ruby/bin:/opt/local/bin:/opt/local/lib/postgresql83/bin/:/opt/local/sbin:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/:$HOME/bin/:$PATH
+export PATH=/usr/local/git/bin:/Library/Ruby/bin:/opt/local/bin:/opt/local/lib/postgresql83/bin/:/opt/local/sbin:/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/:$HOME/bin/:/opt/local/libexec/git-core/:$PATH
 export CDPATH=~/projects:~/
 export RUBYOPT='rubygems'
 export GREP_OPTIONS='--color=auto' 

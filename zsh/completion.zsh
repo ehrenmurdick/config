@@ -42,3 +42,4 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
 # Cache
 zstyle ':completion:*' use-cache on
+

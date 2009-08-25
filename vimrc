@@ -1,4 +1,6 @@
-"imap ii <Esc>
+
+" highlight ruby operators like || and &&
+let g:ruby_operators = 1
  
 set incsearch
 
