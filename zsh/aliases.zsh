@@ -4,14 +4,14 @@ alias sc='./script/console'
 alias mysql='/opt/local/bin/mysql5 -u root --socket=/tmp/mysql.sock'
 alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
 alias mysql_config='/opt/local/bin/mysql_config5'
-alias pull="git pull"
+alias pull="git pull; railstags"
 alias ci="git commit"
 alias st="git st"
 alias "log"="git log"
 alias add="git add"
-alias railstags="rtags --vi -a -f tags -R app -R lib -R script"
+alias railstags="ctags -R app -R lib -R script -R spec -R test > /dev/null 2>&1 &"
 alias push="git push"
-alias pp="pull && push"
+alias pp="pull; push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
 alias ruby="ruby -I $HOME/lib/ruby"
 

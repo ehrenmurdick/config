@@ -15,7 +15,7 @@ set sm
 syntax on
 
 imap <D-i> 
-imap  
+map  
 
 map // :nohl
 
@@ -174,6 +174,23 @@ fun! GotoDefaultWd()
   e .
 endfun
 
+fun! Html2haml()
+  %!html2haml -r
+  write %:r.haml
+  !rm %
+  e %:r.haml
+endfun
+
+fun! CheckSyntaxRuby()
+  let foo = ''
+  redir => foo
+  silent ! ruby -c %
+  redir END
+  if foo !~ "Syntax OK"
+    echo foo
+  endif
+endfun
+
 map <D-H> :call GotoDefaultWd()
 
 
@@ -196,5 +213,7 @@ autocmd FileType irb nnoremap ,rb :<C-u>ruby v=VIM::Buffer.current;require '/Use
 
 filetype plugin on
 
-
 abbrev tempalte template
+
+
+inoremap # X#

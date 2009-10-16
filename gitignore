@@ -5,11 +5,10 @@ Icon*
 config/database.yml
 r.rb
 .commit_message
-*.log
+log/*
 .DS_Store
 tmp/*
 coverage
 db/*.sqlite3
 tags
-sync
 *.kpf

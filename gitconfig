@@ -31,6 +31,8 @@
  ci = commit
  co = checkout
  st = status
+[push]
+ default = current
   
 [github]
 	user = ehrenmurdick
