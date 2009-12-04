@@ -2,6 +2,7 @@
 alias ss='./script/server'
 alias sc='./script/console'
 alias mysql='/opt/local/bin/mysql5 -u root --socket=/tmp/mysql.sock'
+alias mysqldump='/opt/local/bin/mysqldump5 -u root --socket=/tmp/mysql.sock'
 alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
 alias mysql_config='/opt/local/bin/mysql_config5'
 alias pull="git pull"
@@ -14,6 +15,8 @@ alias tag="ctags -R app -R lib -R script -R spec -R test > /dev/null 2>&1 &"
 alias push="git push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
 alias ruby="ruby -I $HOME/lib/ruby"
+alias fx='git fetch && gitx'
+alias ack='ack -a'
 
 function reload! () {
   touch tmp/restart.txt
@@ -91,5 +94,11 @@ function topn () {
 
 function vack () {
     mvim -p $(ack -l $@ | xargs) &> /dev/null &
+}
+
+function sp-serve () {
+  script/spec_server &
+  touch log/rspec.log
+  follow log/rspec.log
 }
 

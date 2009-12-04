@@ -1,4 +1,5 @@
 autoload -U compinit && compinit
+autoload -U zmv
 autoload colors && colors
 
 source ~/.zsh/exports.zsh
