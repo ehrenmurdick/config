@@ -187,5 +187,6 @@ end
 if $0 == 'irb' && ENV['RAILS_ENV'] 
   load File.dirname(__FILE__) + '/.railsrc' 
 else
-  require 'activesupport'
+  require 'active_support'
 end
+

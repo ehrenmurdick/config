@@ -49,7 +49,6 @@ cdefault
 function cdproject { cd $HOME/projects/$* }
 compctl -W "$HOME/projects" -g '*(-/)' cdproject
 
-
 function pgrep {
   ps aux | grep $*
 }
