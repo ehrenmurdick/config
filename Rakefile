@@ -22,6 +22,11 @@ namespace :install do
   task :git do
     install("gitconfig", "gitignore")
   end
+
+  desc "install ack"
+  task :ack do
+    install("ackrc", "ackrc")
+  end
 end
 
 def install(*files)

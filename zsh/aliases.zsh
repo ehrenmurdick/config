@@ -16,7 +16,6 @@ alias push="git push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
 alias ruby="ruby -I $HOME/lib/ruby"
 alias fx='git fetch && gitx'
-alias ack='ack -a'
 
 function reload! () {
   touch tmp/restart.txt
