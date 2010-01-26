@@ -10,7 +10,6 @@ _rake_does_task_list_need_generating () {
 _rake () {
   if [ -f Rakefile ]; then
     if _rake_does_task_list_need_generating; then
-      echo "\nGenerating .zsh_rake_cache..." > /dev/stderr
       rake --silent --tasks | cut -d " " -f 2 > .zsh_rake_cache
     fi
     compadd `cat .zsh_rake_cache`
