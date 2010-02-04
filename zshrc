@@ -10,3 +10,5 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/aliases.zsh
 source ~/.zsh/bindkeys.zsh
 source ~/.zsh/completion_rake.zsh 
+
+if [[ -s /Users/ehrenmurdick/.rvm/scripts/rvm ]] ; then source /Users/ehrenmurdick/.rvm/scripts/rvm ; fi

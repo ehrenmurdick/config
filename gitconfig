@@ -36,3 +36,5 @@
   
 [github]
 	user = ehrenmurdick
+[git-pair "authors"]
+	jd = Jon Distad <jon@theedgecase.com>

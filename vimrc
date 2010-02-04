@@ -111,7 +111,7 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors candy
+colors baycomb
 
 hi Pmenu guibg=#744A49
 hi Error guibg=#744A49
@@ -119,8 +119,8 @@ hi Error guibg=#744A49
 
 hi IncSearch guifg=#66418C guibg=#141321 gui=underline
 hi Search guifg=#66418C guibg=#141321
-hi CursorColumn guibg=#131320
-hi CursorLine guibg=#131320
+hi CursorColumn guibg=#191926
+hi CursorLine guibg=#191926
 
 set suffixesadd=.rb
 set suffixesadd=.css

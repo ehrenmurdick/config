@@ -16,6 +16,8 @@ alias push="git push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
 alias ruby="ruby -I $HOME/lib/ruby"
 alias fx='git fetch && gitx'
+alias giff='git diff | gitx'
+alias gitx='gitx --all'
 
 function reload! () {
   touch tmp/restart.txt
@@ -76,7 +78,8 @@ function cuke () {
     cucumber -f progress features/$*
   fi
 }
-compctl -W "features" -g '*.feature' cuke
+compctl -W "features" -f cuke
+compctl -W "$HOME/projects" -g '*(-/)' cdproject
 
 function :w () {
   echo "Ugh. You're not in vim, and your shits all retarded"
@@ -98,5 +101,9 @@ function sp-serve () {
   script/spec_server &
   touch log/rspec.log
   follow log/rspec.log
+}
+
+function diffx () {
+  echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx
 }
 
