@@ -1,39 +1,24 @@
-module Console
-  class << self
-    attr_writer :env
-  end
-
-  def self.env
-    @env || "staging"
-  end
-
-  def self.config
-    YAML.load(File.read('.console'))[env]
-  end
-
-  def self.command str, args = ['-t']
-    args = args || []
-    "ssh #{args.join(' ' )} #{config['host']} \"cd #{config['dir']}; #{str}\""
-  end
+task :_console_setup do
+  require File.join(ENV['HOME'], 'lib', 'ruby', 'console')
 end
 
 %w{staging production}.each do |env|
-  task env do
+  task env => :_console_setup do
     Console.env = env
   end
 end
 
 desc "ssh into the server for the current app"
-task :terminal do
+task :terminal => :_console_setup do
   sh Console.command("\\$SHELL")
 end
 
 desc "./script/console current app on the server"
-task :console do
+task :console => :_console_setup do
   sh Console.command("./script/console #{Console.env}")
 end
 
 desc "sftp to current app"
-task :sftp do
+task :sftp => :_console_setup do
   sh "sftp #{Console.config['host']}:#{Console.config['dir']}"
 end
