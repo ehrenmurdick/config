@@ -12,3 +12,6 @@ coverage
 db/*.sqlite3
 tags
 *.kpf
+con
+.rvmrc
+.console

@@ -11,7 +11,7 @@ alias st="git st"
 alias fetch="git fetch"
 alias "log"="git log"
 alias add="git add"
-alias tag="ctags -R config -R app -R lib -R script -R spec -R test > /dev/null 2>&1 &"
+alias tag="ctags -R config -R app -R lib -R script -R spec -R test"
 alias push="git push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
 alias ruby="ruby -I $HOME/lib/ruby"
@@ -107,3 +107,6 @@ function diffx () {
   echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx
 }
 
+function internet\? {
+  (ping -c 3 -t 3 google.com >/dev/null 2>&1 && echo 'yep') || echo 'nope'
+}

@@ -7,6 +7,11 @@ namespace :install do
     install("vim", "vimrc", "gvimrc")
   end
 
+  desc "install sake"
+  task :sake do
+    install("sake")
+  end
+
   desc "install irb stuffs"
   task :irb do
     install("irbrc")
