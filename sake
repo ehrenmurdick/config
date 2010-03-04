@@ -10,6 +10,11 @@ module Console
   def self.config
     YAML.load(File.read('.console'))[env]
   end
+
+  def self.command str, args = ['-t']
+    args = args || []
+    "ssh #{args.join(' ' )} #{config['host']} \"cd #{config['dir']}; #{str}\""
+  end
 end
 
 %w{staging production}.each do |env|
@@ -19,13 +24,13 @@ end
 end
 
 desc "ssh into the server for the current app"
-task :term do
-  sh "ssh -t #{Console.config['host']} \"cd #{Console.config['dir']}; \\$SHELL\""
+task :terminal do
+  sh Console.command("\\$SHELL")
 end
 
 desc "./script/console current app on the server"
 task :console do
-  sh "ssh -t #{Console.config['host']} \"cd #{Console.config['dir']}; ./script/console #{Console.env}\""
+  sh Console.command("./script/console #{Console.env}")
 end
 
 desc "sftp to current app"
