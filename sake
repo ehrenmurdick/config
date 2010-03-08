@@ -1,24 +1,26 @@
-task :_console_setup do
-  require File.join(ENV['HOME'], 'lib', 'ruby', 'console')
+task '_console_setup' do
+  require(File.join(ENV["HOME"], "lib", "ruby", "console"))
 end
 
-%w{staging production}.each do |env|
-  task env => :_console_setup do
-    Console.env = env
-  end
+task 'staging', :needs => [ '_console_setup' ] do
+  Console.env = 'staging'
 end
 
-desc "ssh into the server for the current app"
-task :terminal => :_console_setup do
-  sh Console.command("\\$SHELL")
+task 'production', :needs => [ '_console_setup' ] do
+  Console.env = 'staging'
 end
 
-desc "./script/console current app on the server"
-task :console => :_console_setup do
-  sh Console.command("./script/console #{Console.env}")
+desc 'ssh into the server for the current app'
+task 'terminal', :needs => [ '_console_setup' ] do
+  sh(Console.command("\\$SHELL"))
 end
 
-desc "sftp to current app"
-task :sftp => :_console_setup do
-  sh "sftp #{Console.config['host']}:#{Console.config['dir']}"
+desc './script/console current app on the server'
+task 'console', :needs => [ '_console_setup' ] do
+  sh(Console.command("./script/console #{Console.env}"))
+end
+
+desc 'sftp to current app'
+task 'sftp', :needs => [ '_console_setup' ] do
+  sh("sftp #{Console.config["host"]}:#{Console.config["dir"]}")
 end

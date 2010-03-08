@@ -23,7 +23,7 @@ function reload! () {
   touch tmp/restart.txt
 }
 
-function rm () {
+function th () {
   mv $* ~/.Trash
 }
 
