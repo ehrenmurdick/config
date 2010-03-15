@@ -7,8 +7,6 @@ set incsearch
 set autoindent
 set sw=2
 
-set guioptions-=t
-
 set expandtab
 set nocompatible
 set sm
@@ -70,9 +68,6 @@ autocmd BufWritePost /Users/ehrenmurdick/projects/daemons/* !/Users/ehrenmurdick
 set ruler
 set rulerformat=%c\ %l\/%L
 
-set guioptions-=T
-set guioptions-=r
-
 
 set wildmenu
 
@@ -87,8 +82,6 @@ set showtabline=2
 set number
 
 set backspace=2
-
-set guioptions-=t
 
 set expandtab
 set nocompatible
@@ -181,16 +174,6 @@ fun! Html2haml()
   e %:r.haml
 endfun
 
-fun! CheckSyntaxRuby()
-  let foo = ''
-  redir => foo
-  silent ! ruby -c %
-  redir END
-  if foo !~ "Syntax OK"
-    echo foo
-  endif
-endfun
-
 map <D-H> :call GotoDefaultWd()
 
 
@@ -207,13 +190,11 @@ let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;doc/**;vendor/**;cover
 let g:FuzzyFinderOptions.Base.enumerating_limit = 20
 
 
-autocmd FileType irb inoremap <buffer> <silent> <Cr> <Esc>:<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';$async.e(v[v.line_number])<Cr>jo
-autocmd FileType irb nnoremap ,rb :<C-u>ruby v=VIM::Buffer.current;require '/Users/ehrenmurdick/projects/async-vim/async_vim';v.append(v.line_number, $async.pop)<Cr>jo
-
-
 filetype plugin on
-
-abbrev tempalte template
 
 
 inoremap # X#
+
+set autoread
+set gdefault
+

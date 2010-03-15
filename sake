@@ -7,7 +7,7 @@ task 'staging', :needs => [ '_console_setup' ] do
 end
 
 task 'production', :needs => [ '_console_setup' ] do
-  Console.env = 'staging'
+  Console.env = 'production'
 end
 
 desc 'ssh into the server for the current app'
@@ -23,4 +23,9 @@ end
 desc 'sftp to current app'
 task 'sftp', :needs => [ '_console_setup' ] do
   sh("sftp #{Console.config["host"]}:#{Console.config["dir"]}")
+end
+
+desc 'tail the server log'
+task 'log', :needs => ['_console_setup'] do
+  sh(Console.command("tail -f log/#{Console.env}.log"))
 end
