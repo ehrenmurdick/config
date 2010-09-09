@@ -36,10 +36,7 @@
   x      = !gitx
 [push]
   default = current
-  
 [github]
 	user = ehrenmurdick
-[git-pair "authors"]
-	jd = Jon Distad <jon@theedgecase.com>
 [git-pair]
-	authors = Ehren Murdick <ehren@theedgecase.com>
+	authors = Ehren Murdick <ehren.murdick@gmail.com>
