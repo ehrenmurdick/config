@@ -1,6 +1,6 @@
 [user]
 	name = Ehren Murdick
-	email = ehren@theedgecase.com
+	email = ehren.murdick@gmail.com
 [core]
   editor = "vim"
 [color]
@@ -21,18 +21,21 @@
   changed = green
   untracked = cyan
 [merge]
- tool = opendiff
+  tool = opendiff
 [core]
   legacyheaders = false
   excludesfile = /Users/ehrenmurdick/.gitignore
 [repack]
- usedeltabaseoffset = true
+  usedeltabaseoffset = true
 [alias]
- ci = commit
- co = checkout
- st = status
+  ci     = commit
+  co     = checkout
+  st     = status
+  rm-all = !git st | ack deleted | awk '{print $3}' | xargs git rm
+  fx     = !git fetch && gitx
+  x      = !gitx
 [push]
- default = current
+  default = current
   
 [github]
 	user = ehrenmurdick
