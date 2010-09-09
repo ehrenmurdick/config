@@ -112,8 +112,8 @@ hi Error guibg=#744A49
 
 hi IncSearch guifg=#66418C guibg=#141321 gui=underline
 hi Search guifg=#66418C guibg=#141321
-hi CursorColumn guibg=#191926
-hi CursorLine guibg=#191926
+hi CursorColumn guibg=#302332
+hi CursorLine guibg=#302332
 
 set suffixesadd=.rb
 set suffixesadd=.css
