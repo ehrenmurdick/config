@@ -87,8 +87,8 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Panic\ Sans:h17
-map <D-0> :set guifont=Panic\ Sans:h17
+set guifont=Anonymous\ Pro:h17
+map <D-0> :set guifont=Anonymous\ Pro:h17
 
 syntax on
 
@@ -104,7 +104,7 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors baycomb
+colors twilight
 
 hi Pmenu guibg=#744A49
 hi Error guibg=#744A49
