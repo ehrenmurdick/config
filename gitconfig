@@ -32,8 +32,8 @@
   co     = checkout
   st     = status
   rm-all = !git st | ack deleted | awk '{print $3}' | xargs git rm
-  fx     = !git fetch && gitx
-  x      = !gitx
+  fx     = !git fetch && gitx --all
+  x      = !gitx --all
 [push]
   default = current
 [github]

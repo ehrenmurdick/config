@@ -1,7 +1,9 @@
 
 " highlight ruby operators like || and &&
 let g:ruby_operators = 1
- 
+
+set visualbell t_vb=
+
 set incsearch
 
 set autoindent
@@ -69,7 +71,9 @@ set ruler
 set rulerformat=%c\ %l\/%L
 
 
+set wildmode=longest,list,full
 set wildmenu
+
 
 
 set autoindent
@@ -87,8 +91,8 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Anonymous\ Pro:h17
-map <D-0> :set guifont=Anonymous\ Pro:h17
+set guifont=Anonymous\ Pro:h16
+map <D-0> :set guifont=Anonymous\ Pro:h16
 
 syntax on
 
@@ -198,3 +202,5 @@ inoremap # X#
 set autoread
 set gdefault
 
+
+set directory=/Users/ehrenmurdick/tmp//

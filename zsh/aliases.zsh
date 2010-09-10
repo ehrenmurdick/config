@@ -1,10 +1,6 @@
 # My aliases
 alias ss='./script/server'
 alias sc='./script/console'
-alias mysql='/opt/local/bin/mysql5 -u root --socket=/tmp/mysql.sock'
-alias mysqldump='/opt/local/bin/mysqldump5 -u root --socket=/tmp/mysql.sock'
-alias mysqladmin='/opt/local/bin/mysqladmin5 -u root --socket=/tmp/mysql.sock'
-alias mysql_config='/opt/local/bin/mysql_config5'
 alias pull="git pull"
 alias ci="git commit"
 alias st="git st"
