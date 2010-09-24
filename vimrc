@@ -108,9 +108,9 @@ map <S-Right> I  
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 
-colors twilight
+colors baycomb
 
-hi Pmenu guibg=#744A49
+hi Pmenu guibg=#000000
 hi Error guibg=#744A49
 
 
@@ -203,4 +203,4 @@ set autoread
 set gdefault
 
 
-set directory=/Users/ehrenmurdick/tmp//
+set directory=/var/tmp//

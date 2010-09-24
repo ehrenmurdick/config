@@ -40,3 +40,7 @@
 	user = ehrenmurdick
 [git-pair]
 	authors = Ehren Murdick <ehren.murdick@gmail.com>
+	authors = Clark Snowdall <csnowdall@optimiscorp.com>
+	authors = Umang Chouhan <uchouhan@optimiscorp.com>
+[branch]
+	autosetuprebase = always

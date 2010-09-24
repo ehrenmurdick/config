@@ -1,7 +1,7 @@
 $: << '/Users/ehrenmurdick/lib/ruby'
 require 'rubygems'
 require 'irb/completion'
-require 'laziness'
+require 'lazy'
 
 
 FAKE_FALSE = ENV["FALSE"] || "kumquat"

@@ -7,3 +7,5 @@ set cursorcolumn
 set guioptions-=t
 set guioptions-=T
 set guioptions-=r
+
+colors twilight
