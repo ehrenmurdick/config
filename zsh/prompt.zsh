@@ -17,9 +17,13 @@ git_dirty() {
   fi
 }
 
+git_pair() {
+  git pair -si
+}
+
 git_prompt_info () {
  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
- echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%})"
+ echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%}/$(git_pair))"
 }
 
 project_name () {

@@ -16,6 +16,8 @@ alias fx='git fetch && gitx'
 alias giff='git diff | gitx'
 alias gitx='gitx --all'
 
+alias g='roogle'
+
 function reload! () {
   touch tmp/restart.txt
 }
