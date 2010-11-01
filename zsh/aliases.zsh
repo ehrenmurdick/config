@@ -7,7 +7,7 @@ alias st="git st"
 alias fetch="git fetch"
 alias "log"="git log"
 alias add="git add"
-alias tag="ctags -R config -R app -R lib -R script -R spec -R test"
+alias tag="ctags -R config -R app -R lib -R script -R spec"
 alias tag!="ctags -R ."
 alias push="git push"
 alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
@@ -15,6 +15,8 @@ alias ruby="ruby -I $HOME/lib/ruby"
 alias fx='git fetch && gitx'
 alias giff='git diff | gitx'
 alias gitx='gitx --all'
+
+alias sploek="TABNAME=sploek;set_iterm_tab; sploek"
 
 alias g='roogle'
 
@@ -104,6 +106,10 @@ function sp-serve () {
 
 function diffx () {
   echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx
+}
+
+function t () {
+  TABNAME=$1
 }
 
 function internet\? {

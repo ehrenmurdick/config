@@ -3,6 +3,9 @@ require 'rubygems'
 require 'irb/completion'
 require 'lazy'
 
+print "\e]1;irb\a"
+
+
 
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
 FAKE_TRUE = ENV["TRUE"] || "banana"

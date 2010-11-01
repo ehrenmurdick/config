@@ -204,3 +204,5 @@ set gdefault
 
 
 set directory=/var/tmp//
+
+set tildeop

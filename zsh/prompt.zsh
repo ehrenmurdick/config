@@ -59,7 +59,12 @@ set_iterm_title() {
 }
 
 set_iterm_tab() {
-	echo -ne "\e]1;$(project_name)\a" 
+  if [ $TABNAME ]
+  then
+    echo -ne "\e]1;$TABNAME\a" 
+  else
+    echo -ne "\e]1;$(project_name)\a" 
+  fi
 }
 
 precmd() {
