@@ -91,8 +91,8 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Anonymous\ Pro:h16
-map <D-0> :set guifont=Anonymous\ Pro:h16
+set guifont=Panic\ Sans:h18
+map <D-0> :set guifont=Panic\ Sans:h18
 
 syntax on
 
