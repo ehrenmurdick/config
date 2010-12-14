@@ -1,3 +1,10 @@
+autoload colors
+
+ruby_version() {
+  v=$(ruby -v | awk '{ printf("%.5s", $2) }')
+  echo -ne "$v"
+}
+
 git_branch() {
   echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
@@ -49,7 +56,7 @@ need_push () {
   fi
 }
 
-export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
+export PROMPT=$'%{$fg[red]%}$(ruby_version) %{\e[0;36m%}%1/%{\e[0m%}/ '
 set_prompt () {
   export RPROMPT="$(git_prompt_info)$(git_dirty)$(need_push)"
 }
