@@ -38,6 +38,7 @@
   default = current
 [github]
 	user = ehrenmurdick
+  token = tokentoken
 [git-pair]
 	authors = Ehren Murdick <ehren.murdick@gmail.com>
 [branch]
