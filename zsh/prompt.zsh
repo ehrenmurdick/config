@@ -1,5 +1,12 @@
+autoload colors
+
+ruby_version() {
+  v=$(ruby -v | awk '{ printf("%.5s", $2) }')
+  echo -ne "$v"
+}
+
 git_branch() {
-  echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
+  echo -ne $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 git_dirty() {
@@ -23,7 +30,7 @@ git_pair() {
 
 git_prompt_info () {
  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
- echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%}/$(git_pair))"
+ echo "(%{\e[0;35m%}${ref#refs/heads/}%{\e[0m%})"
 }
 
 project_name () {
@@ -49,7 +56,7 @@ need_push () {
   fi
 }
 
-export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
+export PROMPT=$'%{$fg[red]%}$(ruby_version) %{\e[0;33m%}%2/%{\e[0m%}/ '
 set_prompt () {
   export RPROMPT="$(git_prompt_info)$(git_dirty)$(need_push)"
 }
@@ -68,8 +75,6 @@ set_iterm_tab() {
 }
 
 precmd() {
+  print -Pn "\e]0;%~\a"
   set_prompt
-  set_iterm_title
-  set_iterm_tab
 }
-

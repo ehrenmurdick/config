@@ -1,7 +1,7 @@
 $: << '/Users/ehrenmurdick/lib/ruby'
 require 'rubygems'
 require 'irb/completion'
-require 'lazy'
+# require 'lazy'
 
 print "\e]1;irb\a"
 

@@ -20,6 +20,8 @@ alias sploek="TABNAME=sploek;set_iterm_tab; sploek"
 
 alias g='roogle'
 
+alias redis= 'redis-server > /Users/jessicasuttles/redis.log &'
+
 function reload! () {
   touch tmp/restart.txt
 }
@@ -57,7 +59,7 @@ function pgrep {
 
 
 function sp {
-  script/spec -cfs spec/$*
+  bundle exec rspec -cfs spec/$*
 }
 compctl -W "spec" -g '*' sp
 

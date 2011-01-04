@@ -4,7 +4,7 @@ export CDPATH=~/Projects:~/
 export RUBYOPT='rubygems'
 export GREP_OPTIONS='--color=auto' 
 export GREP_COLOR='3;33'
-export EDITOR='mvim -f -c "au VimLeave * !open -a iTerm"'
+export EDITOR='mvim -f -c "au VimLeave * !open -a Terminal"'
 export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export CLICOLOR=1

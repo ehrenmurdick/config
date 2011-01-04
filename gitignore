@@ -18,3 +18,5 @@ attachments/
 config/strongbox.yml
 spec/tmp
 fuck*
+dump.rdb
+vendor/gems/
