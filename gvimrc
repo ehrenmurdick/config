@@ -1,6 +1,6 @@
 set transp=7
-set columns=120
-set lines=35
+set columns=135
+set lines=45
 set cursorline
 set cursorcolumn
 
