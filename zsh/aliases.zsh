@@ -6,32 +6,26 @@ alias ci="git commit"
 alias st="git st"
 alias fetch="git fetch"
 alias "log"="git log"
+alias push="git push"
 alias add="git add"
 alias tag="ctags -R config -R app -R lib -R script -R spec"
 alias tag!="ctags -R ."
-alias push="git push"
-alias ⚡="open -a Play\ Sound /Users/ehrenmurdick/Documents/Sounds/thunder.wav"
-alias ruby="ruby -I $HOME/lib/ruby"
 alias fx='git fetch && gitx'
 alias giff='git diff | gitx'
 alias gitx='gitx --all'
 
-alias sploek="TABNAME=sploek;set_iterm_tab; sploek"
-
-alias g='roogle'
-
+alias c='bundle exec cucumber'
+alias s='bundle exec rspec'
 alias redis= 'redis-server > /Users/jessicasuttles/redis.log &'
+alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | 
+   cut -d\   -f2"
 
 function reload! () {
   touch tmp/restart.txt
 }
 
-function th () {
+function trash () {
   mv $* ~/.Trash
-}
-
-function git_deleted () {
-  git st | rak deleted | awk '{print $3}'
 }
 
 function gco () {
@@ -47,15 +41,12 @@ function cdefault {
 function current_working_project {
   pwd > ~/bin/config/current_project_path
 }
-
 cdefault
 
-function cdproject { cd $HOME/projects/$* }
-compctl -W "$HOME/projects" -g '*(-/)' cdproject
-
-function pgrep {
-  ps aux | grep $*
+function cdproject { 
+	cd $HOME/projects/$* 
 }
+compctl -W "$HOME/projects" -g '*(-/)' cdproject
 
 
 function sp {
@@ -100,20 +91,6 @@ function vack () {
     mvim -p $(ack -l $@ | xargs) &> /dev/null &
 }
 
-function sp-serve () {
-  script/spec_server &
-  touch log/rspec.log
-  follow log/rspec.log
-}
-
-function diffx () {
-  echo "diff --git a/$1 b/$2 $(diff -u $1 $2)" | gitx
-}
-
-function t () {
-  TABNAME=$1
-}
-
-function internet\? {
+function internet {
   (ping -c 3 -t 3 google.com >/dev/null 2>&1 && echo 'yep') || echo 'nope'
 }

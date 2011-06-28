@@ -7,8 +7,8 @@ print "\e]1;irb\a"
 
 
 
-FAKE_FALSE = ENV["FALSE"] || "kumquat"
-FAKE_TRUE = ENV["TRUE"] || "banana"
+# FAKE_FALSE = ENV["FALSE"] || "kumquat"
+# FAKE_TRUE = ENV["TRUE"] || "banana"
 
 
 
@@ -43,26 +43,26 @@ begin
 end
 
 
-module Kernel
-  define_method(FAKE_TRUE.to_sym) do
-    true
-  end
-  define_method(FAKE_FALSE.to_sym) do
-    false
-  end
-end
-
-class TrueClass
-  def to_s
-    FAKE_TRUE
-  end
-end
-
-class FalseClass
-  def to_s
-    FAKE_FALSE
-  end
-end
+# module Kernel
+#   define_method(FAKE_TRUE.to_sym) do
+#     true
+#   end
+#   define_method(FAKE_FALSE.to_sym) do
+#     false
+#   end
+# end
+# 
+# class TrueClass
+#   def to_s
+#     FAKE_TRUE
+#   end
+# end
+# 
+# class FalseClass
+#   def to_s
+#     FAKE_FALSE
+#   end
+# end
 
 ANSI_BOLD       = "\033[1m"
 ANSI_RESET      = "\033[0m"

@@ -15,6 +15,11 @@ source ~/.zsh/completion_rake.zsh
 source ~/.zsh/completion_sake.zsh 
 source ~/.zsh/projects.zsh
 
-
+function cdu {
+  for (( c=0; c<$1; c++ ))
+  do
+    cd ..
+  done
+}
 
 ruby -v

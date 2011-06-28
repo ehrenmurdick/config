@@ -1,5 +1,5 @@
 export MANPATH=/opt/local/share/man:$MANPATH
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/Users/jessicasuttles/.gem/ruby/1.8/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/Users/jessicasuttles/.gem/ruby/1.8/bin:/Users/jessicasuttles/Projects/android-sdk-mac_x86/tools/:/Users/jessicasuttles/Projects/android-sdk-mac_x86/platform-tools/:$PATH
 export CDPATH=~/Projects:~/
 export RUBYOPT='rubygems'
 export GREP_OPTIONS='--color=auto' 
