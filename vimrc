@@ -62,13 +62,17 @@ set scrolloff=6
 
 
 autocmd!
+autocmd BufRead,BufNewFile Gemfile   set filetype=ruby
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
-autocmd BufWritePost /Users/ehrenmurdick/projects/daemons/* !/Users/ehrenmurdick/projects/daemons/sync &
+
+autocmd BufRead,BufNewFile *.ejs     set filetype=html.js
+
+autocmd BufRead,BufNewFile *.jst     set filetype=haml
 
 set ruler
-set rulerformat=%c\ %l\/%L
+set rulerformat=%c\ %l:%L
 
 
 set wildmode=longest,list,full
@@ -184,14 +188,6 @@ map <D-H> :call GotoDefaultWd()
 set hls
 hi Search guifg=#66418c
 hi Search gui=NONE
-
-" fuzzyfindertextmate: cmd-e to trigger, cmd-enter to open selected file in new tab
-let g:FuzzyFinderOptions = { 'Base':{} }
-let g:FuzzyFinderOptions.Base.key_open_tab = '<D-CR>'
-map <D-e> :FuzzyFinderTextMate<CR>
-
-let g:fuzzy_ignore = "*.png;*.PNG;*.JPG;*.jpg;*.GIF;*.gif;doc/**;vendor/**;coverage/**;tmp/**;db/**"
-let g:FuzzyFinderOptions.Base.enumerating_limit = 20
 
 
 filetype plugin on

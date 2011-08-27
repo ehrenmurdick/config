@@ -1,7 +1,6 @@
 $: << '/Users/ehrenmurdick/lib/ruby'
 require 'rubygems'
 require 'irb/completion'
-require 'lazy'
 
 print "\e]1;irb\a"
 
@@ -103,7 +102,23 @@ end
 
 if $0 == 'irb' && ENV['RAILS_ENV'] 
   load File.dirname(__FILE__) + '/.railsrc' 
-else
-  require 'active_support'
 end
 
+
+Home = ENV["HOME"]
+def Home(p)
+  File.join(Home, p)
+end
+
+Desktop = Home "Desktop"
+def Desktop(p)
+  File.join(Desktop, p)
+end
+
+def copy str
+  `echo "#{str.strip.inspect}" | pbcopy`
+end
+
+def write path, data
+  File.open(path, 'w') {|f| f.write data }
+end
