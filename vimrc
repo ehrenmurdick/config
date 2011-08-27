@@ -95,8 +95,8 @@ set expandtab
 set nocompatible
 set sm
 
-set guifont=Anonymous\ Pro:h16
-map <D-0> :set guifont=Anonymous\ Pro:h16
+set guifont=DejaVu\ Sans\ Mono:h16
+map <D-0> :set guifont=DejaVu\ Sans\ Mono:h16
 
 syntax on
 
