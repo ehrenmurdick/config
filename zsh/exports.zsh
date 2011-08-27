@@ -1,11 +1,13 @@
-export MANPATH=/opt/local/share/man:$MANPATH
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/Users/jessicasuttles/.gem/ruby/1.8/bin:/Users/jessicasuttles/Projects/android-sdk-mac_x86/tools/:/Users/jessicasuttles/Projects/android-sdk-mac_x86/platform-tools/:$PATH
-export CDPATH=~/Projects:~/
-export RUBYOPT='rubygems'
-export GREP_OPTIONS='--color=auto' 
-export GREP_COLOR='3;33'
-export EDITOR='mvim -f -c "au VimLeave * !open -a Terminal"'
-export TERM=xterm-color
+export PROJECTS=~/Projects
+export CDPATH=$PROJECTS:~/ # autocd to projects and home
+
+export CLICOLOR=1 # turns on colors
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export CLICOLOR=1
-export PROJECTS=$HOME/Projects
+export TERM=xterm-color
+
+export GREP_COLOR='3;33'
+export GREP_OPTIONS='--color=auto' 
+
+export EDITOR='mvim -f -c "au VimLeave * !open -a Terminal"' # edit git commit messages (among other things) in vim
+
+export RUBYOPT='rubygems' # ruby always requires rubygems

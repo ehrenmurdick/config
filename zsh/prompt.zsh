@@ -1,5 +1,3 @@
-autoload colors
-
 ruby_version() {
   v=$(ruby -v | awk '{ printf("%.5s", $2) }')
   echo -ne "$v"
