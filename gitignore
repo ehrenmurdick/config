@@ -4,7 +4,7 @@
 .DS_Store
 .commit_message
 .console
-.gitconfig
+gitconfig
 .rvmrc
 .zsh*
 Icon*
