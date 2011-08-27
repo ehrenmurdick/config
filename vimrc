@@ -2,7 +2,7 @@
 " highlight ruby operators like || and &&
 let g:ruby_operators = 1
 
-set visualbell t_vb=
+set visualbell t_vb=       
 
 set incsearch
 
@@ -104,6 +104,9 @@ map <S-Left> I<BS><BS>
 map <S-Right> I  
 
 
+map <C-D-Space> :%s/\s*$////
+
+
 
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
@@ -170,6 +173,7 @@ fun! GotoDefaultWd()
   execute 'cd ' . fnameescape(bar[1])
   e .
 endfun
+
 
 fun! Html2haml()
   %!html2haml -r
