@@ -33,7 +33,7 @@ set wildmode=longest,list,full
 "
 
 " allow Vim to manage multiple buffers effectively
-set hidden 
+set hidden
 " These two options, when set together, will make /-style searches case-sensitive only if there is a capital letter in the search expression. *-style searches continue to be consistently case-sensitive.
 set ignorecase
 set smartcase
@@ -50,8 +50,6 @@ runtime macros/matchit.vim
 "
 " end http://items.sjbach.com/319/configuring-vim-right
 "
-
-syntax on " syntax highlighting
 
 " ^C to escape
 map  
@@ -105,7 +103,7 @@ imap %% <%=%><Left><Left>
 inoremap # X#
 
 "turn on autocommands
-autocmd! 
+autocmd!
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
@@ -114,11 +112,14 @@ hi CursorColumn guibg=#302332
 hi CursorLine   guibg=#302332
 hi Error        guibg=#744A49
 hi IncSearch    gui=underline
-hi IncSearch    guibg=#141321 
+hi IncSearch    guibg=#141321
 hi IncSearch    guifg=#66418C
 hi Pmenu        guibg=#000000
 hi Search       gui=NONE
 hi Search       guibg=#141321
-hi Search       guifg=#66418C 
+hi Search       guifg=#66418C
 
 filetype plugin on
+
+" syntax highlighting
+syntax on
