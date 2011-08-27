@@ -6,11 +6,6 @@ end
 require 'logger'
 Object.const_set(:RAILS_DEFAULT_LOGGER, Logger.new(STDOUT))
 
-
-def ehren
-  User.find_by_username "ehren"
-end
-
 def admin
   User.find_by_username "admin"
 end

@@ -31,6 +31,11 @@ begin
   end
 end
 
+# Load railsrc if rails console
+if $0 == 'irb' && ENV['RAILS_ENV'] 
+  load File.dirname(__FILE__) + '/.railsrc' 
+end
+
 # # Setup custom true and false
 # module Kernel
 #   define_method(FAKE_TRUE.to_sym) do
