@@ -1,3 +1,5 @@
+" GUI vim options
+
 set transp=0
 set columns=120
 set lines=35
