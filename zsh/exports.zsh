@@ -12,11 +12,13 @@ export NODE_PATH=/usr/local/lib/node
 
 export NODE_PATH=/usr/local/lib/node
 
+export CLICOLOR=1 # turns on colors
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export TERM=xterm-color
 
-# export RUBY_HEAP_MIN_SLOTS=500000
-# export RUBY_HEAP_SLOTS_INCREMENT=250000
-# export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-# export RUBY_GC_MALLOC_LIMIT=50000000
-# export RUBY_HEAP_FREE_MIN=500000
+export GREP_COLOR='3;33'
+export GREP_OPTIONS='--color=auto' 
 
+export EDITOR='mvim -f -c "au VimLeave * !open -a Terminal"' # edit git commit messages (among other things) in vim
 
+export RUBYOPT='rubygems' # ruby always requires rubygems

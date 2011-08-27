@@ -1,15 +1,8 @@
-_rake_does_task_list_need_generating () {
-  if [ ! -f .zsh_rake_cache ]; then return 0;
-  else
-    accurate=$(stat -f%m .zsh_rake_cache)
-    changed=$(stat -f%m Rakefile)
-    return $(expr $accurate '>=' $changed)
-  fi
-}
+# Tab completion with Rake
 
 _rake () {
   if [ -f Rakefile ]; then
-    if _rake_does_task_list_need_generating; then
+    if [ ! -f .zsh_rake_cache ]; then
       rake --silent --tasks | cut -d " " -f 2 > .zsh_rake_cache
     fi
     compadd `cat .zsh_rake_cache`
