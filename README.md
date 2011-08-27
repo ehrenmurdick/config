@@ -1,5 +1,5 @@
-# Jessica Lynn Suttles's Config
-Inspired by [Ehren Murdick's Config](http://github.com/ehrenmurdick/config)
+# Ehren Murdick's Config
+Cleaned up by [Jessica Lynn Suttles](http://github.com/jlsuttles/config)
 
 ## Install everything:
 
