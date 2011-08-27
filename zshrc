@@ -2,6 +2,7 @@ autoload -U compinit && compinit
 autoload -U zmv
 autoload colors && colors
 
+source ~/.zsh/path.zsh
 source ~/.zsh/exports.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/history.zsh

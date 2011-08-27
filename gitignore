@@ -4,6 +4,7 @@ Icon*
 .zsh*
 config/database.yml
 r.rb
+j.js
 .commit_message
 log/*
 .DS_Store
