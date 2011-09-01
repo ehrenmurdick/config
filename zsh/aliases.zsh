@@ -1,4 +1,5 @@
 # My aliases
+alias git=hub
 alias ss='./script/server'
 alias sc='./script/console'
 alias pull="git pull"
@@ -15,6 +16,7 @@ alias ruby="ruby -I $HOME/lib/ruby"
 alias fx='git fetch && gitx'
 alias giff='git diff | gitx'
 alias gitx='gitx --all'
+alias stamp='date +%Y%m%d%H%M'
 
 alias sploek="TABNAME=sploek;set_iterm_tab; sploek"
 
@@ -47,9 +49,6 @@ function current_working_project {
 }
 
 cdefault
-
-function cdproject { cd $HOME/projects/$* }
-compctl -W "$HOME/projects" -g '*(-/)' cdproject
 
 function pgrep {
   ps aux | grep $*

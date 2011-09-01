@@ -2,6 +2,8 @@ autoload -U compinit && compinit
 autoload -U zmv
 autoload colors && colors
 
+if [[ -s /Users/ehrenmurdick/.rvm/scripts/rvm ]] ; then source /Users/ehrenmurdick/.rvm/scripts/rvm ; fi
+
 source ~/.zsh/exports.zsh
 source ~/.zsh/prompt.zsh
 source ~/.zsh/history.zsh
@@ -15,6 +17,3 @@ source ~/.zsh/projects.zsh
 
 
 
-if [[ -s /Users/ehrenmurdick/.rvm/scripts/rvm ]] ; then source /Users/ehrenmurdick/.rvm/scripts/rvm ; fi
-
-ruby -v
