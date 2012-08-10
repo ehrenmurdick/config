@@ -26,3 +26,4 @@ spec/tmp
 tags
 tmp/*
 vendor/gems/
+.foreman

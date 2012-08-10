@@ -3,7 +3,7 @@ FAKE_TRUE = ENV["TRUE"] || "banana"
 
 # Setup prompt
 IRB.conf[:IRB_RC] = proc do |conf|
-  name = "irb: "
+  name = ">> "
   leader = " " * name.length
   conf.prompt_i = "#{name}"
   conf.prompt_s = leader + '\-" '

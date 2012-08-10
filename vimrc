@@ -1,5 +1,7 @@
 let g:ruby_operators = 1 " highlight ruby operators like || and &&
 
+set rtp+=$GOROOT/misc/vim
+
 set autoindent " copy indent from current line for new line
 set autoread
 set backspace=indent,eol,start " make backspace always work
@@ -54,7 +56,7 @@ runtime macros/matchit.vim
 " ^C to escape
 map  
 " // to no highlight
-map // :nohl
+map <silent> // :nohl
 " revert to default font
 map <D-0> :set guifont=DejaVu\ Sans\ Mono:h16
 " shift + left arrow outdents
@@ -109,6 +111,8 @@ autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
 
+autocmd BufRead,BufNewFile *.go      set noexpandtab
+
 hi CursorColumn guibg=#302332
 hi CursorLine   guibg=#302332
 hi Error        guibg=#744A49
@@ -124,3 +128,5 @@ filetype plugin on
 
 " syntax highlighting
 syntax on
+
+map <Leader>i :set list

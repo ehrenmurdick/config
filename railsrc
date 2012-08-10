@@ -1,5 +1,5 @@
 IRB.conf[:IRB_RC] = proc do |conf|
-  name = "rails: "
+  name = ">> "
   conf.prompt_i = name
 end
 
