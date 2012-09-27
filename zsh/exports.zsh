@@ -8,9 +8,8 @@ export TERM=xterm-color
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export CLICOLOR=1
 export PROJECTS=$HOME/projects
-export NODE_PATH=/usr/local/lib/node
 
-export NODE_PATH=/usr/local/lib/node
+export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 
 export CLICOLOR=1 # turns on colors
 export LSCOLORS=gxfxcxdxbxegedabagacad

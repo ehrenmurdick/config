@@ -1,3 +1,8 @@
+set background=dark " Adapt color scheme for dark backgrounds
+
+let mapleader = ","
+
+
 let g:ruby_operators = 1 " highlight ruby operators like || and &&
 
 set rtp+=$GOROOT/misc/vim
@@ -129,4 +134,23 @@ filetype plugin on
 " syntax highlighting
 syntax on
 
-map <Leader>i :set list
+map <Leader>i :set list!
+
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'tpope/vim-fugitive'
+Bundle 'gregsexton/gitv'
+
+
+" Vim diff and fugitive -- alexdavid/vimconfig
+autocmd InsertLeave * if &diff | diffupdate
+noremap <leader>g :diffget<CR>
+noremap <leader>p :diffput<CR>
+nmap gd :Gdiff<CR>
+nmap gs :Gstatus<CR>
+nmap gc :Gcommit<CR>

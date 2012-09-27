@@ -1,8 +1,9 @@
 " GUI vim options
 
-set transp=7
-set columns=120
-set lines=35
+" take up full screen
+set columns=200
+set lines=200
+
 set cursorline
 set cursorcolumn
 

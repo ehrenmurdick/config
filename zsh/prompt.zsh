@@ -56,5 +56,10 @@ need_push () {
 
 export PROMPT=$'%{\e[0;36m%}%1/%{\e[0m%}/ '
 set_prompt () {
-  export RPROMPT=""
+  export RPROMPT="$(git_prompt_info)$(git_dirty)$(need_push)"
+}
+
+precmd() {
+ print -Pn "\e]0;%~\a"
+ set_prompt
 }
