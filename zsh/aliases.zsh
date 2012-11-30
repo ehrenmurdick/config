@@ -17,6 +17,7 @@ alias giff='git diff | gitx'
 alias gitx='gitx --all'
 alias stamp='date +%Y%m%d%H%M'
 alias be="bundle exec"
+alias fack='ack -g'
 
 alias easy_off='sudo kextunload -v /System/Library/Extensions/EasyTetherUSBEthernet.kext'
 
@@ -29,6 +30,10 @@ alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 |
 # reloads passenger and pow
 function reload! () {
   touch tmp/restart.txt
+}
+
+function card () {
+  git co `git branch -a | grep $1 | tail -n1 | sed 's/.*\///'`
 }
 
 # better than rm -rf

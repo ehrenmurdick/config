@@ -4,6 +4,7 @@
 --type-set=scss=.scss
 --type-set=sass=.sass
 --type-set=coffeescript=.coffee
+--type-set=feature=.feature
 
 --sort-files
 --color

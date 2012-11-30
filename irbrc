@@ -45,6 +45,7 @@ def Desktop(p)
   File.join(Desktop, p)
 end
 
+
 def copy str
   `echo "#{str.strip.inspect}" | pbcopy`
 end
