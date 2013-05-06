@@ -1,6 +1,3 @@
-# My aliases
-function rake(){bundle exec rake "$@"}
-function sp(){bundle exec spec "$@"}
 alias ss='./script/server'
 alias sc='./script/console'
 alias pull="git pull"
@@ -17,15 +14,16 @@ alias giff='git diff | gitx'
 alias gitx='gitx --all'
 alias stamp='date +%Y%m%d%H%M'
 alias be="bundle exec"
-alias fack='ack -g'
+alias booya="git pull && git push && git push staging staging:master"
 
 alias easy_off='sudo kextunload -v /System/Library/Extensions/EasyTetherUSBEthernet.kext'
 
 alias c='bundle exec cucumber'
 alias s='bundle exec rspec'
-alias redis= 'redis-server > /Users/jlsuttles/redis.log &'
 alias myip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | 
    cut -d\   -f2"
+
+alias last_migration="ls db/migrate | tail -n1 | head -c 14"
 
 # reloads passenger and pow
 function reload! () {
@@ -95,7 +93,7 @@ function rmb {
     echo -n "Continue? (y/n):"
     read choice
     echo
-    if [ "$choice" == "y" ] || [ "$choice" == "Y" ]; then
+    if [ "$choice" = "y" ] || [ "$choice" = "Y" ]; then
       # Remove remote branches
       git push origin `git branch -r --merged | grep -v '/master$' | grep -v "/$current_branch$" | sed 's/origin\//:/g' | tr -d '\n'`
       # Remove local branches

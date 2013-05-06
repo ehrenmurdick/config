@@ -1,6 +1,8 @@
 FAKE_FALSE = ENV["FALSE"] || "kumquat"
 FAKE_TRUE = ENV["TRUE"] || "banana"
 
+require 'active_support/core_ext'
+
 # Setup prompt
 IRB.conf[:IRB_RC] = proc do |conf|
   name = ">> "
@@ -74,4 +76,12 @@ class FalseClass
   def to_s
     FAKE_FALSE
   end
+end
+
+def r
+  s = 'r.rb'
+  def s.rb
+    self
+  end
+  s
 end

@@ -1,122 +1,161 @@
-# VimClojure – a Clojure environment for Vim
+abolish.vim
+===========
 
-VimClojure is one of the most sophisticated editing environments for Clojure.
-It provides syntax highlighting, indenting and command completion.
+I sat on on this plugin for 3 years before releasing it, primarily
+because it's so gosh darn hard to explain.  It's three superficially
+unrelated plugins in one that share a common theme: working with
+variants of a word.
 
-VimClojure is not intended to be an easy to use Clojure IDE, but a plugin
-to make life easier for people already familiar with Vim. So you should
-be familiar with Vim and/or Java. Eg. VimClojure won't help you in any way
-to set up a correct classpath! This is the responsibility of the build
-system of the given project. So before using the dynamic server make
-yourself comfortable with Clojure, the JVM and Vim.
+Abbreviation
+------------
 
-# Requirements
+I know how to spell separate.  I know how to spell desperate.  My
+fingers, however, have trouble distinguishing between the two, and I
+invariably have a 50 percent chance of typing seperate or desparate each
+time one of these comes up.  At first, I tried abbreviations:
 
-Please make sure that the following options are set in your .vimrc:
+    :iabbrev  seperate  separate
+    :iabbrev desparate desperate
 
-    syntax on
-    filetype plugin indent on
+But this falls short at the beginning of a sentence.
 
-Otherwise the filetype is not activated, and hence VimClojure doesn't work.
+    :iabbrev  Seperate  Separate
+    :iabbrev Desparate Desperate
 
-The following assumes a standard installation. If you have installed Vim (or
-are installing VimClojure) in a non-standard way, I trust that you know what
-you are doing.
+To be really thorough, we need uppercase too!
 
-# Online Documentation
+    :iabbrev  SEPERATE  SEPARATE
+    :iabbrev DESPARATE DESPERATE
 
-Please refer to the online documentation in the doc folder for further
-information on how to use VimClojure, its features and its caveats. To
-rebuild the help tags for the online documentation issue the following
-command in Vim instance.
+Oh, but consider the noun form, and the adverb form!
 
-    " On Unix:
-    :helptags ~/.vim/doc
-    " On Windows:
-    :helptags ~/vimfiles/doc
+    :iabbrev  seperation  separation
+    :iabbrev desparation desperation
+    :iabbrev  seperately  separately
+    :iabbrev desparately desperately
+    :iabbrev  Seperation  separation
+    :iabbrev Desparation Desperation
+    :iabbrev  Seperately  Separately
+    :iabbrev Desparately Desperately
+    :iabbrev  SEPERATION  SEPARATION
+    :iabbrev DESPARATION DESPERATION
+    :iabbrev  SEPERATELY  SEPARATELY
+    :iabbrev DESPARATELY DESPERATELY
 
-# Here be Dragons
+Wait, there's also separates, separated, separating, separations,
+separator...
 
-If requested VimClojure also provides a SLIME like interface to dynamically
-work with Clojure code. For this to work the included Nailgun server must be
-running. Remote may be forwarded via ssh.
+Abolish.vim provides a simpler way.  The following one command produces
+48 abbreviations including all of the above.
 
-Features of the interactive interface are:
+    :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
 
-- dynamic documentation lookup
-- dynamic javadoc lookup (in an external browser)
-- Repl running in a Vim buffer
-- smart omni completion
-- easy evaluation of code in a buffer
+My current configuration has 25 Abolish commands that create hundreds of
+corrections my fingers refuse to learn.
 
-However: **This is not a requirement!** VimClojure works perfectly in
-_offline_ mode. That is: just unpack the distribution zip in your .vim
-directory and you are good to go! In fact I discourage newbies to use the
-server until being more comfortable with Clojure and/or the JVM.
+Substitution
+------------
 
-## Configuration
+One time I had an application that with a domain model called
+"facilities" that needed to be renamed to "buildings". So, a simple
+search and replace, right?
 
-To activate the interactive interface define the vimclojure#WantNailgun variable
-in your .vimrc: `let vimclojure#WantNailgun = 1`
+    :%s/facility/building/g
 
-## Building the Nailgun interface
+Oh, but the case variants!
 
-You have to download and install the client program once. Unless there is
-a note in the release notes it will be compatible with future releases. The
-client can be downloaded from:
-http://kotka.de/projects/vimclojure/vimclojure-nailgun-client-<version>.zip.
+    :%s/Facility/Building/g
+    :%s/FACILITY/BUILDING/g
 
-After unzipping the archive, simply type `make` in the subdirectory from the
-zip archive. This will compile the nailgun client. For Windows the client is
-already pre-compiled as `ng.exe`.
+Wait, the plural is more than "s" so we need to get that too!
 
-Configure the location of the nailgun client in your `.vimrc`:
+    :%s/facilities/buildings/g
+    :%s/Facilities/Buildings/g
+    :%s/FACILITIES/BUILDINGS/g
 
-    let vimclojure#NailgunClient = "/path/to/your/ng"
+Abolish.vim has your back.  One command to do all six, and you can
+repeat it with `&` too!
 
-It will default to just `ng` which should work if the client is on your PATH.
+    :%Subvert/facilit{y,ies}/building{,s}/g
 
-Note: You might need to check the Makefile for special lib requirements
-to compile the nailgun client, eg. on OpenSolaris.
+From a conceptual level, one way to think about how this substitution
+works is to imagine that in the braces you are declaring the
+requirements for turning that word from singular to plural.  In
+the facility example, the same base letters in both the singular
+and plural form of the word are `facilit` To turn facility to a
+plural word you must change the `y` to `ies` so you specify
+`{y,ies}` in the braces.
 
-It is **not** required to build the **server side** of the Nailgun interface
-and I strongly discourage to do so. The server is provided as jar file
-from [Clojars](http://clojars.org). Just add the artifact to your development
-dependencies.
+To convert the word building from singular to plural, again
+look at the common letters between the singular and plural forms:
+`building`  In this case you do not need to remove any letter
+from building to turn it into plural form and you need to
+add a `s` so the braces should be `{,s}`.
 
-* For Gradle (with Clojuresque):
-  
-      dependencies {
-          development 'vimclojure:server:<version>'
-      }
-  
-* For Leiningen:
-  
-      (defproject …
-        :dev-dependencies […
-                           [vimclojure/server "<version>"]
-                           …])
-  
-* For Ivy:
-  
-      <dependency org="vimclojure" name="server" rev="<version>"/>
-  
-* For Maven:
-  
-        <dependency>
-          <groupId>vimclojure</groupId>
-          <artifactId>server</artifactId>
-          <version><version></version>
-        </dependency>
-  
+A few more examples:
 
-For manual download:
-http://clojars.org/repo/vimclojure/server/<version>/server-<version>.jar
+Address to Reference
 
-There are also launcher scripts included in the vimclojure/bin subdirectory
-based on Stephen C. Gilardi's clj-env-dir launcher. See information on how
-to use them in the corresponding files.
+    :Subvert/address{,es}/reference{,s}/g
 
--- 
-Meikel Branmdeyer <mb@kotka.de>
-Erlensee, 2010
+Blog to Post (you can just do this with a regular :s also)
+
+    :Subvert/blog{,s}/post{,s}/g
+
+Child to Adult
+
+    :Subvert/child{,ren}/adult{,s}/g
+
+Be amazed as it correctly turns the word children into the word adults!
+
+Die to Spinner
+
+    :Subvert/di{e,ce}/spinner{,s}/g
+
+You can abbreviate it as `:S`, and it accepts the full range of flags
+including things like `c` (confirm).
+
+There's also a variant for searching and a variant for grepping.
+
+Coercion
+--------
+
+Want to turn `fooBar` into `foo_bar`?  Press `crs` (coerce to
+snake\_case).  MixedCase (`crm`), camelCase (`crc`), snake\_case
+(`crs`), and UPPER\_CASE (`cru`) are all just 3 keystrokes away.  These
+commands support [repeat.vim](https://github.com/tpope/vim-repeat).
+
+Installation
+------------
+
+If you don't have a preferred installation method, I recommend
+installing [pathogen.vim](https://github.com/tpope/vim-pathogen), and
+then simply copy and paste:
+
+    cd ~/.vim/bundle
+    git clone git://github.com/tpope/vim-abolish.git
+
+Once help tags have been generated, you can view the manual with
+`:help abolish`.
+
+Contributing
+------------
+
+See the contribution guidelines for
+[pathogen.vim](https://github.com/tpope/vim-pathogen#readme).
+
+Self-Promotion
+--------------
+
+Like abolish.vim? Follow the repository on
+[GitHub](https://github.com/tpope/vim-abolish) and vote for it on
+[vim.org](http://www.vim.org/scripts/script.php?script_id=1545).  And if
+you're feeling especially charitable, follow [tpope](http://tpo.pe/) on
+[Twitter](http://twitter.com/tpope) and
+[GitHub](https://github.com/tpope).
+
+License
+-------
+
+Copyright (c) Tim Pope.  Distributed under the same terms as Vim itself.
+See `:help license`.

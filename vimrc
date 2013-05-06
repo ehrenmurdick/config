@@ -115,6 +115,7 @@ autocmd BufRead,BufNewFile Gemfile   set filetype=ruby
 autocmd BufRead,BufNewFile *.rjs     set filetype=ruby
 autocmd BufRead,BufNewFile *.rxml    set filetype=ruby
 autocmd BufRead,BufNewFile *.rsel    set filetype=ruby
+autocmd BufRead,BufNewFile *.json_builder    set filetype=ruby
 
 autocmd BufRead,BufNewFile *.go      set noexpandtab
 
@@ -145,7 +146,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'gregsexton/gitv'
-
 
 " Vim diff and fugitive -- alexdavid/vimconfig
 autocmd InsertLeave * if &diff | diffupdate

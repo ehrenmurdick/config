@@ -6,8 +6,8 @@
 .console
 gitconfig
 .rvmrc
+.ruby-version
 .zsh*
-Icon*
 attachments/
 bin/
 config/database.yml
@@ -27,3 +27,5 @@ tags
 tmp/*
 vendor/gems/
 .foreman
+staging
+production

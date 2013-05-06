@@ -15,3 +15,5 @@ source ~/.zsh/bindkeys.zsh
 source ~/.zsh/completion_rake.zsh 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export RACK_ENV=development
