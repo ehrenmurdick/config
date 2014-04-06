@@ -1,31 +1,22 @@
 namespace :install do
   desc "install everything"
-  task :all => ["install:ack", "install:git", "install:irb", "install:vim", "install:zsh"]
-
-  desc "install ack config"
-  task :ack do
-    install("ackrc")
-  end
+  task :all => ["install:git", "install:vim"]
 
   desc "install git config"
   task :git do
     install("gitconfig", "gitignore")
   end
 
-  desc "install irb config"
-  task :irb do
-    install("irbrc", "railsrc")
-  end
-
   desc "install vim config"
   task :vim do
-    install("vim", "vimrc", "gvimrc")
+    install('vim', 'vimrc', 'gvimrc')
   end
 
-  desc "install zsh config"
-  task :zsh do
-    install("zshrc", "zsh")
-    mkdir_p "#{ENV["HOME"]}/bin/config"
+  desc 'bash setup'
+  task :bash do
+    exec 'git clone https://github.com/revans/bash-it.git ~/.bash_it'
+    exec '~/.bash_it/install.sh'
+    install('bash_profile')
   end
 end
 
