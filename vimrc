@@ -30,6 +30,8 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'eraserhd/vim-ios'
+Plugin 'Rip-Rip/clang_complete'
 
 " Setting Spacing and Indent (plus line no)
 set nu
@@ -100,6 +102,8 @@ set viminfo^=! " make project list persist across restarts
 set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
+set scrolloff=8 " always show 8 lines of context
+set smartcase
 
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
