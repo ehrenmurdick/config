@@ -1,3 +1,15 @@
+" Setting up Vundle - the vim plugin bundler
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+
+
 
 " Pre-Vundle Setup
 set nocompatible
@@ -10,7 +22,6 @@ syntax on
 
 " Vundle Bundles
 Plugin 'gmarik/vundle'
-Plugin  'zachgersh/vim-colorschemes'
 Plugin 'StripWhiteSpaces'
 Plugin 'kien/ctrlp.vim'
 Plugin 'surround.vim'
@@ -27,7 +38,7 @@ filetype plugin indent on
 set ts=2
 
 " Colorscheme
-colorscheme twilight
+colorscheme desert
 
 " Don't wrap my lines
 set nowrap
@@ -90,17 +101,8 @@ set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
-
-
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
 
 " keep the buffer in sync with filesystem without prompting
 set autoread
-
-"--------------------
-" Function: Open tag under cursor in new tab
-" Source:   http://stackoverflow.com/questions/563616/vimctags-tips-and-tricks
-"--------------------
-" map <C-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
