@@ -21,10 +21,10 @@ safeInstall() {
 }
 
 safeInstall 'vimrc'
+safeInstall 'gvimrc'
+
 echo 'Installing bundles...'
 tmp=$(mktemp -t vimrc)
 echo "BundleInstall" > $tmp
 vim -c "source $tmp|qa"
-
 echo
-safeInstall 'gvimrc'
