@@ -1,2 +1,2 @@
-curl http://github.com/ehrenmurdick/vimrc > ~/.vimrc
-curl http://github.com/ehrenmurdick/gvimrc > ~/.gvimrc
+curl https://github.com/ehrenmurdick/vimrc > ~/.vimrc
+curl https://github.com/ehrenmurdick/gvimrc > ~/.gvimrc
