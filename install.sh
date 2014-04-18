@@ -24,6 +24,9 @@ safeInstall() {
       install $1
       return 0;
     fi
+  else
+    install $1
+    return 0;
   fi
   return 1;
 }

@@ -30,8 +30,6 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'eraserhd/vim-ios'
-Plugin 'Rip-Rip/clang_complete'
 
 " Setting Spacing and Indent (plus line no)
 set nu
