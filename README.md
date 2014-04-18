@@ -1,4 +1,4 @@
 # My vim config
 
 ## install
-`curl http://raw.github.com/ehrenmurdick/config/install.sh | sh`
+`curl https://raw.github.com/ehrenmurdick/config/master/install.sh | sh`
