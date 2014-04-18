@@ -1,8 +1,13 @@
 # My vim config
 
 ## install
-`curl https://raw.github.com/ehrenmurdick/config/master/install.sh | sh`
 
-The first time you open vim, run :PluginInstall
+Oneline
+`curl -s https://raw.github.com/ehrenmurdick/config/master/install.sh | sh`
 
-And you're done!
+Remember to read the source of scripts you find online before running them!
+
+This will:
+
+- copy the rc files to your machine, prompting for overwrites
+- run BundleInstall in vim
