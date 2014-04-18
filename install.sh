@@ -11,7 +11,7 @@ promptyn () {
 }
 
 install() {
-  echo "https://raw.github.com/ehrenmurdick/config/master/$1 > ~/.$1"
+  curl -s "https://raw.github.com/ehrenmurdick/config/master/$1" > ~/.$1
 }
 
 safeInstall() {
@@ -41,5 +41,5 @@ promptInstall() {
 }
 
 
-promptInstall 'vimrc' 'Run :BundleInstall the first time you start vim. Happy hacking!'
+promptInstall 'vimrc' 'Run :BundleInstall the first time you start vim'
 promptInstall 'gvimrc'
