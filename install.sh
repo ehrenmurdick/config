@@ -10,8 +10,12 @@ promptyn () {
     done
 }
 
+url() {
+  echo "https://raw.github.com/ehrenmurdick/config/master/$1"
+}
+
 install() {
-  curl -s "https://raw.github.com/ehrenmurdick/config/master/$1" > ~/.$1
+  curl -s $(url $1) > ~/.$1
 }
 
 safeInstall() {
@@ -41,5 +45,11 @@ promptInstall() {
 }
 
 
-promptInstall 'vimrc' 'Run :BundleInstall the first time you start vim'
+if promptInstall 'vimrc'; then
+  echo 'Installing bundles...'
+  tmp=$(mktemp -t vimrc)
+  echo "BundleInstall" > $tmp
+  vim -c "source $tmp|qa"
+fi
+
 promptInstall 'gvimrc'
