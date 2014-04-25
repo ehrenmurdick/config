@@ -104,7 +104,7 @@ set scrolloff=8 " always show 8 lines of context
 
 " search is case sensitive only if you search for an upcase
 set ignorecase
-set smartcasee
+set smartcase
 
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
