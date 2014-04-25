@@ -101,7 +101,10 @@ set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 set scrolloff=8 " always show 8 lines of context
-set smartcase
+
+" search is case sensitive only if you search for an upcase
+set ignorecase
+set smartcasee
 
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
