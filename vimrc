@@ -20,9 +20,10 @@ call vundle#rc()
 " Syntax highlighting FTW
 syntax on
 
-" Vundle Bundles
 Plugin 'gmarik/vundle'
+" Vundle Bundles
 Plugin 'StripWhiteSpaces'
+Plugin 'ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'surround.vim'
 Plugin 'tComment'
@@ -30,6 +31,7 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
+
 
 " Setting Spacing and Indent (plus line no)
 set nu
