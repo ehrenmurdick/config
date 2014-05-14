@@ -27,9 +27,12 @@ Plugin 'ack.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'surround.vim'
 Plugin 'tComment'
+Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-repeat'
 Plugin 'vim-ruby/vim-ruby'
 
 
