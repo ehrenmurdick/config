@@ -20,11 +20,14 @@ call vundle#rc()
 " Syntax highlighting FTW
 syntax on
 
+
 Plugin 'gmarik/vundle'
 " Vundle Bundles
 Plugin 'StripWhiteSpaces'
 Plugin 'ack.vim'
+Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
+Plugin 'slim-template/vim-slim'
 Plugin 'surround.vim'
 Plugin 'tComment'
 Plugin 'tacahiroy/ctrlp-funky'
@@ -34,7 +37,6 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-ruby/vim-ruby'
-
 
 " Setting Spacing and Indent (plus line no)
 set nu
@@ -116,3 +118,15 @@ let g:rspec_runner = "os_x_iterm"
 
 " keep the buffer in sync with filesystem without prompting
 set autoread
+
+set cursorline
+set cursorcolumn
+
+
+let g:ctrlp_extensions = ['funky']
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+" open specs for current file in new tab
+noremap <Leader>a :tabe %<Cr> :A<Cr>
