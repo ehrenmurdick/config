@@ -1,4 +1,5 @@
 " GUI vim options
-set guioptions-=t
+set guifont=Monaco:h16
 set guioptions-=T
 set guioptions-=r
+set guioptions-=t
