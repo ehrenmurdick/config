@@ -17,6 +17,7 @@ call vundle#rc()
 
 Plugin 'gmarik/vundle'
 " Vundle Bundles
+Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
 Plugin 'ack.vim'
 Plugin 'godlygeek/tabular.git'
@@ -42,7 +43,7 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-colors desert
+colors solarized
 filetype plugin indent on
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
