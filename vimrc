@@ -43,7 +43,10 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
+syntax enable
+set background=dark
 colors solarized
+
 filetype plugin indent on
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
@@ -81,7 +84,6 @@ set viminfo^=! " make project list persist across restarts
 set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
-syntax on
 
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
@@ -94,14 +96,13 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 " open specs for current file in new tab
 noremap <Leader>a :tabe %<Cr> :A<Cr>
 
-hi CursorColumn guibg=#302332
-hi CursorLine   guibg=#302332
-hi Error        guibg=#744A49
-hi IncSearch    gui=underline
-hi IncSearch    guibg=#141321
-hi IncSearch    guifg=#66418C
-hi Pmenu        guibg=#000000
-hi Search       gui=NONE
-hi Search       guibg=#141321
-hi Search       guifg=#66418C
-
+" hi CursorColumn guibg=#302332
+" hi CursorLine   guibg=#302332
+" hi Error        guibg=#744A49
+" hi IncSearch    gui=underline
+" hi IncSearch    guibg=#141321
+" hi IncSearch    guifg=#66418C
+" hi Pmenu        guibg=#000000
+" hi Search       gui=NONE
+" hi Search       guibg=#141321
+" hi Search       guifg=#66418C
