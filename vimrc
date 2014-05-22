@@ -95,14 +95,3 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " open specs for current file in new tab
 noremap <Leader>a :tabe %<Cr> :A<Cr>
-
-" hi CursorColumn guibg=#302332
-" hi CursorLine   guibg=#302332
-" hi Error        guibg=#744A49
-" hi IncSearch    gui=underline
-" hi IncSearch    guibg=#141321
-" hi IncSearch    guifg=#66418C
-" hi Pmenu        guibg=#000000
-" hi Search       gui=NONE
-" hi Search       guibg=#141321
-" hi Search       guifg=#66418C
