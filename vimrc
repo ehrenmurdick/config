@@ -44,7 +44,7 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-map <Leader>/ :nohl<CR>
+map <Esc> :nohl<CR>
 
 syntax enable
 set background=dark
