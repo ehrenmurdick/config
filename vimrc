@@ -9,6 +9,7 @@ if !filereadable(vundle_readme)
     let iCanHazVundle=0
 endif
 
+
 " Pre-Vundle Setup
 set nocompatible
 filetype off
@@ -19,9 +20,9 @@ Plugin 'gmarik/vundle'
 " Vundle Bundles
 Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
-Plugin 'ack.vim'
 Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
 Plugin 'slim-template/vim-slim'
 Plugin 'surround.vim'
 Plugin 'tComment'
@@ -85,13 +86,10 @@ set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
+let g:agprg="ag --column --smart-case"
+
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
 
 let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
-" open specs for current file in new tab
-noremap <Leader>a :tabe %<Cr> :A<Cr>
+nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
