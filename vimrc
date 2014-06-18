@@ -44,7 +44,7 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-map <Esc> :nohl<CR>
+nnoremap <Esc> :nohl<CR>
 
 syntax enable
 set background=dark
@@ -95,3 +95,6 @@ let g:rspec_runner = "os_x_iterm"
 
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+" run matchit.vim to enable using % to navigate ruby do...end
+runtime! macros/matchit.vim
