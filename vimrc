@@ -44,7 +44,9 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-nnoremap <Esc> :nohl<CR>
+augroup no_highlight
+  autocmd TermResponse * noremap <Esc> :nohl<CR>
+augroup END
 
 syntax enable
 set background=dark
