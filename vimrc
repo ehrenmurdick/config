@@ -44,9 +44,15 @@ map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 
-augroup no_highlight
-  autocmd TermResponse * noremap <Esc> :nohl<CR>
-augroup END
+
+if has('gui')
+  nnoremap <silent> <Esc> :nohl<CR><Esc>
+elseif
+  augroup no_highlight
+    autocmd TermResponse * noremap <Esc> :nohl<CR>
+  augroup END
+end
+
 
 syntax enable
 set background=dark
