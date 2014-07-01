@@ -72,6 +72,7 @@ set hls
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
 set incsearch " turn on incremental search
+set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 set nocompatible " errybody does it
 set nowrap
 set number " show line numbers
