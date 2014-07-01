@@ -102,7 +102,8 @@ let g:agprg="ag --column --smart-case"
 let g:rspec_runner = "os_x_iterm"
 
 let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fu :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+nnoremap <Leader>f :CtrlPFunky<Cr>
 
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
