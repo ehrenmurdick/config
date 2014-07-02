@@ -1,4 +1,4 @@
-# My vim config
+# My ~~vim~~ config files
 
 ## install
 
