@@ -56,9 +56,7 @@ set backspace=indent,eol,start " make backspace always work
 set cursorcolumn
 set cursorline
 set directory=/var/tmp//
-set expandtab
 set expandtab " use soft tab for tab key
-set gdefault
 set hls
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
@@ -88,10 +86,10 @@ set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
-let g:agprg="ag --column --smart-case"
 
-" run vim-rspec in iTerm
-let g:rspec_runner = "os_x_iterm"
+imap %% <%=  %><Left><Left><Left>
+
+let g:agprg="ag --column --smart-case"
 
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
