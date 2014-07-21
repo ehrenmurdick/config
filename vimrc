@@ -86,6 +86,9 @@ set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
+  
+" run vim-rspec in iTerm
+let g:rspec_runner = "os_x_iterm"
 
 imap %% <%=  %><Left><Left><Left>
 
