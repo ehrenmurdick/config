@@ -79,20 +79,21 @@ set sw=2 " soft tab width in spaces
 set t_Co=256
 set tabstop=2
 set tags+=gems.tags
-set tildeop
 set ts=2
 set viminfo^=! " make project list persist across restarts
 set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
-  
+
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
 
 imap %% <%=  %><Left><Left><Left>
 
 let g:agprg="ag --column --smart-case"
+
+map <Leader>p :let @" = expand("%")<CR>
 
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
