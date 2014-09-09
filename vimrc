@@ -22,6 +22,7 @@ Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
 Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
+Plugin 'rails.vim'
 Plugin 'rking/ag.vim'
 Plugin 'slim-template/vim-slim'
 Plugin 'surround.vim'
@@ -31,7 +32,6 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
@@ -62,6 +62,7 @@ set hls
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
 set incsearch " turn on incremental search
+set iskeyword+=-
 set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 set nocompatible " errybody does it
 set nowrap
@@ -99,6 +100,8 @@ map <Leader>p :let @" = expand("%")<CR>
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 nnoremap <Leader>f :CtrlPFunky<Cr>
+
+nnoremap <Leader>- :set iskeyword+=-<CR>
 
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
