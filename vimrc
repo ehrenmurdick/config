@@ -22,8 +22,7 @@ Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
 Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
-Plugin 'rails.vim'
-Plugin 'rking/ag.vim'
+Plugin 'mileszs/ack.vim'
 Plugin 'slim-template/vim-slim'
 Plugin 'surround.vim'
 Plugin 'tComment'
@@ -103,6 +102,7 @@ nnoremap <Leader>u :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 nnoremap <Leader>f :CtrlPFunky<Cr>
 
 nnoremap <Leader>- :set iskeyword+=-<CR>
+nnoremap <Leader>? :set iskeyword+=?<CR>
 
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
