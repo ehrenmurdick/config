@@ -9,5 +9,5 @@ Remember to read the source of scripts you find online before running them!
 
 This will:
 
-- copy the rc files to your machine, prompting for overwrites
+- copy the rc files to your machine, backing up overwrites
 - run BundleInstall in vim
