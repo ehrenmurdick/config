@@ -20,6 +20,7 @@ Plugin 'gmarik/vundle'
 " Vundle Bundles
 Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
@@ -108,11 +109,9 @@ nnoremap <Leader>? :set iskeyword+=?<CR>
 runtime! macros/matchit.vim
 
 function! ToggleBackground()
-  if (w:solarized_style=="dark")
-    let w:solarized_style="light"
-    colorscheme solarized
+  if (g:colors_name=="solarized")
+    colorscheme twilight
   else
-    let w:solarized_style="dark"
     colorscheme solarized
   endif
 endfunction
