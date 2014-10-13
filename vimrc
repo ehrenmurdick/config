@@ -105,6 +105,8 @@ nnoremap <Leader>f :CtrlPFunky<Cr>
 nnoremap <Leader>- :set iskeyword+=-<CR>
 nnoremap <Leader>? :set iskeyword+=?<CR>
 
+nnoremap <Leader>g :Ack <cword><CR>
+
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
 
@@ -119,3 +121,5 @@ command! Togbg call ToggleBackground()
 nnoremap <F5> :call ToggleBackground()<CR>
 inoremap <F5> <ESC>:call ToggleBackground()<CR>a
 vnoremap <F5> <ESC>:call ToggleBackground()<CR>
+
+autocmd BufEnter * :syntax sync fromstart
