@@ -1,5 +1,5 @@
 url() {
-  echo "https://raw.githubusercontent.com/ehrenmurdick/config/master/$1"
+  echo "https://raw.githubusercontent.com/ehrenmurdick/config/english/$1"
 }
 
 install() {
