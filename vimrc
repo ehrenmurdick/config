@@ -36,6 +36,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'reedes/vim-pencil'
 
 " Remap the leader key
 :let mapleader = ','
@@ -123,3 +124,4 @@ vnoremap <F5> <ESC>:call ToggleBackground()<CR>
 autocmd BufEnter * :syntax sync fromstart
 
 set tw=80
+SoftPencil
