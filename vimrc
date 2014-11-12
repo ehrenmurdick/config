@@ -92,8 +92,6 @@ set wildmode=longest,list,full
 " run vim-rspec in iTerm
 let g:rspec_runner = "os_x_iterm"
 
-imap %% <%=  %><Left><Left><Left>
-
 let g:agprg="ag --column --smart-case"
 
 map <Leader>p :let @" = expand("%")<CR>
@@ -123,3 +121,5 @@ inoremap <F5> <ESC>:call ToggleBackground()<CR>a
 vnoremap <F5> <ESC>:call ToggleBackground()<CR>
 
 autocmd BufEnter * :syntax sync fromstart
+
+set tw=80
