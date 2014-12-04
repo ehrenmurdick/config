@@ -3,6 +3,7 @@
 ## install
 
 Oneline
+
 `curl -s https://raw.githubusercontent.com/ehrenmurdick/config/master/install.sh | sh`
 
 Remember to read the source of scripts you find online before running them!
