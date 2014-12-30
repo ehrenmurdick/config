@@ -110,6 +110,11 @@ nnoremap <Leader>g :Ack <cword><CR>
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
 
+" Ctrl-P custom ignore: do not scan the vendor folder (for large Rails projects)
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](vendor)$',
+  \ }
+
 function! ToggleBackground()
   if (g:colors_name=="solarized")
     colorscheme twilight
