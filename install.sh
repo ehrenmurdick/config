@@ -23,6 +23,7 @@ safeInstall() {
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
 safeInstall 'irbrc'
+safeInstall 'ackrc'
 
 echo 'Installing bundles...'
 vim +PluginInstall +qa
