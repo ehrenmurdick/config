@@ -112,7 +112,7 @@ runtime! macros/matchit.vim
 
 " Ctrl-P custom ignore: do not scan the vendor folder (for large Rails projects)
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](vendor)$',
+  \ 'dir':  '\v[\/](vendor)|(tmp)$'
   \ }
 
 function! ToggleBackground()
