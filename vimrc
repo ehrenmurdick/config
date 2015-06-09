@@ -49,14 +49,12 @@ map <Leader>/ :nohl<CR>
 
 syntax enable
 set background=dark
-colors solarized
+colorscheme solarized
 
 filetype plugin indent on
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
 set backspace=indent,eol,start " make backspace always work
-set cursorcolumn
-set cursorline
 set directory=/var/tmp//
 set expandtab " use soft tab for tab key
 set hls
