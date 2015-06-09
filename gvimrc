@@ -12,3 +12,6 @@ set guioptions-=l
 nnoremap <silent> <Esc> :nohl<CR><Esc>
 
 set noballooneval
+
+set cursorcolumn
+set cursorline
