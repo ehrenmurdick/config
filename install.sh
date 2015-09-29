@@ -28,3 +28,7 @@ safeInstall 'ackrc'
 echo 'Installing bundles...'
 vim +PluginInstall +qa
 echo
+
+echo 'Razer Synapse...'
+brew cask install razer-synapse
+echo
