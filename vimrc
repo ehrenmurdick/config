@@ -20,6 +20,7 @@ Plugin 'gmarik/vundle'
 " Vundle Bundles
 Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
+Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'godlygeek/tabular.git'
 Plugin 'kien/ctrlp.vim'
@@ -41,11 +42,14 @@ Plugin 'vim-ruby/vim-ruby'
 :let mapleader = ','
 
 " Rspec keyboard shortcuts
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-map <Leader>/ :nohl<CR>
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
+" map <Leader>/ :nohl<CR>
+
+" Golang shortcuts
+map <Leader>a :%!goimports<CR>
 
 syntax enable
 set background=dark
