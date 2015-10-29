@@ -25,10 +25,6 @@ safeInstall 'gvimrc'
 safeInstall 'irbrc'
 safeInstall 'ackrc'
 
-echo 'Razer Synapse...'
-brew cask install razer-synapse
-echo
-
 echo 'Installing bundles...'
 vim +PluginInstall +qa
 echo
