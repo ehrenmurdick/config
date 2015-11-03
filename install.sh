@@ -20,6 +20,14 @@ safeInstall() {
   return 0;
 }
 
+gitConfig() {
+  git config --global alias.st status
+  git config --global alias.co checkout
+  git config --global alias.di duet-commit
+  git config --global alias.lola "log --oneline --decorate --all"
+  git config --global core.editor /usr/bin/vim
+}
+
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
 safeInstall 'irbrc'
@@ -28,3 +36,6 @@ safeInstall 'ackrc'
 echo 'Installing bundles...'
 vim +PluginInstall +qa
 echo
+
+echo "Configuring git to not suck..."
+gitConfig
