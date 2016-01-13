@@ -1,5 +1,5 @@
 " GUI vim options
-set guifont=Monaco:h16
+set guifont=Monaco:h11
 set guioptions-=T
 set guioptions-=t
 
@@ -11,7 +11,7 @@ set guioptions-=l
 
 nnoremap <silent> <Esc> :nohl<CR><Esc>
 
-set noballooneval
-
 set cursorcolumn
 set cursorline
+
+autocmd BufEnter * :set noballooneval
