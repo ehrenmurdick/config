@@ -118,16 +118,23 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](vendor)|(tmp)$'
   \ }
 
-function! ToggleBackground()
-  if (g:colors_name=="solarized")
-    colorscheme twilight
-  else
-    colorscheme solarized
-  endif
-endfunction
-command! Togbg call ToggleBackground()
-nnoremap <F5> :call ToggleBackground()<CR>
-inoremap <F5> <ESC>:call ToggleBackground()<CR>a
-vnoremap <F5> <ESC>:call ToggleBackground()<CR>
-
 autocmd BufEnter * :syntax sync fromstart
+
+" mapping to make movements operate on 1 screen line in wrap mode
+function! ScreenMovement(movement)
+   if &wrap
+      return "g" . a:movement
+   else
+      return a:movement
+   endif
+endfunction
+onoremap <silent> <expr> j ScreenMovement("j")
+onoremap <silent> <expr> k ScreenMovement("k")
+onoremap <silent> <expr> 0 ScreenMovement("0")
+onoremap <silent> <expr> ^ ScreenMovement("^")
+onoremap <silent> <expr> $ ScreenMovement("$")
+nnoremap <silent> <expr> j ScreenMovement("j")
+nnoremap <silent> <expr> k ScreenMovement("k")
+nnoremap <silent> <expr> 0 ScreenMovement("0")
+nnoremap <silent> <expr> ^ ScreenMovement("^")
+nnoremap <silent> <expr> $ ScreenMovement("$")
