@@ -23,6 +23,7 @@ Plugin 'StripWhiteSpaces'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'godlygeek/tabular.git'
+Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
@@ -38,6 +39,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
+
 
 " Remap the leader key
 :let mapleader = ','
