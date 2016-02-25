@@ -57,7 +57,7 @@ map <Leader>a :%!goimports<CR>
 
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme smyck
 
 filetype plugin indent on
 set autoindent " copy indent from current line for new line
