@@ -23,7 +23,7 @@ safeInstall() {
 gitConfig() {
   git config --global alias.st status
   git config --global alias.co checkout
-  git config --global alias.di duet-commit
+  git config --global alias.dci duet-commit
   git config --global core.editor /usr/bin/vim
   git config --global alias.lola "log --graph --decorate --pretty=oneline --abbrev-commit"
 }
@@ -38,4 +38,4 @@ vim +PluginInstall +qa
 echo
 
 echo "Configuring git to not suck..."
-gitConfig
+gitConfig()
