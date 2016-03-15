@@ -20,13 +20,13 @@ safeInstall() {
   return 0;
 }
 
-gitConfig() {
-  git config --global alias.st status
-  git config --global alias.co checkout
-  git config --global alias.dci duet-commit
-  git config --global core.editor /usr/bin/vim
-  git config --global alias.lola "log --graph --decorate --pretty=oneline --abbrev-commit"
-}
+echo "Configuring git to not suck..."
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.dci duet-commit
+git config --global core.editor /usr/bin/vim
+git config --global alias.lola "log --graph --decorate --pretty=oneline --abbrev-commit"
+git config --global alias.story '!f() { n=$1; story=$(sed -e "s/#//" <<< $n); branch=$(git branch -a | grep -o "$story[-_a-zA-Z]*" | head -n 1); git checkout $branch; }; f'
 
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
@@ -37,5 +37,3 @@ echo 'Installing bundles...'
 vim +PluginInstall +qa
 echo
 
-echo "Configuring git to not suck..."
-gitConfig()
