@@ -53,6 +53,12 @@ else
     brew update
 fi
 
+echo 'install ack...'
+brew install ack
+
+echo 'install dockutil...'
+brew install dockutil
+
 which -s rbenv
 if [[ $? != 0 ]] ; then
   echo 'Installing rbenv...'
@@ -67,6 +73,12 @@ safeInstall 'gvimrc'
 safeInstall 'irbrc'
 safeInstall 'ackrc'
 safeInstall 'bash_profile'
+
+echo 'update some bash-it'
+bash-it enable plugin fasd
+bash-it enable completion fasd
+bash-it enable completion git
+bash-it enable completion rake
 
 echo 'Installing bundles...'
 vim +PluginInstall +qa
