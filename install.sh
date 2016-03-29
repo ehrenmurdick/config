@@ -56,7 +56,7 @@ echo 'Installing rbenv...'
 brew install rbenv
 
 echo 'Cloning bash-it...'
-safeClone 'https://github.com/Bash-it/bash-it.git' '~/.bash_it'
+safeClone 'https://github.com/Bash-it/bash-it.git' ~/.bash_it
 
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
