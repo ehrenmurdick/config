@@ -16,7 +16,7 @@ backup() {
 }
 
 safeClone() {
-  if [ ! -f $2 ]; then
+  if [ ! -d $2 ]; then
     git clone $1 $2
   fi
 }
@@ -42,18 +42,22 @@ git config --global alias.cb "rev-parse --abbrev-ref HEAD"
 git config --global core.excludesfile '~/.gitignore_global'
 git config --global alias.ci commit
 
-echo 'Install homebrew...'
 which -s brew
 if [[ $? != 0 ]] ; then
+    echo 'Install homebrew...'
     # Install Homebrew
     # https://github.com/mxcl/homebrew/wiki/installation
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
+    echo 'Update homebrew...'
     brew update
 fi
 
-echo 'Installing rbenv...'
-brew install rbenv
+which -s rbenv
+if [[ $? != 0 ]] ; then
+  echo 'Installing rbenv...'
+  brew install rbenv
+fi
 
 echo 'Cloning bash-it...'
 safeClone 'https://github.com/Bash-it/bash-it.git' ~/.bash_it
