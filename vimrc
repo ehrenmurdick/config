@@ -20,6 +20,7 @@ Plugin 'gmarik/vundle'
 " Vundle Bundles
 Plugin 'Solarized'
 Plugin 'StripWhiteSpaces'
+Plugin 'alvan/vim-closetag'
 Plugin 'brendonrapp/smyck-vim'
 Plugin 'fatih/vim-go'
 Plugin 'flazz/vim-colorschemes'
