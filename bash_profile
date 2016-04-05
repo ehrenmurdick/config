@@ -31,8 +31,6 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 
 eval "$(rbenv init -)"
 
-alias j='fasd -d $1 -e cd'
-
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
