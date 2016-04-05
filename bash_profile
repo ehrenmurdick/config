@@ -34,3 +34,5 @@ eval "$(rbenv init -)"
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+alias o='fasd -f $1 -e open'
