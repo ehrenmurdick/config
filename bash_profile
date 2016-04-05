@@ -36,3 +36,4 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 alias o='fasd -f $1 -e open'
+alias v='fasd -f ind -e "mvim --remote-tab"'
