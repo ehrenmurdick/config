@@ -37,3 +37,4 @@ fi
 
 alias o='fasd -f $1 -e open'
 alias v='fasd -f $1 -e "mvim --remote-tab 1>/dev/null 2>&1"'
+alias l='fasd -f $1 -e "less -R"'
