@@ -36,6 +36,7 @@ git config --global alias.st status
 git config --global alias.story '!f() { n=$1; story=$(sed -e "s/#//" <<< $n); branch=$(git branch -a | grep -o "$story[-_a-zA-Z]*" | head -n 1); git checkout $branch; }; f'
 git config --global core.editor /usr/bin/vim
 git config --global core.excludesfile '~/.gitignore_global'
+git config --global alias.pf "pull --ff-only"
 
 which -s brew
 if [[ $? != 0 ]] ; then
