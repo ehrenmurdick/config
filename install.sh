@@ -38,26 +38,6 @@ git config --global core.editor /usr/bin/vim
 git config --global core.excludesfile '~/.gitignore_global'
 git config --global alias.pf "pull --ff-only"
 
-which -s brew
-if [[ $? != 0 ]] ; then
-    echo 'You must install homebrew'
-    echo 'http://brew.sh'
-    exit 1
-fi
-
-echo 'install ack...'
-brew install ack
-
-echo 'install dockutil...'
-brew install dockutil
-
-which -s rbenv
-if [[ $? != 0 ]] ; then
-  echo 'You must install rbenv'
-  echo 'brew install rbenv'
-  exit 1
-fi
-
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
 safeInstall 'irbrc'
