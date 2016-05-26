@@ -37,7 +37,7 @@ git config --global alias.story '!f() { n=$1; story=$(sed -e "s/#//" <<< $n); br
 git config --global core.editor /usr/bin/vim
 git config --global core.excludesfile '~/.gitignore_global'
 git config --global alias.pf "pull --ff-only"
-git config --global alias.sn "!f() { git show-branch --color=always | less -R }; f"
+git config --global alias.sn "!git show-branch --color=always | less -R"
 safeInstall 'vimrc'
 safeInstall 'gvimrc'
 safeInstall 'irbrc'
