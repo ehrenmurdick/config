@@ -43,6 +43,7 @@ safeInstall 'gvimrc'
 safeInstall 'irbrc'
 safeInstall 'ackrc'
 safeInstall 'bash_profile'
+safeInstall 'inputrc'
 
 echo 'Installing bundles...'
 vim +PluginInstall +qa
