@@ -29,6 +29,9 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'kien/ctrlp.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'
+Plugin 'rakr/vim-one'
 Plugin 'slim-template/vim-slim'
 Plugin 'surround.vim'
 Plugin 'tComment'
@@ -58,7 +61,7 @@ map <Leader>a :%!goimports<CR>
 
 syntax enable
 set background=dark
-colorscheme smyck
+colorscheme sand
 
 filetype plugin indent on
 set autoindent " copy indent from current line for new line
@@ -119,7 +122,7 @@ runtime! macros/matchit.vim
 
 " Ctrl-P custom ignore: do not scan the vendor folder (for large Rails projects)
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](vendor)|(tmp)$'
+  \ 'dir':  '\v[\/](vendor)|(tmp)|(node_modules)$'
   \ }
 
 autocmd BufEnter * :syntax sync fromstart
@@ -148,3 +151,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 nnoremap <silent> <expr> $ ScreenMovement("$")
+
+
+nmap <leader>, :CtrlP<CR><C-\>w
