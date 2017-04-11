@@ -154,3 +154,4 @@ nnoremap <silent> <expr> $ ScreenMovement("$")
 
 
 nmap <leader>, :CtrlP<CR><C-\>w
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx"
