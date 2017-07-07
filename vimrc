@@ -44,6 +44,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'vim-coffee-script'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'mbbill/undotree'
 
 
 " Remap the leader key
