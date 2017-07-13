@@ -156,3 +156,21 @@ nnoremap <silent> <expr> $ ScreenMovement("$")
 
 nmap <leader>, :CtrlP<CR><C-\>w
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.js,*.jsx"
+
+
+function! ToggleTest()
+  let s:fullpath = expand('%:p')
+
+  if match(s:fullpath, "app") + 1
+    let s:bar = substitute(s:fullpath, "app", "spec", "")
+    let s:bar = substitute(s:bar, ".js", ".test.js", "")
+  else
+    let s:bar = substitute(s:fullpath, "spec", "app", "")
+    let s:bar = substitute(s:bar, ".test.js", ".js", "")
+  endif
+  echo (s:bar)
+  silent execute('edit '.s:bar)
+endfunction
+
+" nnoremap <Leader>t :call ToggleTest()<cr>
+
