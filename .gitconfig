@@ -1,0 +1,18 @@
+[alias]
+	cb = rev-parse --abbrev-ref HEAD
+	ci = commit
+	co = checkout
+	dci = duet-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit
+	pl = pull --ff-only
+	st = status
+	story = "!f() { n=$1; story=$(sed -e \"s/#//\" <<< $n); branch=$(git branch -a | grep -o \"$story[-_a-zA-Z]*\" | head -n 1); git checkout $branch; }; f"
+	pf = pull --ff-only
+	sn = !git show-branch --color=always | less -R
+[core]
+	editor = /usr/bin/nvim
+	excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[user]
+	email = ehren.murdick@gmail.com
+	name = Ehren Murdick
