@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/home/ehren/workspace/findSisterhood-mobile/android/app/src/main/assets'
-let g:netrw_dirhist_2='/home/ehren/workspace/findSisterhood-mobile/src'
-let g:netrw_dirhist_3='/home/ehren/workspace/findSisterhood-mobile/src/flow-typed'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/ehren/workspace/fs-backend/db/migrations'
+let g:netrw_dirhist_2='/home/ehren/workspace/fs-mobile/scripts'
+let g:netrw_dirhist_3='/home/ehren/workspace/fs-expert-portal/src'
+let g:netrw_dirhist_4='/home/ehren/workspace/fs-expert-portal/src/components'
+let g:netrw_dirhist_5='/home/ehren/workspace/purescript-oak/src'

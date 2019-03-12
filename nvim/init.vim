@@ -3,21 +3,21 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dag/vim-fish'
-Plug 'elmcast/elm-vim'
-Plug 'exu/pgsql.vim'
-Plug 'fatih/vim-go'
+Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'exu/pgsql.vim', { 'for': 'sql' }
+Plug 'fatih/vim-go', { 'for': 'golang' }
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
-Plug 'idris-hackers/idris-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
+Plug 'mileszs/ack.vim'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'powerline/powerline'
-Plug 'purescript-contrib/purescript-vim'
+Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 Plug 'rakr/vim-one'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
@@ -29,6 +29,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
+Plug 'w0rp/ale'
 Plug 'wilsaj/chuck.vim'
 
 call plug#end()
@@ -107,10 +108,13 @@ nnoremap <silent> <Leader>r :e %<CR>
 
 nnoremap <silent> <Leader>n :tabn<CR>
 nnoremap <silent> <Leader>p :tabp<CR>
+nnoremap <silent> T :tabn<cr>
+nnoremap <silent> K :tabp<cr>
 
 nnoremap <silent> <Leader>m :wincmd w<CR>
 
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+
 
 noremap <F3> :Neoformat<CR>
 
@@ -155,3 +159,21 @@ let g:neoformat_enabled_json = ['jq']
 
 " syntax for .cfdg files
 au BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
+
+" Limit linters used for JavaScript.
+let g:ale_linters = { 'javascript': ['flow', 'eslint'] }
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+let g:ale_sign_error = 'X' " could use emoji
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+" %linter% is the name of the linter that provided the message
+" %s is the error or warning message
+let g:ale_echo_msg_format = '%linter% says %s'
+" Map keys to navigate between lines with errors and warnings.
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
+
+
+" keep the gutter open all the time
+let g:ale_sign_column_always = 1
