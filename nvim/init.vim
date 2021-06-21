@@ -1,8 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" Plug 'mpickering/hlint-refactor-vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
@@ -10,8 +12,11 @@ Plug 'fatih/vim-go', { 'for': 'golang' }
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/emmet-vim'
+Plug 'maxbane/vim-asm_ca65'
 Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -21,6 +26,8 @@ Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 Plug 'rakr/vim-one'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
+Plug 'sirtaj/vim-openscad'
+Plug 'skwp/vim-html-escape'
 Plug 'slim-template/vim-slim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
@@ -33,6 +40,7 @@ Plug 'w0rp/ale'
 Plug 'wilsaj/chuck.vim'
 
 call plug#end()
+
 
 let mapleader=','
 
@@ -81,12 +89,11 @@ runtime! macros/matchit.vim
 let g:javascript_plugin_flow = 1
 " let g:jsx_ext_required = 0
 
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/](vendor)|(tmp)|(node_modules)|(output)|(bower_components)$'
-      \ }
+autocmd bufenter * :syntax sync fromstart
+" autocmd bufenter dockerfile* :setf dockerfile
 
-autocmd BufEnter * :syntax sync fromstart
-" autocmd BufEnter Dockerfile* :setf dockerfile
+autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
+autocmd BufEnter *.s :set ft=asm_ca65
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -94,18 +101,16 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+nnoremap \ ,
+
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
 nnoremap <Leader>c :CloseTagToggleBuffer<CR>
 
 
 nnoremap <silent> <Esc> :nohl<CR><Esc>
 
-nnoremap <silent> <Leader>s :StripWhitespace<CR><Esc>
-
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>q :q<CR>
-nnoremap <silent> <Leader>r :e %<CR>
-
 nnoremap <silent> <Leader>n :tabn<CR>
 nnoremap <silent> <Leader>p :tabp<CR>
 nnoremap <silent> T :tabn<cr>
@@ -115,8 +120,12 @@ nnoremap <silent> <Leader>m :wincmd w<CR>
 
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 
+nnoremap <silent> <c-s> :StripWhitespace<cr>
+nnoremap <a-[> :tabp<cr>
+nnoremap <a-]> :tabn<cr>
 
-noremap <F3> :Neoformat<CR>
+
+noremap <F3> :Neoformat<cr>
 
 vnoremap s :sort<CR>
 
@@ -124,7 +133,6 @@ function Hfmt()
   silent! !hfmt -w <afile>
   edit
 endfunction
-autocmd BufWritePost *.hs call Hfmt()
 
 " let g:lightline = {
 "     \ 'active': {
@@ -153,15 +161,56 @@ highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 
 
-let g:neoformat_enabled_javascript = ['eslint_d']
+" let g:neoformat_enabled_javascript = ['eslint_d']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
+
+
+let g:neoformat_ruby_prettier = {
+            \ 'args': ['--parser ruby'],
+            \ 'exe': '/home/ehren/.config/yarn/bin/prettier',
+            \ }
+
+let g:neoformat_enabled_ruby = ['prettier']
 
 
 " syntax for .cfdg files
 au BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
 
 " Limit linters used for JavaScript.
-let g:ale_linters = { 'javascript': ['flow', 'eslint'] }
+let g:ale_linters = {
+            \ 'javascript': ['flow', 'eslint'],
+            \ 'ruby': [],
+            \ 'eruby': [],
+            \ 'asm': [],
+            \ 'haskell': ['stack-ghc', 'hlint'],
+            \ 'sdcc': []
+            \ }
+
+let g:ale_fixers = {
+            \ 'haskell': ['brittany', 'hlint', 'remove_trailing_lines', 'trim_whitespace'],
+            \ 'javascript': ['prettier'],
+            \ 'javascript.jsx': ['prettier'],
+            \ 'ruby': ['prettier'],
+            \ 'sdcc': ['clang-format'],
+            \ 'scad': ['remove_trailing_lines', 'trim_whitespace'],
+            \ '*': ['remove_trailing_lines', 'trim_whitespace']
+            \ }
+
+hi x018_DarkBlue ctermfg=18 guifg=#000087
+
+highlight ALEWarning NONE
+" highlight ALEWarning ctermbg=5
+
+
+let g:ale_completion_enabled = 1
+nnoremap <F4> :ALEComplete<cr>
+noremap <F4> :ALEComplete<cr>
+
+set splitbelow
+set splitright
+
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
@@ -174,6 +223,26 @@ let g:ale_echo_msg_format = '%linter% says %s'
 nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 
+map! <leader>% <%= %>
+
+nnoremap <c-p> :FZF<cr>
+
 
 " keep the gutter open all the time
 let g:ale_sign_column_always = 1
+
+let g:ale_pattern_options = {
+      \ '\.avr\.c$': {'ale_linters': ['gcc-avr'],
+      \ 'ale_fixers': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace']},
+      \ 'jsx$': {'ale_fixers': ['prettier']}
+      \}
+
+" let g:neoformat_verbose = 1
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+packadd! matchit
+
+
+imap <c-t> <plug>(fzf-complete-path)
