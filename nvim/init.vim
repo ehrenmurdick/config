@@ -1,6 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'mpickering/hlint-refactor-vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'alvan/vim-closetag'
@@ -19,6 +18,7 @@ Plug 'mattn/emmet-vim'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
+Plug 'mpickering/hlint-refactor-vim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'powerline/powerline'
@@ -48,38 +48,47 @@ syntax enable
 
 filetype on
 filetype plugin indent on
+
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
-set backspace=indent,eol,start " make backspace always work
+set backspace=1 " weaken backspace, use the correct vim commands!
+set cursorcolumn
+set cursorline
 set directory=/var/tmp//
 set expandtab " use soft tab for tab key
-set hls
+set hls " hilight search
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
 set incsearch " turn on incremental search
 set iskeyword+=-
 set iskeyword+=? " include ? in words for movement/highlighting/<cword>
+set linebreak
 set nocompatible " errybody does it
+set nolist
+set novisualbell
 set nowrap
+set nowrapscan
 set number " show line numbers
 set ruler " turn on line at the bottom right of the window
 set rulerformat=%c\ %l\/%L " column current_line/total_lines
-set scrolloff=8 " always show 8 lines of context
+set scrolloff=8 " always show n lines of context
+set shada^=! " make metadata persist across restarts
+set shiftround " When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
 set shiftwidth=2
+set showcmd " put COMMAND in the status line in cmd mode
 set showtabline=2 " Always show the tab bar
+set sidescrolloff=4 " always show n cols of context
 set sm " show matching braces
 set smartcase
 set suffixesadd=.css
 set suffixesadd=.js
 set suffixesadd=.rb
-set cursorline
-set cursorcolumn
 set sw=2 " soft tab width in spaces
 set t_Co=256
 set tabstop=2
+set textwidth=80
+set tildeop
 set ts=2
-set viminfo^=! " make project list persist across restarts
-set visualbell t_vb= " turn off visualbell
 set wildmenu
 set wildmode=longest,list,full
 
