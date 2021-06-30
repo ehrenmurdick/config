@@ -1,7 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
@@ -10,13 +8,14 @@ Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'golang' }
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
+Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'mattn/emmet-vim'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'mbbill/undotree'
+Plug 'mg979/vim-visual-multi'
 Plug 'mileszs/ack.vim'
 Plug 'mpickering/hlint-refactor-vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -27,9 +26,11 @@ Plug 'rakr/vim-one'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
 Plug 'sirtaj/vim-openscad'
+Plug 'sirver/UltiSnips'
 Plug 'skwp/vim-html-escape'
 Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-abolish'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-abolish' " bash expansions for :S like :S/child{,ren}/adult{,s}
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
@@ -67,7 +68,7 @@ set nocompatible " errybody does it
 set nolist
 set novisualbell
 set nowrap
-set nowrapscan
+" set nowrapscan
 set number " show line numbers
 set ruler " turn on line at the bottom right of the window
 set rulerformat=%c\ %l\/%L " column current_line/total_lines
@@ -110,7 +111,7 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-nnoremap \ ,
+" nnoremap \ ,
 
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
 nnoremap <Leader>c :CloseTagToggleBuffer<CR>
@@ -212,11 +213,6 @@ hi x018_DarkBlue ctermfg=18 guifg=#000087
 highlight ALEWarning NONE
 " highlight ALEWarning ctermbg=5
 
-
-let g:ale_completion_enabled = 1
-nnoremap <F4> :ALEComplete<cr>
-noremap <F4> :ALEComplete<cr>
-
 set splitbelow
 set splitright
 
@@ -253,5 +249,27 @@ let g:fzf_buffers_jump = 1
 
 packadd! matchit
 
+" imap <c-t> <plug>(fzf-complete-path)
+nnoremap <leader>t :put =expand('%:p')<cr>
 
-imap <c-t> <plug>(fzf-complete-path)
+call expand_region#custom_text_objects({
+      \ "it": 1,
+      \ "at": 1,
+      \ "a}": 1,
+      \ "i}": 1,
+      \ })
+
+nnoremap <silent> <leader>c :call ToggleInsertCaps()<cr>
+inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
+
+
+let g:capsinsert = 0
+function! ToggleInsertCaps()
+      if g:capsinsert
+            set keymap=
+            let g:capsinsert = 0
+      else
+            set keymap=capsinsert
+            let g:capsinsert = 1
+      endif
+endfunction
