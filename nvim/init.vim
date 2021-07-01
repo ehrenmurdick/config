@@ -105,39 +105,41 @@ autocmd bufenter * :syntax sync fromstart
 autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
 autocmd BufEnter *.s :set ft=asm_ca65
 
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" nnoremap \ ,
-
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
-nnoremap <Leader>c :CloseTagToggleBuffer<CR>
 
 
-nnoremap <silent> <Esc> :nohl<CR><Esc>
+inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
+nnoremap <silent> <leader>c :call ToggleInsertCaps()<cr>
 
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <silent> <Leader>q :q<CR>
+nnoremap <silent> <leader>cn :cnext<cr>
+nnoremap <silent> <leader>cp :cprev<cr>
+nnoremap <silent> <leader>co :copen<cr>
+nnoremap <silent> <leader>cc :cclose<cr>
+
+nnoremap <leader>an :ALENextWrap<cr>
+nnoremap <leader>ap :ALEPreviousWrap<cr>
+nnoremap <leader>t :put =expand('%:p')<cr>
+nnoremap <silent> <Leader>m :wincmd w<CR>
 nnoremap <silent> <Leader>n :tabn<CR>
 nnoremap <silent> <Leader>p :tabp<CR>
-nnoremap <silent> T :tabn<cr>
-nnoremap <silent> K :tabp<cr>
-
-nnoremap <silent> <Leader>m :wincmd w<CR>
-
+nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+nnoremap <silent> <Leader>w :w<CR>
 
-nnoremap <silent> <c-s> :StripWhitespace<cr>
+nmap ga <Plug>(EasyAlign)
 nnoremap <a-[> :tabp<cr>
 nnoremap <a-]> :tabn<cr>
-
-
+nnoremap <c-p> :FZF<cr>
+nnoremap <silent> <Esc> :nohl<CR><Esc>
+nnoremap <silent> <c-s> :StripWhitespace<cr>
+nnoremap <silent> K :tabp<cr>
+nnoremap <silent> T :tabn<cr>
 noremap <F3> :Neoformat<cr>
-
 vnoremap s :sort<CR>
+xmap ga <Plug>(EasyAlign)
+
+
+
 
 function Hfmt()
   silent! !hfmt -w <afile>
@@ -188,6 +190,11 @@ let g:neoformat_enabled_ruby = ['prettier']
 " syntax for .cfdg files
 au BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
 
+
+
+
+au BufNewFile,BufRead *.jsx	setf javascript
+
 " Limit linters used for JavaScript.
 let g:ale_linters = {
             \ 'javascript': ['flow', 'eslint'],
@@ -224,14 +231,6 @@ let g:ale_statusline_format = ['X %d', '? %d', '']
 " %linter% is the name of the linter that provided the message
 " %s is the error or warning message
 let g:ale_echo_msg_format = '%linter% says %s'
-" Map keys to navigate between lines with errors and warnings.
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
-
-map! <leader>% <%= %>
-
-nnoremap <c-p> :FZF<cr>
-
 
 " keep the gutter open all the time
 let g:ale_sign_column_always = 1
@@ -249,19 +248,12 @@ let g:fzf_buffers_jump = 1
 
 packadd! matchit
 
-" imap <c-t> <plug>(fzf-complete-path)
-nnoremap <leader>t :put =expand('%:p')<cr>
-
 call expand_region#custom_text_objects({
       \ "it": 1,
       \ "at": 1,
       \ "a}": 1,
       \ "i}": 1,
       \ })
-
-nnoremap <silent> <leader>c :call ToggleInsertCaps()<cr>
-inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
-
 
 let g:capsinsert = 0
 function! ToggleInsertCaps()
@@ -273,3 +265,20 @@ function! ToggleInsertCaps()
             let g:capsinsert = 1
       endif
 endfunction
+
+let g:javascript_plugin_flow = 1
+
+:g/^\(.*\)$\n\1$/p
+
+function! HighlightRepeats()
+  :g/^\(.*\)$\n\1$/p
+endfunction
+
+command! HighlightRepeats :call HighlightRepeats()
+
+if executable("rg")
+      let g:ctrlp_user_command = 'rg --files --sort=none'
+      let g:ctrlp_use_caching = 0
+      set grepprg=rg\ --vimgrep\ --no-heading
+      set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
