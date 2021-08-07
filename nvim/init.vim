@@ -4,6 +4,7 @@ Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'euclidianAce/BetterLua.vim'
 Plug 'exu/pgsql.vim', { 'for': 'sql' }
 Plug 'fatih/vim-go', { 'for': 'golang' }
 Plug 'flazz/vim-colorschemes'
@@ -19,9 +20,11 @@ Plug 'mg979/vim-visual-multi'
 Plug 'mileszs/ack.vim'
 Plug 'mpickering/hlint-refactor-vim'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'nvim-lua/completion-nvim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'powerline/powerline'
 Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
+Plug 'rafcamlet/nvim-luapad'
 Plug 'rakr/vim-one'
 Plug 'sbdchd/neoformat'
 Plug 'sheerun/vim-polyglot'
@@ -30,6 +33,7 @@ Plug 'sirver/UltiSnips'
 Plug 'skwp/vim-html-escape'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-expand-region'
+Plug 'tjdevries/nlua.nvim'
 Plug 'tpope/vim-abolish' " bash expansions for :S like :S/child{,ren}/adult{,s}
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
@@ -50,6 +54,7 @@ syntax enable
 filetype on
 filetype plugin indent on
 
+" set nowrapscan
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
 set backspace=1 " weaken backspace, use the correct vim commands!
@@ -68,7 +73,6 @@ set nocompatible " errybody does it
 set nolist
 set novisualbell
 set nowrap
-" set nowrapscan
 set number " show line numbers
 set ruler " turn on line at the bottom right of the window
 set rulerformat=%c\ %l\/%L " column current_line/total_lines
@@ -101,6 +105,14 @@ let g:javascript_plugin_flow = 1
 
 autocmd bufenter * :syntax sync fromstart
 " autocmd bufenter dockerfile* :setf dockerfile
+
+autocmd bufenter * :syntax sync fromstart
+
+autocmd bufleave * :set nocursorline
+autocmd bufleave * :set nocursorcolumn
+
+autocmd bufenter * :set cursorline
+autocmd bufenter * :set cursorcolumn
 
 autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
 autocmd BufEnter *.s :set ft=asm_ca65
@@ -268,8 +280,6 @@ endfunction
 
 let g:javascript_plugin_flow = 1
 
-:g/^\(.*\)$\n\1$/p
-
 function! HighlightRepeats()
   :g/^\(.*\)$\n\1$/p
 endfunction
@@ -277,8 +287,90 @@ endfunction
 command! HighlightRepeats :call HighlightRepeats()
 
 if executable("rg")
-      let g:ctrlp_user_command = 'rg --files --sort=none'
-      let g:ctrlp_use_caching = 0
       set grepprg=rg\ --vimgrep\ --no-heading
       set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+                  \ { 'fg':    ['fg', 'Normal'],
+                  \ 'bg':      ['bg', 'Normal'],
+                  \ 'hl':      ['fg', 'Comment'],
+                  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+                  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+                  \ 'hl+':     ['fg', 'Statement'],
+                  \ 'info':    ['fg', 'PreProc'],
+                  \ 'border':  ['fg', 'Ignore'],
+                  \ 'prompt':  ['fg', 'Conditional'],
+                  \ 'pointer': ['fg', 'Exception'],
+                  \ 'marker':  ['fg', 'Keyword'],
+                  \ 'spinner': ['fg', 'Label'],
+                  \ 'header':  ['fg', 'Comment'] }
+
+
+func! s:insert_file_name(lines)
+      let @@ = fnamemodify(a:lines[0], "")
+      normal! p
+endfunc
+let g:fzf_action = {
+                  \ 'ctrl-r': function('s:insert_file_name'),
+                  \ 'ctrl-t': 'tab split',
+                  \ 'ctrl-x': 'split',
+                  \ 'ctrl-v': 'vsplit',
+                  \ 'ctrl-s': 'split' }
+
+nmap   <C-LeftMouse>         <Plug>(VM-Mouse-Cursor)
+nmap   <C-RightMouse>        <Plug>(VM-Mouse-Word)
+nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
+
+let g:closetag_close_shortcut = '<leader>>'
+
+function! s:Saving_scroll(cmd)
+  let save_scroll = &scroll
+  execute 'normal! ' . a:cmd
+  let &scroll = save_scroll
+endfunction
+nnoremap <C-J> :call <SID>Saving_scroll("10<C-V><C-D>")<CR>
+vnoremap <C-J> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-D>")<CR>
+nnoremap <C-K> :call <SID>Saving_scroll("10<C-V><C-U>")<CR>
+vnoremap <C-K> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-U>")<CR>
+
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+
+nnoremap <leader><C-a> :lua bsearch("up")<cr>
+nnoremap <leader><C-x> :lua bsearch("down")<cr>
+nnoremap <leader>d :lua bsearch_done()<cr>
+
+lua << EOF
+
+start = 0
+prev = 0
+function bsearch(dir)
+  current = tonumber(vim.fn.expand("<cword>"))
+  if (not searching)
+    then
+    start = current
+    prev = current * 2
+  end
+  delta = math.abs((prev - current) / 2)
+  prev = current
+  searching = true
+  if(dir == "up")
+    then
+    nextnum = current + delta
+  else
+    nextnum = current - delta
+  end
+  vim.fn.execute("normal ciw" .. math.floor(nextnum))
+  vim.fn.execute("write")
+  max = math.floor(nextnum + delta)
+  min = math.floor(nextnum - delta)
+  print("max=".. max .. " min=" .. min .. " current=" .. current .. " delta=" .. delta .. " next=" .. nextnum)
+end
+
+function bsearch_done()
+  searching = false
+end
+
+EOF
