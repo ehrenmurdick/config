@@ -1,28 +1,43 @@
 
 
-snippet anon
+snippet anon "(1) => {2}"
 (${0}) => { $2 }$0
 endsnippet
 
-
-snippet flo
+snippet flo "// @flow"
 // @flow
 endsnippet
 
-snippet clog
-console.log(${0})
+snippet clo "console.log()"
+console.log(${0:${VISUAL}})
 endsnippet
 
-snippet test
+snippet jsons "JSON stringify"
+JSON.stringify(${0:${VISUAL}})
+endsnippet
+
+snippet test "jest test"
 test("$1", () => {
   $2
-});
+})
 endsnippet
 
-snippet exp
-expect($1).toBe($2);
+snippet desc "jest describe"
+describe("$1", () => {
+  $2
+})
 endsnippet
 
-snippet set
-Set<T>
+snippet exp "jest expect"
+expect($1).toBe($2)
+endsnippet
+
+snippet cons "constructor(1){2}"
+  constructor($1) {
+    $2
+  }
+endsnippet
+
+snippet debug
+(() => { console.log(${0:${VISUAL}}); return $0 })()
 endsnippet

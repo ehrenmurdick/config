@@ -2,6 +2,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
+Plug 'chrisbra/unicode.vim'
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'euclidianAce/BetterLua.vim'
@@ -43,6 +44,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
 Plug 'w0rp/ale'
 Plug 'wilsaj/chuck.vim'
+Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
 
@@ -120,6 +122,18 @@ autocmd BufEnter *.s :set ft=asm_ca65
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
 
 
+nnoremap <leader>to :lua gettype()<cr>
+
+nnoremap <leader>1 :tabn 1<cr>
+nnoremap <leader>2 :tabn 2<cr>
+nnoremap <leader>3 :tabn 3<cr>
+nnoremap <leader>4 :tabn 4<cr>
+nnoremap <leader>5 :tabn 5<cr>
+nnoremap <leader>6 :tabn 6<cr>
+nnoremap <leader>7 :tabn 7<cr>
+nnoremap <leader>8 :tabn 8<cr>
+nnoremap <leader>9 :tabn 9<cr>
+
 inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
 nnoremap <silent> <leader>c :call ToggleInsertCaps()<cr>
 
@@ -138,7 +152,6 @@ nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <silent> <Leader>w :w<CR>
 
-nmap ga <Plug>(EasyAlign)
 nnoremap <a-[> :tabp<cr>
 nnoremap <a-]> :tabn<cr>
 nnoremap <c-p> :FZF<cr>
@@ -148,7 +161,6 @@ nnoremap <silent> K :tabp<cr>
 nnoremap <silent> T :tabn<cr>
 noremap <F3> :Neoformat<cr>
 vnoremap s :sort<CR>
-xmap ga <Plug>(EasyAlign)
 
 
 
@@ -340,22 +352,55 @@ au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeou
 
 nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
-nnoremap <leader>d :lua bsearch_done()<cr>
+
+nnoremap <silent> <C-a> :lua orig_or_continue_bsearch("up")<cr>
+nnoremap <silent> <C-x> :lua orig_or_continue_bsearch("down")<cr>
+
+nnoremap <silent> <C-s> :lua toggle_searching()<cr>
 
 lua << EOF
 
-start = 0
+searching = false
 prev = 0
+start = 0
+
+function toggle_searching()
+      searching = not searching
+      if(searching)
+            then
+            print("bsearch on")
+            prev = 0
+            start = 0
+      else
+            print("bsearch off")
+      end
+end
+
+function orig_or_continue_bsearch(dir)
+      if (not searching)
+            then
+            current = tonumber(vim.fn.expand("<cword>"))
+            if (dir == "up")
+                  then
+                  vim.fn.execute("silent normal ciw" .. current + 1)
+            else
+                  vim.fn.execute("silent normal ciw" .. current - 1)
+            end
+      else
+            bsearch(dir)
+      end
+end
+
 function bsearch(dir)
   current = tonumber(vim.fn.expand("<cword>"))
   if (not searching)
     then
+    searching = true
     start = current
     prev = current * 2
   end
   delta = math.abs((prev - current) / 2)
   prev = current
-  searching = true
   if(dir == "up")
     then
     nextnum = current + delta
@@ -369,8 +414,48 @@ function bsearch(dir)
   print("max=".. max .. " min=" .. min .. " current=" .. current .. " delta=" .. delta .. " next=" .. nextnum)
 end
 
-function bsearch_done()
-  searching = false
+function gettype()
+  pos  = vim.fn.getcurpos()
+  line = pos[2]
+  col  = pos[3]
+  file = vim.fn.expand("%")
+  handle = io.popen("yarn run flow type-at-pos " .. file .. " " .. line .. " " .. col)
+
+  contents = handle:read("*a")
+  handle:close()
+
+  local lines = {}
+
+  for line in contents:gmatch("([^\n]*)\n?") do
+    lines[#lines + 1] = line
+  end
+
+  result = table.slice(lines, 3, #lines - 3)
+
+  local str = ""
+
+  for i = 1, #result do
+        str = str .. result[i]
+  end
+
+  vim.fn.setreg('t', str)
+  print(str)
 end
 
+function table.slice(tbl, first, last, step)
+      local sliced = {}
+      for i = first or 1, last or #tbl, step or 1 do
+            sliced[#sliced+1] = tbl[i]
+      end
+      return sliced
+end
+
+
 EOF
+
+let g:VM_mouse_mappings = 1
+
+
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+
