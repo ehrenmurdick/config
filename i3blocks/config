@@ -1,0 +1,83 @@
+# i3blocks configuration file
+#
+# The i3blocks man page describes the usage of the binary,
+# and its website describes the configuration:
+#
+#     https://vivien.github.io/i3blocks
+
+
+# Global properties
+separator=true
+separator_block_width=15
+
+[volume-pulseaudio]
+command=~/i3blocks-contrib/volume-pulseaudio/volume-pulseaudio
+interval=once
+signal=1
+LONG_FORMAT="${SYMB}${VOL}"
+SHORT_FORMAT="${SYMB}${VOL}"
+
+
+[keyindicator]
+command=~/i3blocks-contrib/keyindicator/keyindicator
+#Allowed keys are CAPS and NUM
+KEY=CAPS
+markup=pango
+interval=once
+signal=11
+TEXT_ON=CAPS
+TEXT_OFF=CAPS
+COLOR_ON=#00FF00
+COLOR_OFF=#333333
+#BG_COLOR_ON=
+#BG_COLOR_OFF=
+
+[keyindicator]
+command=~/i3blocks-contrib/keyindicator/keyindicator
+#Allowed keys are CAPS and NUM
+KEY=NUM
+markup=pango
+interval=once
+signal=11
+TEXT_ON=NUM
+TEXT_OFF=NUM
+COLOR_ON=#00FF00
+COLOR_OFF=#333333
+#BG_COLOR_ON=
+#BG_COLOR_OFF=
+
+
+[bandwidth]
+command=~/i3blocks-contrib/bandwidth/bandwidth
+interval=5
+markup=pango
+color=#33ff33
+OUTLABEL=▲
+INLABEL=▼
+
+[cpu_usage]
+command=~/i3blocks-contrib/cpu_usage/cpu_usage
+interval=10
+LABEL=CPU 
+min_width=CPU: 100.00%
+T_WARN=50
+T_CRIT=80
+#DECIMALS=2
+
+[memory]
+command=free --si -h | head -n2 | tail -n1 | awk '{print $4}'
+label=FREE 
+interval=10
+
+[temperature]
+command=~/i3blocks-contrib/temperature/temperature
+label=TMP 
+interval=10
+T_WARN=70
+T_CRIT=90
+#SENSOR_CHIP=""
+
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
