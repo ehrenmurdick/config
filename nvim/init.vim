@@ -12,7 +12,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'maxbane/vim-asm_ca65'
@@ -119,51 +118,51 @@ autocmd bufenter * :set cursorcolumn
 autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
 autocmd BufEnter *.s :set ft=asm_ca65
 
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
 
+nnoremap <silent> QQ :qa!<cr>
 
-nnoremap <leader>to :lua gettype()<cr>
-
-nnoremap <leader>1 :tabn 1<cr>
-nnoremap <leader>2 :tabn 2<cr>
-nnoremap <leader>3 :tabn 3<cr>
-nnoremap <leader>4 :tabn 4<cr>
-nnoremap <leader>5 :tabn 5<cr>
-nnoremap <leader>6 :tabn 6<cr>
-nnoremap <leader>7 :tabn 7<cr>
-nnoremap <leader>8 :tabn 8<cr>
-nnoremap <leader>9 :tabn 9<cr>
+nnoremap <silent> <leader>an :ALENextWrap<cr>
+nnoremap <silent> <leader>ap :ALEPreviousWrap<cr>
+nnoremap <silent> <leader>cc :cclose<cr>
+nnoremap <silent> <leader>cn :cnext<cr>
+nnoremap <silent> <leader>co :copen<cr>
+nnoremap <silent> <leader>cp :cprev<cr>
 
 inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
-nnoremap <silent> <leader>c :call ToggleInsertCaps()<cr>
 
-nnoremap <silent> <leader>cn :cnext<cr>
-nnoremap <silent> <leader>cp :cprev<cr>
-nnoremap <silent> <leader>co :copen<cr>
-nnoremap <silent> <leader>cc :cclose<cr>
-
-nnoremap <leader>an :ALENextWrap<cr>
-nnoremap <leader>ap :ALEPreviousWrap<cr>
-nnoremap <leader>t :put =expand('%:p')<cr>
+nnoremap <silent> <C-l> :BLines<cr>
+nnoremap <silent> <C-m> :Marks<cr>
+nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <Leader>c :call ToggleInsertCaps()<cr>
+nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
 nnoremap <silent> <Leader>m :wincmd w<CR>
 nnoremap <silent> <Leader>n :tabn<CR>
 nnoremap <silent> <Leader>p :tabp<CR>
 nnoremap <silent> <Leader>q :q<CR>
+nnoremap <silent> <Leader>t :Gtf<CR>
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <silent> <Leader>w :w<CR>
+nnoremap <slient> <Leader>1 :tabn 1<cr>
+nnoremap <slient> <Leader>2 :tabn 2<cr>
+nnoremap <slient> <Leader>3 :tabn 3<cr>
+nnoremap <slient> <Leader>4 :tabn 4<cr>
+nnoremap <slient> <Leader>5 :tabn 5<cr>
+nnoremap <slient> <Leader>6 :tabn 6<cr>
+nnoremap <slient> <Leader>7 :tabn 7<cr>
+nnoremap <slient> <Leader>8 :tabn 8<cr>
+nnoremap <slient> <Leader>9 :tabn 9<cr>
 
 nnoremap <a-[> :tabp<cr>
 nnoremap <a-]> :tabn<cr>
-nnoremap <c-p> :FZF<cr>
 nnoremap <silent> <Esc> :nohl<CR><Esc>
 nnoremap <silent> <c-s> :StripWhitespace<cr>
 nnoremap <silent> K :tabp<cr>
 nnoremap <silent> T :tabn<cr>
 noremap <F3> :Neoformat<cr>
 vnoremap s :sort<CR>
-
-
-
 
 function Hfmt()
   silent! !hfmt -w <afile>
@@ -197,11 +196,9 @@ highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 
 
-" let g:neoformat_enabled_javascript = ['eslint_d']
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
-
 
 let g:neoformat_ruby_prettier = {
             \ 'args': ['--parser ruby'],
@@ -231,8 +228,9 @@ let g:ale_linters = {
 
 let g:ale_fixers = {
             \ 'haskell': ['brittany', 'hlint', 'remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['prettier'],
-            \ 'javascript.jsx': ['prettier'],
+            \ 'javascript': ['prettier', 'eslint'],
+            \ 'javascript.jsx': ['prettier', 'eslint'],
+            \ 'jsonc': ['jq'],
             \ 'ruby': ['prettier'],
             \ 'sdcc': ['clang-format'],
             \ 'scad': ['remove_trailing_lines', 'trim_whitespace'],
@@ -320,6 +318,7 @@ let g:fzf_colors =
                   \ 'spinner': ['fg', 'Label'],
                   \ 'header':  ['fg', 'Comment'] }
 
+let g:fzf_history_dir='/tmp'
 
 func! s:insert_file_name(lines)
       let @@ = fnamemodify(a:lines[0], "")
@@ -352,11 +351,6 @@ au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeou
 
 nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
-
-nnoremap <silent> <C-a> :lua orig_or_continue_bsearch("up")<cr>
-nnoremap <silent> <C-x> :lua orig_or_continue_bsearch("down")<cr>
-
-nnoremap <silent> <C-s> :lua toggle_searching()<cr>
 
 lua << EOF
 
@@ -450,12 +444,43 @@ function table.slice(tbl, first, last, step)
       return sliced
 end
 
+function fzf_tab()
+      local fzf = require("fzf")
+      coroutine.wrap(function()
+            local tabns = vim.api.nvim_list_tabpages()
+            local tabnames = nil
+            for n, i in ipairs(tabns) do
+                  tabnames = { next = tabnames, value = vim.fn.bufname(i-1) }
+            end
+            local result = fzf.fzf(tabnames, "--ansi")
+            -- result is a list of lines that fzf returns, if the user has chosen
+            if result then
+                  print(result[1])
+            end
+      end)()
+end
 
 EOF
 
-let g:VM_mouse_mappings = 1
 
+let g:VM_mouse_mappings = 1
 
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 
+let g:fzf_tags_command = 'ctags -R --exclude=node_modules'
+
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar': 1,
+      \ 'javascript': 1,
+      \ 'notes': 1,
+      \ 'markdown': 1,
+      \ 'netrw': 1,
+      \ 'unite': 1,
+      \ 'text': 1,
+      \ 'vimwiki': 1,
+      \ 'pandoc': 1,
+      \ 'infolog': 1,
+      \ 'leaderf': 1,
+      \ 'mail': 1
+      \}
