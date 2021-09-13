@@ -1,0 +1,25 @@
+set -p PATH ~/.local/bin
+set -p PATH ~/.cargo/bin
+set -p PATH (yarn global bin)
+set -p PATH ~/.gem/ruby/2.7.0/bin
+
+set -gx BC_ENV_ARGS /home/ehren/.config/bc
+set -gx EDITOR (which nvim)
+
+set -gx SHELL /usr/bin/fish
+thefuck --alias | source
+
+# fuck you android studio and everything you stand for
+set -x _JAVA_AWT_WM_NONREPARENTING 1
+
+set SUDO_ASKPASS /usr/lib/ssh-askpass
+
+set GPG_TTY (tty)
+
+set -U EDITOR nvim
+
+fish_vi_key_bindings
+
+# fundle plugin 'tuvistavie/fish-ssh-agent'
+# fundle plugin 'gretel/fasd'
+# fundle init
