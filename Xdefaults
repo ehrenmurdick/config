@@ -1,0 +1,49 @@
+!! Appearance
+URxvt.termName: rxvt-unicode
+URxvt.scrollBar: false
+URxvt.foreground: gray
+URxvt.background: #232323
+URxvt.transparent: true
+URxvt.shading: 20
+URxvt.pointerBlank: true
+
+!! Font prefferenes
+URxvt.font: xft:DejaVu Sans Mono:size=12:hinting=True;antialias:True
+URxvt.boldFont: xft:DejaVu Sans Mono:size=12:hinting=True;antialias:True
+
+!! clickable urls
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+
+URxvt.perl-ext-common: ...,keyboard-select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+!! tabs
+! URxvt.perl-ext-common: default,matcher,tabbedex
+! URxvt.tabbed.tabbar-fg: 2
+! URxvt.tabbed.tabbar-bg: 0
+! URxvt.tabbed.tab-fg: 3
+! URxvt.tabbed.tab-bg: 0
+
+!! Tango color theme
+!! Strange - it matches tango from gnome-terminal, but looks different
+URxvt.color0: rgb:00/00/00
+URxvt.color1: rgb:CC/00/00
+URxvt.color2: rgb:4E/9A/06
+URxvt.color3: rgb:C4/A0/00
+URxvt.color4: rgb:34/65/A4
+URxvt.color5: rgb:75/50/7B
+URxvt.color6: rgb:06/98/9A
+URxvt.color7: rgb:D3/D7/CF
+URxvt.color8: rgb:55/57/53
+URxvt.color9: rgb:EF/29/29
+URxvt.color10: rgb:8A/E2/34
+URxvt.color11: rgb:FC/E9/4F
+URxvt.color12: rgb:72/9F/CF
+URxvt.color13: rgb:AD/7F/A8
+URxvt.color14: rgb:34/E2/E2
+URxvt.color15: rgb:EE/EE/EC
+URxvt.colorBD: rgb:ff/ff/ff
+
+URxvt.keysym.Control-Down: string:\033<j>
+URxvt.keysym.Control-Up: string:\033<k>

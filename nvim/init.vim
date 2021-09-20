@@ -1,5 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
 Plug 'chrisbra/unicode.vim'
@@ -44,9 +45,7 @@ Plug 'vim-scripts/tComment'
 Plug 'w0rp/ale'
 Plug 'wilsaj/chuck.vim'
 Plug 'ycm-core/YouCompleteMe'
-
 call plug#end()
-
 
 let mapleader=','
 
@@ -472,7 +471,6 @@ let g:fzf_tags_command = 'ctags -R --exclude=node_modules'
 
 let g:ycm_filetype_blacklist = {
       \ 'tagbar': 1,
-      \ 'javascript': 1,
       \ 'notes': 1,
       \ 'markdown': 1,
       \ 'netrw': 1,
