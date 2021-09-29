@@ -1,6 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-
+Plug 'Yilin-Yang/vim-markbar'
+Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
 Plug 'chrisbra/unicode.vim'
@@ -56,6 +57,7 @@ filetype plugin indent on
 
 " set nowrapscan
 set autoindent " copy indent from current line for new line
+set signcolumn=yes
 set autoread " keep buffer in sync with filesystem
 set backspace=1 " weaken backspace, use the correct vim commands!
 set cursorcolumn
@@ -131,9 +133,7 @@ nnoremap <silent> <leader>co :copen<cr>
 nnoremap <silent> <leader>cp :cprev<cr>
 
 inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
-
 nnoremap <silent> <C-l> :BLines<cr>
-nnoremap <silent> <C-m> :Marks<cr>
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <Leader>c :call ToggleInsertCaps()<cr>
 nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
@@ -350,6 +350,8 @@ au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeou
 
 nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
+nnoremap <leader><C-s> :lua searching = false<cr>
+nnoremap <leader><C-t> :lua gettype()<cr>
 
 lua << EOF
 
