@@ -1,53 +1,80 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+" put git status in the sign column
 Plug 'airblade/vim-gitgutter'
+
+" auto-close xml tags: >> close tag and newline
 Plug 'alvan/vim-closetag'
-Plug 'brendonrapp/smyck-vim'
-Plug 'chrisbra/unicode.vim'
-Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'euclidianAce/BetterLua.vim'
-Plug 'exu/pgsql.vim', { 'for': 'sql' }
-Plug 'fatih/vim-go', { 'for': 'golang' }
-Plug 'flazz/vim-colorschemes'
-Plug 'godlygeek/tabular'
-Plug 'honza/vim-snippets'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf.vim'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/vim-easy-align'
-Plug 'kshenoy/vim-signature'
-Plug 'maxbane/vim-asm_ca65'
-Plug 'mbbill/undotree'
-Plug 'mg979/vim-visual-multi'
-Plug 'mileszs/ack.vim'
-Plug 'mpickering/hlint-refactor-vim'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'nvim-lua/completion-nvim'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'powerline/powerline'
-Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
-Plug 'rafcamlet/nvim-luapad'
-Plug 'rakr/vim-one'
-Plug 'sbdchd/neoformat'
+
+" syntax, formatting, etc for languages
+" Plug 'elmcast/elm-vim', { 'for': 'elm' }
+" Plug 'maxbane/vim-asm_ca65'
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
+" Plug 'sirtaj/vim-openscad'
+
+" one syntax megapack
 Plug 'sheerun/vim-polyglot'
-Plug 'sirtaj/vim-openscad'
+
+" completion with nvims built in LSP
+" Plug 'nvim-lua/completion-nvim'
+
+" large selection of colors
+Plug 'flazz/vim-colorschemes'
+
+" :Tab /=
+Plug 'godlygeek/tabular'
+
+" snippets
 Plug 'sirver/UltiSnips'
-Plug 'skwp/vim-html-escape'
-Plug 'slim-template/vim-slim'
-Plug 'terryma/vim-expand-region'
-Plug 'tjdevries/nlua.nvim'
-Plug 'tpope/vim-abolish' " bash expansions for :S like :S/child{,ren}/adult{,s}
-Plug 'tpope/vim-bundler'
+" collection of snippets for UltiSnips
+Plug 'honza/vim-snippets'
+
+" fancy mode line thingy
+Plug 'itchyny/lightline.vim'
+
+" fuzzy file finder
+Plug 'junegunn/fzf.vim'
+
+" use ripgrep with Rg
+Plug 'jremmen/vim-ripgrep'
+
+" show marks in the sign column
+Plug 'kshenoy/vim-signature'
+
+" <leader>u to open undo history
+Plug 'mbbill/undotree'
+
+" highlight eol whitespace in red, and :StripWhitespace
+Plug 'ntpeters/vim-better-whitespace'
+
+" Plug 'powerline/powerline'
+
+" format source code with <F3>
+Plug 'sbdchd/neoformat'
+
+" auto closes code blocks opened on the current line
 Plug 'tpope/vim-endwise'
+
+" useful shell commands like :SudoWrite and :Rename
 Plug 'tpope/vim-eunuch'
+
+" enable . repeat for other plugins
 Plug 'tpope/vim-repeat'
+
+" C-X and C-A for dates and ordinals
+Plug 'tpope/vim-speeddating'
+
+" select inside and change surrounding brackets, quotes etc
 Plug 'tpope/vim-surround'
-Plug 'vijaymarupudi/nvim-fzf' " requires the nvim-fzf library
-Plug 'vijaymarupudi/nvim-fzf-commands'
+
+" use gc to toggle commenting lines or selection
 Plug 'vim-scripts/tComment'
+
+" linting and fixing and formatting for lots of languages
 Plug 'w0rp/ale'
-Plug 'wilsaj/chuck.vim'
+
+" fuzzy code completion w/ LSPs
 Plug 'ycm-core/YouCompleteMe'
 
 call plug#end()
@@ -114,20 +141,13 @@ autocmd bufenter * :syntax sync fromstart
 
 autocmd bufenter * :syntax sync fromstart
 
-autocmd bufleave * :set nocursorline
-autocmd bufleave * :set nocursorcolumn
-
 autocmd bufenter * :set cursorline
 autocmd bufenter * :set cursorcolumn
 
 autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
 autocmd BufEnter *.s :set ft=asm_ca65
 
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
-
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
-
-nnoremap <silent> QQ :qa!<cr>
 
 nnoremap <silent> <leader>an :ALENextWrap<cr>
 nnoremap <silent> <leader>ap :ALEPreviousWrap<cr>
@@ -136,17 +156,17 @@ nnoremap <silent> <leader>cn :cnext<cr>
 nnoremap <silent> <leader>co :copen<cr>
 nnoremap <silent> <leader>cp :cprev<cr>
 
-inoremap <silent> <leader>c <esc>:call ToggleInsertCaps()<cr>a
+inoremap <silent> <C-c> <esc>:call ToggleInsertCaps()<cr>a
+nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
 nnoremap <silent> <C-l> :BLines<cr>
 nnoremap <silent> <C-p> :Files<cr>
-nnoremap <silent> <Leader>c :call ToggleInsertCaps()<cr>
 nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
 nnoremap <silent> <Leader>m :wincmd w<CR>
 nnoremap <silent> <Leader>n :tabn<CR>
 nnoremap <silent> <Leader>p :tabp<CR>
 nnoremap <silent> <Leader>q :q<CR>
-nnoremap <silent> <Leader>t :Gtf<CR>
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+nnoremap <silent> <Leader>v "+p
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <slient> <Leader>1 :tabn 1<cr>
 nnoremap <slient> <Leader>2 :tabn 2<cr>
@@ -157,6 +177,7 @@ nnoremap <slient> <Leader>6 :tabn 6<cr>
 nnoremap <slient> <Leader>7 :tabn 7<cr>
 nnoremap <slient> <Leader>8 :tabn 8<cr>
 nnoremap <slient> <Leader>9 :tabn 9<cr>
+vnoremap <silent> <Leader>c "+y
 
 nnoremap <a-[> :tabp<cr>
 nnoremap <a-]> :tabn<cr>
@@ -181,8 +202,6 @@ highlight ALEWarning NONE
 highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
-
-
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
@@ -194,8 +213,6 @@ let g:neoformat_ruby_prettier = {
             \ }
 
 let g:neoformat_enabled_ruby = ['prettier']
-
-
 
 " Limit linters used for JavaScript.
 let g:ale_linters = {
@@ -242,13 +259,6 @@ let g:ale_pattern_options = {
 let g:fzf_buffers_jump = 1
 
 packadd! matchit
-
-call expand_region#custom_text_objects({
-      \ "it": 1,
-      \ "at": 1,
-      \ "a}": 1,
-      \ "i}": 1,
-      \ })
 
 let g:capsinsert = 0
 function! ToggleInsertCaps()
@@ -380,7 +390,6 @@ function bsearch(dir)
     nextnum = current - delta
   end
   vim.fn.execute("normal ciw" .. math.floor(nextnum))
-  vim.fn.execute("write")
   max = math.floor(nextnum + delta)
   min = math.floor(nextnum - delta)
   print("max=".. max .. " min=" .. min .. " current=" .. current .. " delta=" .. delta .. " next=" .. nextnum)
@@ -420,22 +429,6 @@ function table.slice(tbl, first, last, step)
             sliced[#sliced+1] = tbl[i]
       end
       return sliced
-end
-
-function fzf_tab()
-      local fzf = require("fzf")
-      coroutine.wrap(function()
-            local tabns = vim.api.nvim_list_tabpages()
-            local tabnames = nil
-            for n, i in ipairs(tabns) do
-                  tabnames = { next = tabnames, value = vim.fn.bufname(i-1) }
-            end
-            local result = fzf.fzf(tabnames, "--ansi")
-            -- result is a list of lines that fzf returns, if the user has chosen
-            if result then
-                  print(result[1])
-            end
-      end)()
 end
 
 EOF
