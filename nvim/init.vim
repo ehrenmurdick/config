@@ -1,6 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'Yilin-Yang/vim-markbar'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag'
 Plug 'brendonrapp/smyck-vim'
@@ -15,7 +14,9 @@ Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf.vim'
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/vim-easy-align'
+Plug 'kshenoy/vim-signature'
 Plug 'maxbane/vim-asm_ca65'
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
@@ -42,12 +43,14 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'vijaymarupudi/nvim-fzf' " requires the nvim-fzf library
+Plug 'vijaymarupudi/nvim-fzf-commands'
 Plug 'vim-scripts/tComment'
 Plug 'w0rp/ale'
 Plug 'wilsaj/chuck.vim'
 Plug 'ycm-core/YouCompleteMe'
-call plug#end()
 
+call plug#end()
 let mapleader=','
 
 syntax enable
@@ -56,8 +59,8 @@ filetype on
 filetype plugin indent on
 
 " set nowrapscan
+" set t_Co=256
 set autoindent " copy indent from current line for new line
-set signcolumn=yes
 set autoread " keep buffer in sync with filesystem
 set backspace=1 " weaken backspace, use the correct vim commands!
 set cursorcolumn
@@ -71,7 +74,6 @@ set incsearch " turn on incremental search
 set iskeyword+=-
 set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 set linebreak
-set nocompatible " errybody does it
 set nolist
 set novisualbell
 set nowrap
@@ -85,13 +87,15 @@ set shiftwidth=2
 set showcmd " put COMMAND in the status line in cmd mode
 set showtabline=2 " Always show the tab bar
 set sidescrolloff=4 " always show n cols of context
+set signcolumn=yes
 set sm " show matching braces
 set smartcase
+set splitbelow
+set splitright
 set suffixesadd=.css
 set suffixesadd=.js
 set suffixesadd=.rb
 set sw=2 " soft tab width in spaces
-set t_Co=256
 set tabstop=2
 set textwidth=80
 set tildeop
@@ -163,29 +167,6 @@ nnoremap <silent> T :tabn<cr>
 noremap <F3> :Neoformat<cr>
 vnoremap s :sort<CR>
 
-function Hfmt()
-  silent! !hfmt -w <afile>
-  edit
-endfunction
-
-" let g:lightline = {
-"     \ 'active': {
-"     \   'left': [ [ 'mode', 'paste' ],
-"     \             [ 'filename', 'gitbranch', 'modified', ] ],
-"     \   'right': [ [ 'lineinfo' ],
-"     \              [ 'percent' ],
-"     \              [ 'filetype', ] ]
-"     \ },
-"     \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
-"     \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
-"     \ 'component': {
-"     \ },
-"     \ 'component_function': {
-"     \   'gitbranch': 'gitbranch#name'
-"     \ },
-"     \ }
-
-set background=dark
 colors Tomorrow-Night
 
 highlight Pmenu ctermfg=gray
@@ -194,10 +175,18 @@ highlight PmenuSel ctermfg=white
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 
+highlight ALEWarning NONE
+" highlight ALEWarning ctermbg=5
+
+highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
+highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
+
+
 
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
+let g:neoformat_enabled_haskell = ['sortimports', 'ormolu']
 
 let g:neoformat_ruby_prettier = {
             \ 'args': ['--parser ruby'],
@@ -207,13 +196,6 @@ let g:neoformat_ruby_prettier = {
 let g:neoformat_enabled_ruby = ['prettier']
 
 
-" syntax for .cfdg files
-au BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
-
-
-
-
-au BufNewFile,BufRead *.jsx	setf javascript
 
 " Limit linters used for JavaScript.
 let g:ale_linters = {
@@ -238,14 +220,6 @@ let g:ale_fixers = {
 
 hi x018_DarkBlue ctermfg=18 guifg=#000087
 
-highlight ALEWarning NONE
-" highlight ALEWarning ctermbg=5
-
-set splitbelow
-set splitright
-
-highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
-highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:ale_sign_error = 'X' " could use emoji
 let g:ale_sign_warning = '?' " could use emoji
 let g:ale_statusline_format = ['X %d', '? %d', '']
@@ -306,8 +280,8 @@ let g:fzf_colors =
                   \ { 'fg':    ['fg', 'Normal'],
                   \ 'bg':      ['bg', 'Normal'],
                   \ 'hl':      ['fg', 'Comment'],
-                  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-                  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+                  \ 'fg+':     ['fg', 'Normal'],
+                  \ 'bg+':     ['bg'],
                   \ 'hl+':     ['fg', 'Statement'],
                   \ 'info':    ['fg', 'PreProc'],
                   \ 'border':  ['fg', 'Ignore'],
@@ -346,7 +320,10 @@ vnoremap <C-J> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-D>")<CR>
 nnoremap <C-K> :call <SID>Saving_scroll("10<C-V><C-U>")<CR>
 vnoremap <C-K> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-U>")<CR>
 
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+autocmd BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
+autocmd BufNewFile,BufRead *.jsx	setf javascript
+autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
+autocmd bufenter * :syntax sync fromstart
 
 nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
@@ -462,7 +439,6 @@ function fzf_tab()
 end
 
 EOF
-
 
 let g:VM_mouse_mappings = 1
 
