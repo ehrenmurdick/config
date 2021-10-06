@@ -374,7 +374,13 @@ function orig_or_continue_bsearch(dir)
 end
 
 function bsearch(dir)
-  current = tonumber(vim.fn.expand("<cword>"))
+  str = vim.fn.expand("<cWORD>")
+  match = string.match(str, "(%d*%.?%d+)")
+
+  current_line_number = vim.fn.line(".")
+
+  current = tonumber(match)
+
   if (not searching)
     then
     searching = true
@@ -389,10 +395,12 @@ function bsearch(dir)
   else
     nextnum = current - delta
   end
-  vim.fn.execute("normal ciw" .. math.floor(nextnum))
-  max = math.floor(nextnum + delta)
-  min = math.floor(nextnum - delta)
-  print("max=".. max .. " min=" .. min .. " current=" .. current .. " delta=" .. delta .. " next=" .. nextnum)
+  current_line = vim.fn.getline(current_line_number)
+  newline = string.gsub(current_line, match, nextnum)
+  vim.fn.setline(current_line_number, newline)
+  max = (nextnum + delta)
+  min = (nextnum - delta)
+  print("max=".. max .. " min=" .. min)
 end
 
 function gettype()
