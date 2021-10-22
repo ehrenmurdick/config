@@ -1,3 +1,6 @@
+" must go before plugins are loaded
+let g:polyglot_disabled = ['javascript']
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " put git status in the sign column
@@ -77,6 +80,9 @@ Plug 'w0rp/ale'
 " fuzzy code completion w/ LSPs
 Plug 'ycm-core/YouCompleteMe'
 
+" coerce case with crc etc
+Plug 'tpope/vim-abolish'
+
 call plug#end()
 let mapleader=','
 
@@ -98,8 +104,8 @@ set hls " hilight search
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
 set incsearch " turn on incremental search
-set iskeyword+=-
-set iskeyword+=? " include ? in words for movement/highlighting/<cword>
+" set iskeyword+=-
+" set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 set linebreak
 set nolist
 set novisualbell
@@ -149,43 +155,40 @@ autocmd BufEnter *.s :set ft=asm_ca65
 
 let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
 
+
+" nnoremap <silent> <Leader>n :tabn<CR>
+" nnoremap <silent> <Leader>p :tabp<CR>
+inoremap <silent> <C-c> <esc>:call ToggleInsertCaps()<cr>a
+
+nnoremap <F3> :Neoformat<cr>
+nnoremap <F2> vi):Tab monolith<cr>
+nnoremap <F1> :execute "normal! /\\%<" . ( virtcol(".") ) . "v"<cr>
+nnoremap <leader><C-a> :lua bsearch("up")<cr>
+nnoremap <leader><C-s> :lua searching = false<cr>
+nnoremap <leader><C-t> :lua gettype()<cr>
+nnoremap <leader><C-x> :lua bsearch("down")<cr>
+nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
+nnoremap <silent> <C-l> :BLines<cr>
+nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <Esc> :nohl<CR><Esc>
+nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
+nnoremap <silent> <Leader>m :wincmd w<CR>
+nnoremap <silent> <Leader>q :q<CR>
+nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+nnoremap <silent> <Leader>v "+p
+nnoremap <silent> <Leader>w :w<CR>
+nnoremap <silent> <Leader>x :set cursorline cursorcolumn<cr>
+nnoremap <silent> <c-s> :StripWhitespace<cr>
 nnoremap <silent> <leader>an :ALENextWrap<cr>
 nnoremap <silent> <leader>ap :ALEPreviousWrap<cr>
 nnoremap <silent> <leader>cc :cclose<cr>
 nnoremap <silent> <leader>cn :cnext<cr>
 nnoremap <silent> <leader>co :copen<cr>
 nnoremap <silent> <leader>cp :cprev<cr>
+nnoremap <silent> <S-s> :tabp<cr>
+nnoremap <silent> s :tabn<cr>
 
-inoremap <silent> <C-c> <esc>:call ToggleInsertCaps()<cr>a
-nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
-nnoremap <silent> <C-l> :BLines<cr>
-nnoremap <silent> <C-p> :Files<cr>
-nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
-nnoremap <silent> <Leader>m :wincmd w<CR>
-nnoremap <silent> <Leader>n :tabn<CR>
-nnoremap <silent> <Leader>p :tabp<CR>
-nnoremap <silent> <Leader>q :q<CR>
-nnoremap <silent> <Leader>u :UndotreeToggle<CR>
-nnoremap <silent> <Leader>v "+p
-nnoremap <silent> <Leader>w :w<CR>
-nnoremap <slient> <Leader>1 :tabn 1<cr>
-nnoremap <slient> <Leader>2 :tabn 2<cr>
-nnoremap <slient> <Leader>3 :tabn 3<cr>
-nnoremap <slient> <Leader>4 :tabn 4<cr>
-nnoremap <slient> <Leader>5 :tabn 5<cr>
-nnoremap <slient> <Leader>6 :tabn 6<cr>
-nnoremap <slient> <Leader>7 :tabn 7<cr>
-nnoremap <slient> <Leader>8 :tabn 8<cr>
-nnoremap <slient> <Leader>9 :tabn 9<cr>
 vnoremap <silent> <Leader>c "+y
-
-nnoremap <a-[> :tabp<cr>
-nnoremap <a-]> :tabn<cr>
-nnoremap <silent> <Esc> :nohl<CR><Esc>
-nnoremap <silent> <c-s> :StripWhitespace<cr>
-nnoremap <silent> K :tabp<cr>
-nnoremap <silent> T :tabn<cr>
-noremap <F3> :Neoformat<cr>
 vnoremap s :sort<CR>
 
 colors Tomorrow-Night
@@ -195,6 +198,9 @@ highlight PmenuSel ctermfg=white
 
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
+
+highlight NonText ctermbg=none
+highlight SpellCap ctermbg=none
 
 highlight ALEWarning NONE
 " highlight ALEWarning ctermbg=5
@@ -208,32 +214,32 @@ let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_haskell = ['sortimports', 'ormolu']
 
 let g:neoformat_ruby_prettier = {
-            \ 'args': ['--parser ruby'],
-            \ 'exe': '/home/ehren/.config/yarn/bin/prettier',
-            \ }
+                  \ 'args': ['--parser ruby'],
+                  \ 'exe': '/home/ehren/.config/yarn/bin/prettier',
+                  \ }
 
 let g:neoformat_enabled_ruby = ['prettier']
 
 " Limit linters used for JavaScript.
 let g:ale_linters = {
-            \ 'javascript': ['flow', 'eslint'],
-            \ 'ruby': [],
-            \ 'eruby': [],
-            \ 'asm': [],
-            \ 'haskell': ['stack-ghc', 'hlint'],
-            \ 'sdcc': []
-            \ }
+                  \ 'javascript': ['flow', 'eslint'],
+                  \ 'ruby': [],
+                  \ 'eruby': [],
+                  \ 'asm': [],
+                  \ 'haskell': ['stack-ghc', 'hlint'],
+                  \ 'sdcc': []
+                  \ }
 
 let g:ale_fixers = {
-            \ 'haskell': ['brittany', 'hlint', 'remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['prettier', 'eslint'],
-            \ 'javascript.jsx': ['prettier', 'eslint'],
-            \ 'jsonc': ['jq'],
-            \ 'ruby': ['prettier'],
-            \ 'sdcc': ['clang-format'],
-            \ 'scad': ['remove_trailing_lines', 'trim_whitespace'],
-            \ '*': ['remove_trailing_lines', 'trim_whitespace']
-            \ }
+                  \ 'haskell': ['brittany', 'hlint', 'remove_trailing_lines', 'trim_whitespace'],
+                  \ 'javascript': ['prettier', 'eslint'],
+                  \ 'javascript.jsx': ['prettier', 'eslint'],
+                  \ 'jsonc': ['jq'],
+                  \ 'ruby': ['prettier'],
+                  \ 'sdcc': ['clang-format'],
+                  \ 'scad': ['remove_trailing_lines', 'trim_whitespace'],
+                  \ '*': ['remove_trailing_lines', 'trim_whitespace']
+                  \ }
 
 hi x018_DarkBlue ctermfg=18 guifg=#000087
 
@@ -248,10 +254,10 @@ let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_sign_column_always = 1
 
 let g:ale_pattern_options = {
-      \ '\.avr\.c$': {'ale_linters': ['gcc-avr'],
-      \ 'ale_fixers': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace']},
-      \ 'jsx$': {'ale_fixers': ['prettier']}
-      \}
+                  \ '\.avr\.c$': {'ale_linters': ['gcc-avr'],
+                  \ 'ale_fixers': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace']},
+                  \ 'jsx$': {'ale_fixers': ['prettier']}
+                  \}
 
 " let g:neoformat_verbose = 1
 
@@ -271,10 +277,8 @@ function! ToggleInsertCaps()
       endif
 endfunction
 
-let g:javascript_plugin_flow = 1
-
 function! HighlightRepeats()
-  :g/^\(.*\)$\n\1$/p
+      :g/^\(.*\)$\n\1$/p
 endfunction
 
 command! HighlightRepeats :call HighlightRepeats()
@@ -314,31 +318,12 @@ let g:fzf_action = {
                   \ 'ctrl-v': 'vsplit',
                   \ 'ctrl-s': 'split' }
 
-nmap   <C-LeftMouse>         <Plug>(VM-Mouse-Cursor)
-nmap   <C-RightMouse>        <Plug>(VM-Mouse-Word)
-nmap   <M-C-RightMouse>      <Plug>(VM-Mouse-Column)
-
 let g:closetag_close_shortcut = '<leader>>'
 
-function! s:Saving_scroll(cmd)
-  let save_scroll = &scroll
-  execute 'normal! ' . a:cmd
-  let &scroll = save_scroll
-endfunction
-nnoremap <C-J> :call <SID>Saving_scroll("10<C-V><C-D>")<CR>
-vnoremap <C-J> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-D>")<CR>
-nnoremap <C-K> :call <SID>Saving_scroll("10<C-V><C-U>")<CR>
-vnoremap <C-K> <Esc>:call <SID>Saving_scroll("gv1<C-V><C-U>")<CR>
-
-autocmd BufNewFile,BufRead *.cfdg,*.CFDG	setf cfdg
-autocmd BufNewFile,BufRead *.jsx	setf javascript
+autocmd BufNewFile,BufRead *.cfdg,*.CFDG  setf cfdg
+autocmd BufNewFile,BufRead *.jsx  setf javascript
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=150}
 autocmd bufenter * :syntax sync fromstart
-
-nnoremap <leader><C-a> :lua bsearch("up")<cr>
-nnoremap <leader><C-x> :lua bsearch("down")<cr>
-nnoremap <leader><C-s> :lua searching = false<cr>
-nnoremap <leader><C-t> :lua gettype()<cr>
 
 lua << EOF
 
@@ -374,61 +359,61 @@ function orig_or_continue_bsearch(dir)
 end
 
 function bsearch(dir)
-  str = vim.fn.expand("<cWORD>")
-  match = string.match(str, "(%d*%.?%d+)")
+      str = vim.fn.expand("<cWORD>")
+      match = string.match(str, "(%d*%.?%d+)")
 
-  current_line_number = vim.fn.line(".")
+      current_line_number = vim.fn.line(".")
 
-  current = tonumber(match)
+      current = tonumber(match)
 
-  if (not searching)
-    then
-    searching = true
-    start = current
-    prev = current * 2
-  end
-  delta = math.abs((prev - current) / 2)
-  prev = current
-  if(dir == "up")
-    then
-    nextnum = current + delta
-  else
-    nextnum = current - delta
-  end
-  current_line = vim.fn.getline(current_line_number)
-  newline = string.gsub(current_line, match, nextnum)
-  vim.fn.setline(current_line_number, newline)
-  max = (nextnum + delta)
-  min = (nextnum - delta)
-  print("max=".. max .. " min=" .. min)
+      if (not searching)
+            then
+            searching = true
+            start = current
+            prev = current * 2
+      end
+      delta = math.abs((prev - current) / 2)
+      prev = current
+      if(dir == "up")
+            then
+            nextnum = current + delta
+      else
+            nextnum = current - delta
+      end
+      current_line = vim.fn.getline(current_line_number)
+      newline = string.gsub(current_line, match, nextnum)
+      vim.fn.setline(current_line_number, newline)
+      max = (nextnum + delta)
+      min = (nextnum - delta)
+      print("max=".. max .. " min=" .. min)
 end
 
 function gettype()
-  pos  = vim.fn.getcurpos()
-  line = pos[2]
-  col  = pos[3]
-  file = vim.fn.expand("%")
-  handle = io.popen("yarn run flow type-at-pos " .. file .. " " .. line .. " " .. col)
+      pos  = vim.fn.getcurpos()
+      line = pos[2]
+      col  = pos[3]
+      file = vim.fn.expand("%")
+      handle = io.popen("yarn run flow type-at-pos " .. file .. " " .. line .. " " .. col)
 
-  contents = handle:read("*a")
-  handle:close()
+      contents = handle:read("*a")
+      handle:close()
 
-  local lines = {}
+      local lines = {}
 
-  for line in contents:gmatch("([^\n]*)\n?") do
-    lines[#lines + 1] = line
-  end
+      for line in contents:gmatch("([^\n]*)\n?") do
+            lines[#lines + 1] = line
+      end
 
-  result = table.slice(lines, 3, #lines - 3)
+      result = table.slice(lines, 3, #lines - 3)
 
-  local str = ""
+      local str = ""
 
-  for i = 1, #result do
-        str = str .. result[i]
-  end
+      for i = 1, #result do
+            str = str .. result[i]
+      end
 
-  vim.fn.setreg('t', str)
-  print(str)
+      vim.fn.setreg('t', str)
+      print(str)
 end
 
 function table.slice(tbl, first, last, step)
@@ -449,15 +434,32 @@ let g:ycm_key_list_previous_completion=[]
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules'
 
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar': 1,
-      \ 'notes': 1,
-      \ 'markdown': 1,
-      \ 'netrw': 1,
-      \ 'unite': 1,
-      \ 'text': 1,
-      \ 'vimwiki': 1,
-      \ 'pandoc': 1,
-      \ 'infolog': 1,
-      \ 'leaderf': 1,
-      \ 'mail': 1
-      \}
+                  \ 'tagbar': 1,
+                  \ 'notes': 1,
+                  \ 'markdown': 1,
+                  \ 'netrw': 1,
+                  \ 'unite': 1,
+                  \ 'text': 1,
+                  \ 'vimwiki': 1,
+                  \ 'pandoc': 1,
+                  \ 'infolog': 1,
+                  \ 'leaderf': 1,
+                  \ 'mail': 1
+                  \}
+
+
+let g:neoformat_openscad_openscad_format = {
+                  \ 'exe': '/home/ehren/.local/bin/openscad-format',
+                  \ 'stdin': 1,
+                  \ }
+
+let g:neoformat_enabled_openscad = ['openscad_format']
+
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
