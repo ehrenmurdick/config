@@ -12,13 +12,89 @@ snippet clo "console.log()"
 console.log(${0:${VISUAL}})
 endsnippet
 
-snippet jsons "JSON stringify"
-JSON.stringify(${0:${VISUAL}})
+snippet dlo "console.log()"
+debug.log(${0:${VISUAL}})
+endsnippet
+
+snippet lo "log()"
+log(${0:${VISUAL}})
+endsnippet
+
+snippet try "try"
+try {
+  ${0:${VISUAL}}
+} catch (e) {
+  console.error(e)
+}
+endsnippet
+
+snippet cle "console.error()"
+console.error(String(${0:${VISUAL}}))
+endsnippet
+
+snippet dle "console.error()"
+debug.error(String(${0:${VISUAL}}))
+endsnippet
+
+snippet le "error()"
+error(String(${0:${VISUAL}}))
+endsnippet
+
+snippet cls "console.log(string)"
+console.log("${0:${VISUAL}}")
+endsnippet
+
+snippet dls "console.log(string)"
+debug.log("${0:${VISUAL}}")
+endsnippet
+
+snippet ls "console.log(string)"
+log("${0:${VISUAL}}")
+endsnippet
+
+snippet json "JSON stringify"
+JSON.stringify(${0:${VISUAL}}, null, 2)
+endsnippet
+
+snippet clj "log JSON"
+console.log("`!p
+snip.rv = t[1]
+`", JSON.stringify(${1:${VISUAL}}, null, 2))
+endsnippet
+
+snippet dlj "log JSON"
+debug.log("`!p
+snip.rv = t[1]
+`", JSON.stringify(${1:${VISUAL}}, null, 2))
+endsnippet
+
+snippet lj "log JSON"
+log("`!p
+snip.rv = t[1]
+`", JSON.stringify(${1:${VISUAL}}, null, 2))
+endsnippet
+
+snippet clv "log var"
+console.log("`!p
+snip.rv = t[1]
+`", ${1:${VISUAL}})
+endsnippet
+
+snippet dlv "log var"
+debug.log("`!p
+snip.rv = t[1]
+`", ${1:${VISUAL}})
+endsnippet
+
+snippet lv "log var"
+log("`!p
+snip.rv = t[1]
+`", ${1:${VISUAL}})
 endsnippet
 
 snippet test "jest test"
 test("$1", () => {
-  $2
+  ${2:${VISUAL}}
 })
 endsnippet
 
@@ -44,4 +120,22 @@ endsnippet
 
 snippet itrace
 import { trace } from "../$1lib/debug.js"
+endsnippet
+
+snippet box "box comment"
+/*
+  ┌`!p
+snip.rv = (len(t[1]) + 2) * "─"
+  `┐
+  │ ${1:${VISUAL}} │
+  └`!p
+snip.rv = (len(t[1]) + 2) * "─"
+  `┘
+*/
+endsnippet
+
+snippet past "jsx passthrough param w/name name"
+${1:${VISUAL}}={`!p
+snip.rv = t[1]
+`}
 endsnippet

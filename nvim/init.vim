@@ -1,19 +1,24 @@
 " must go before plugins are loaded
-let g:polyglot_disabled = ['javascript']
+" let g:polyglot_disabled = ['javascript']
+
+" disable YCM while working on c
+let g:loaded_youcompleteme = 1
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" put git status in the sign column
-Plug 'airblade/vim-gitgutter'
-
 " auto-close xml tags: >> close tag and newline
 Plug 'alvan/vim-closetag'
+
+
+" syntax highlighting for KSP
+Plug 'KSP-KOS/EditorTools', {'rtp': 'VIM/vim-kerboscript'}
+
 
 " syntax, formatting, etc for languages
 " Plug 'elmcast/elm-vim', { 'for': 'elm' }
 " Plug 'maxbane/vim-asm_ca65'
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-" Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
+Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 " Plug 'sirtaj/vim-openscad'
 
 " one syntax megapack
@@ -91,21 +96,22 @@ syntax enable
 filetype on
 filetype plugin indent on
 
+" set iskeyword+=-
+" set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 " set nowrapscan
 " set t_Co=256
 set autoindent " copy indent from current line for new line
 set autoread " keep buffer in sync with filesystem
-set backspace=1 " weaken backspace, use the correct vim commands!
+set backspace=indent,eol,start
 set cursorcolumn
 set cursorline
 set directory=/var/tmp//
 set expandtab " use soft tab for tab key
+set gdefault " switch /g on :s is default
 set hls " hilight search
 set ignorecase
 set includeexpr+=substitute(v:fname,'s$','','g')
 set incsearch " turn on incremental search
-" set iskeyword+=-
-" set iskeyword+=? " include ? in words for movement/highlighting/<cword>
 set linebreak
 set nolist
 set novisualbell
@@ -153,24 +159,33 @@ autocmd bufenter * :set cursorcolumn
 autocmd BufEnter *.asm_ca65 :set ft=asm_ca65
 autocmd BufEnter *.s :set ft=asm_ca65
 
-let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb"
+autocmd BufEnter ALEPreviewWindow :set wrap
+
+let g:closetag_filenames = "*.xml,*.html,*.xhtml,*.phtml,*.js,*.jsx,*.html.erb,*.tsx"
 
 
 " nnoremap <silent> <Leader>n :tabn<CR>
 " nnoremap <silent> <Leader>p :tabp<CR>
 inoremap <silent> <C-c> <esc>:call ToggleInsertCaps()<cr>a
+inoremap <silent> <Esc> <esc>:call DeactivateInsertCaps()<cr>
+nnoremap <silent> <Esc> :nohl<CR>:call DeactivateInsertCaps()<cr><Esc>
 
-nnoremap <F3> :Neoformat<cr>
-nnoremap <F2> vi):Tab monolith<cr>
+nnoremap <C-t> :lua gettype()<cr>
 nnoremap <F1> :execute "normal! /\\%<" . ( virtcol(".") ) . "v"<cr>
+nnoremap <F2> vi):Tab monolith<cr>
+nnoremap <F3> :Neoformat<cr>
+nnoremap <F4> :ALEDetail<cr>
+nnoremap <F6> :Rg
+nnoremap <F7> :call ToggleQFList()<cr>
+nnoremap <F8> :cp<cr>
+nnoremap <F9> :cn<cr>
 nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-s> :lua searching = false<cr>
-nnoremap <leader><C-t> :lua gettype()<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
 nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
 nnoremap <silent> <C-l> :BLines<cr>
 nnoremap <silent> <C-p> :Files<cr>
-nnoremap <silent> <Esc> :nohl<CR><Esc>
+nnoremap <silent> <Leader>. @:
 nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
 nnoremap <silent> <Leader>m :wincmd w<CR>
 nnoremap <silent> <Leader>q :q<CR>
@@ -178,14 +193,10 @@ nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <silent> <Leader>v "+p
 nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>x :set cursorline cursorcolumn<cr>
-nnoremap <silent> <c-s> :StripWhitespace<cr>
-nnoremap <silent> <leader>an :ALENextWrap<cr>
-nnoremap <silent> <leader>ap :ALEPreviousWrap<cr>
-nnoremap <silent> <leader>cc :cclose<cr>
-nnoremap <silent> <leader>cn :cnext<cr>
-nnoremap <silent> <leader>co :copen<cr>
-nnoremap <silent> <leader>cp :cprev<cr>
 nnoremap <silent> <S-s> :tabp<cr>
+nnoremap <silent> <c-s> :StripWhitespace<cr>
+nnoremap <silent> [e :ALEPreviousWrap<cr>
+nnoremap <silent> ]e :ALENextWrap<cr>
 nnoremap <silent> s :tabn<cr>
 
 vnoremap <silent> <Leader>c "+y
@@ -211,6 +222,7 @@ highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 let g:neoformat_enabled_javascript = ['prettier']
 let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
+let g:neoformat_enabled_jsonc = ['jq']
 let g:neoformat_enabled_haskell = ['sortimports', 'ormolu']
 
 let g:neoformat_ruby_prettier = {
@@ -223,6 +235,8 @@ let g:neoformat_enabled_ruby = ['prettier']
 " Limit linters used for JavaScript.
 let g:ale_linters = {
                   \ 'javascript': ['flow', 'eslint'],
+                  \ 'graphql': [],
+                  \ 'c': [],
                   \ 'ruby': [],
                   \ 'eruby': [],
                   \ 'asm': [],
@@ -236,12 +250,14 @@ let g:ale_fixers = {
                   \ 'javascript.jsx': ['prettier', 'eslint'],
                   \ 'jsonc': ['jq'],
                   \ 'ruby': ['prettier'],
-                  \ 'sdcc': ['clang-format'],
+                  \ 'sdcc': [],
+                  \ 'c': [],
                   \ 'scad': ['remove_trailing_lines', 'trim_whitespace'],
                   \ '*': ['remove_trailing_lines', 'trim_whitespace']
                   \ }
 
 hi x018_DarkBlue ctermfg=18 guifg=#000087
+hi clear CursorLineNr
 
 let g:ale_sign_error = 'X' " could use emoji
 let g:ale_sign_warning = '?' " could use emoji
@@ -254,8 +270,6 @@ let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_sign_column_always = 1
 
 let g:ale_pattern_options = {
-                  \ '\.avr\.c$': {'ale_linters': ['gcc-avr'],
-                  \ 'ale_fixers': ['uncrustify', 'remove_trailing_lines', 'trim_whitespace']},
                   \ 'jsx$': {'ale_fixers': ['prettier']}
                   \}
 
@@ -272,6 +286,20 @@ function! ToggleInsertCaps()
             set keymap=
             let g:capsinsert = 0
       else
+            set keymap=capsinsert
+            let g:capsinsert = 1
+      endif
+endfunction
+
+function! DeactivateInsertCaps()
+      if g:capsinsert
+            set keymap=
+            let g:capsinsert = 0
+      endif
+endfunction
+
+function! ActivateInsertCaps()
+      if !g:capsinsert
             set keymap=capsinsert
             let g:capsinsert = 1
       endif
@@ -340,7 +368,7 @@ function toggle_searching()
             start = 0
       else
             print("bsearch off")
-      end
+            end
 end
 
 function orig_or_continue_bsearch(dir)
@@ -380,6 +408,7 @@ function bsearch(dir)
       else
             nextnum = current - delta
       end
+
       current_line = vim.fn.getline(current_line_number)
       newline = string.gsub(current_line, match, nextnum)
       vim.fn.setline(current_line_number, newline)
@@ -423,7 +452,6 @@ function table.slice(tbl, first, last, step)
       end
       return sliced
 end
-
 EOF
 
 let g:VM_mouse_mappings = 1
@@ -455,6 +483,17 @@ let g:neoformat_openscad_openscad_format = {
 
 let g:neoformat_enabled_openscad = ['openscad_format']
 
+let g:neoformat_purescript_purstidy = {
+                  \ 'exe': 'purs-tidy',
+                  \ 'args': ['format'],
+                  \ 'stdin': 1,
+                  \ 'env': [],
+                  \ 'valid_exit_codes': [0, 23],
+                  \ 'no_append': 1,
+                  \ 'name': 'purstidy',
+                  \ }
+let g:neoformat_enabled_purescript = ['purstidy']
+
 " Enable alignment
 let g:neoformat_basic_format_align = 1
 
@@ -463,3 +502,34 @@ let g:neoformat_basic_format_retab = 1
 
 " Enable trimmming of trailing whitespace
 let g:neoformat_basic_format_trim = 1
+
+
+augroup fixlist
+      autocmd!
+      autocmd BufWinEnter quickfix call SetQFControlVariable()
+      autocmd BufWinLeave * call UnsetQFControlVariable()
+augroup END
+
+fun! SetQFControlVariable()
+      if getwininfo(win_getid())[0]['loclist'] == 1
+            let g:the_primeagen_qf_l = 1
+      else
+            let g:the_primeagen_qf_g = 1
+      end
+endfun
+
+fun! UnsetQFControlVariable()
+      if getwininfo(win_getid())[0]['loclist'] == 1
+            let g:the_primeagen_qf_l = 0
+      else
+            let g:the_primeagen_qf_g = 0
+      end
+endfun
+
+fun! ToggleQFList()
+      if g:the_primeagen_qf_g == 1
+            cclose
+      else
+            copen
+      end
+endfun
