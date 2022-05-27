@@ -14,6 +14,9 @@ Plug 'alvan/vim-closetag'
 Plug 'KSP-KOS/EditorTools', {'rtp': 'VIM/vim-kerboscript'}
 
 
+Plug 'edwinb/idris2-vim'
+
+
 " syntax, formatting, etc for languages
 " Plug 'elmcast/elm-vim', { 'for': 'elm' }
 " Plug 'maxbane/vim-asm_ca65'
@@ -175,7 +178,7 @@ nnoremap <F1> :execute "normal! /\\%<" . ( virtcol(".") ) . "v"<cr>
 nnoremap <F2> vi):Tab monolith<cr>
 nnoremap <F3> :Neoformat<cr>
 nnoremap <F4> :ALEDetail<cr>
-nnoremap <F6> :Rg
+nnoremap <F6> :Rg 
 nnoremap <F7> :call ToggleQFList()<cr>
 nnoremap <F8> :cp<cr>
 nnoremap <F9> :cn<cr>
