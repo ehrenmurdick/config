@@ -13,9 +13,7 @@ Plug 'alvan/vim-closetag'
 " syntax highlighting for KSP
 Plug 'KSP-KOS/EditorTools', {'rtp': 'VIM/vim-kerboscript'}
 
-
 Plug 'edwinb/idris2-vim'
-
 
 " syntax, formatting, etc for languages
 " Plug 'elmcast/elm-vim', { 'for': 'elm' }
@@ -43,9 +41,6 @@ Plug 'honza/vim-snippets'
 
 " fancy mode line thingy
 Plug 'itchyny/lightline.vim'
-
-" fuzzy file finder
-Plug 'junegunn/fzf.vim'
 
 " use ripgrep with Rg
 Plug 'jremmen/vim-ripgrep'
@@ -91,7 +86,21 @@ Plug 'ycm-core/YouCompleteMe'
 " coerce case with crc etc
 Plug 'tpope/vim-abolish'
 
+
+" fuzzy file finder
+Plug 'nvim-telescope/telescope.nvim'
+
+" fancy preview window for telescope
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" lua library required for telescope
+Plug 'nvim-lua/plenary.nvim'
+
+" speed up fzf
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
 call plug#end()
+
 let mapleader=','
 
 syntax enable
@@ -173,6 +182,7 @@ inoremap <silent> <C-c> <esc>:call ToggleInsertCaps()<cr>a
 inoremap <silent> <Esc> <esc>:call DeactivateInsertCaps()<cr>
 nnoremap <silent> <Esc> :nohl<CR>:call DeactivateInsertCaps()<cr><Esc>
 
+
 nnoremap <C-t> :lua gettype()<cr>
 nnoremap <F1> :execute "normal! /\\%<" . ( virtcol(".") ) . "v"<cr>
 nnoremap <F2> vi):Tab monolith<cr>
@@ -187,20 +197,23 @@ nnoremap <leader><C-s> :lua searching = false<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
 nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
 nnoremap <silent> <C-l> :BLines<cr>
-nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <C-p> :Telescope find_files<cr>
+nnoremap <silent> <C-f> <cmd>Telescope live_grep<cr>
 nnoremap <silent> <Leader>. @:
-nnoremap <silent> <Leader>f :put =expand('%:p')<cr>
-nnoremap <silent> <Leader>m :wincmd w<CR>
-nnoremap <silent> <Leader>q :q<CR>
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
-nnoremap <silent> <Leader>v "+p
-nnoremap <silent> <Leader>w :w<CR>
 nnoremap <silent> <Leader>x :set cursorline cursorcolumn<cr>
 nnoremap <silent> <S-s> :tabp<cr>
 nnoremap <silent> <c-s> :StripWhitespace<cr>
 nnoremap <silent> [e :ALEPreviousWrap<cr>
 nnoremap <silent> ]e :ALENextWrap<cr>
 nnoremap <silent> s :tabn<cr>
+nnoremap <silent> <Leader>q :q<cr>
+nnoremap <silent> <Leader>w :w<cr>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 vnoremap <silent> <Leader>c "+y
 vnoremap s :sort<CR>
@@ -278,8 +291,6 @@ let g:ale_pattern_options = {
 
 " let g:neoformat_verbose = 1
 
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
 
 packadd! matchit
 
@@ -319,35 +330,10 @@ if executable("rg")
       set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
-let g:fzf_colors =
-                  \ { 'fg':    ['fg', 'Normal'],
-                  \ 'bg':      ['bg', 'Normal'],
-                  \ 'hl':      ['fg', 'Comment'],
-                  \ 'fg+':     ['fg', 'Normal'],
-                  \ 'bg+':     ['bg'],
-                  \ 'hl+':     ['fg', 'Statement'],
-                  \ 'info':    ['fg', 'PreProc'],
-                  \ 'border':  ['fg', 'Ignore'],
-                  \ 'prompt':  ['fg', 'Conditional'],
-                  \ 'pointer': ['fg', 'Exception'],
-                  \ 'marker':  ['fg', 'Keyword'],
-                  \ 'spinner': ['fg', 'Label'],
-                  \ 'header':  ['fg', 'Comment'] }
-
-let g:fzf_history_dir='/tmp'
-
 func! s:insert_file_name(lines)
       let @@ = fnamemodify(a:lines[0], "")
       normal! p
 endfunc
-let g:fzf_action = {
-                  \ 'ctrl-r': function('s:insert_file_name'),
-                  \ 'ctrl-t': 'tab split',
-                  \ 'ctrl-x': 'split',
-                  \ 'ctrl-v': 'vsplit',
-                  \ 'ctrl-s': 'split' }
 
 let g:closetag_close_shortcut = '<leader>>'
 
@@ -455,14 +441,78 @@ function table.slice(tbl, first, last, step)
       end
       return sliced
 end
+
+-- telescope actions
+
+local action_state = require "telescope.actions.state"
+local utils = require "telescope.utils"
+local a = vim.api
+
+
+local actions = {}
+
+actions.close_pum = function(_)
+  if 0 ~= vim.fn.pumvisible() then
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<c-y>", true, true, true), "n", true)
+  end
+end
+
+
+--- Close the Telescope window, usually used within an action
+---@param prompt_bufnr number: The prompt bufnr
+actions.close = function(prompt_bufnr)
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local original_win_id = picker.original_win_id
+  local cursor_valid, original_cursor = pcall(a.nvim_win_get_cursor, original_win_id)
+
+  actions.close_pum(prompt_bufnr)
+
+  require("telescope.pickers").on_close_prompt(prompt_bufnr)
+  pcall(a.nvim_set_current_win, original_win_id)
+  if cursor_valid and a.nvim_get_mode().mode == "i" and picker._original_mode ~= "i" then
+    pcall(a.nvim_win_set_cursor, original_win_id, { original_cursor[1], original_cursor[2] + 1 })
+  end
+end
+
+--- Paste the selected register into the buffer
+---@param prompt_bufnr number: The prompt bufnr
+actions.paste_register = function(prompt_bufnr)
+  local selection = action_state.get_selected_entry()[1]
+  if selection == nil then
+    utils.__warn_no_selection "actions.paste_register"
+    return
+  end
+
+  actions.close(prompt_bufnr)
+
+  -- ensure that the buffer can be written to
+  if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
+    vim.api.nvim_paste(selection, true, -1)
+    -- vim.api.nvim_paste(selection.content, true, -1)
+  end
+end
+
+
+require('telescope').setup{
+  defaults = {
+      layout_config = {
+            preview_cutoff = 10,
+      },
+      mappings = {
+            i = {
+                  ["<C-r>"] = actions.paste_register
+            }
+      }
+  }
+}
+
+require('telescope').load_extension('fzf')
 EOF
 
 let g:VM_mouse_mappings = 1
 
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-
-let g:fzf_tags_command = 'ctags -R --exclude=node_modules'
 
 let g:ycm_filetype_blacklist = {
                   \ 'tagbar': 1,
