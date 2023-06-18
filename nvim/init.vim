@@ -153,6 +153,7 @@ set tildeop
 set ts=2
 set wildmenu
 set wildmode=longest,list,full
+set complete=.,w,b,u,t,i
 
 " run matchit.vim to enable using % to navigate ruby do...end
 runtime! macros/matchit.vim
@@ -196,9 +197,9 @@ nnoremap <leader><C-a> :lua bsearch("up")<cr>
 nnoremap <leader><C-s> :lua searching = false<cr>
 nnoremap <leader><C-x> :lua bsearch("down")<cr>
 nnoremap <silent> <C-c> :call ToggleInsertCaps()<cr>
-nnoremap <silent> <C-l> :BLines<cr>
-nnoremap <silent> <C-p> :Telescope find_files<cr>
-nnoremap <silent> <C-f> <cmd>Telescope live_grep<cr>
+nnoremap <slient> <C-l> <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<cr>
+nnoremap <silent> <C-p> :Telescope find_files theme=dropdown<cr>
+" nnoremap <silent> <C-f> <cmd>Telescope live_grep theme=dropdown<cr>
 nnoremap <silent> <Leader>. @:
 nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 nnoremap <silent> <Leader>x :set cursorline cursorcolumn<cr>
@@ -211,11 +212,13 @@ nnoremap <silent> <Leader>q :q<cr>
 nnoremap <silent> <Leader>w :w<cr>
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep theme=dropdown<cr>
+nnoremap <leader>fb <cmd>Telescope buffers theme=dropdown<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags theme=dropdown<cr>
+nnoremap <leader>fl <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<cr>
+nnoremap <leader>fc <cmd>Telescope git_status theme=dropdown<cr>
 
-vnoremap <silent> <Leader>c "+y
+nnoremap <Leader>c :call ToggleInsertCaps()<cr>a
 vnoremap s :sort<CR>
 
 colors Tomorrow-Night
@@ -236,6 +239,7 @@ highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
 let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_enabled_elm = ['elm-format']
 let g:neoformat_enabled_json = ['jq']
 let g:neoformat_enabled_jsonc = ['jq']
@@ -286,13 +290,17 @@ let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_sign_column_always = 1
 
 let g:ale_pattern_options = {
-                  \ 'jsx$': {'ale_fixers': ['prettier']}
+                  \ 'jsx$': {'ale_fixers': ['prettier']},
+                  \ 'tsx$': {'ale_fixers': ['prettier']}
                   \}
 
 " let g:neoformat_verbose = 1
 
 
 packadd! matchit
+
+digr fa 8704
+
 
 let g:capsinsert = 0
 function! ToggleInsertCaps()
